@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>FOI App Landing Page</title>
+    <link rel="stylesheet" href="assets/vendors/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <header class="foi-header" style="padding-top:2px">
+        <div class="container">
+            <div id="nav"></div>
+        </div>
+    </header>
+
+    <main class="page-auth">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 offset-lg-1">
+                    <section class="auth-wrapper" style="padding-top:10px">
+                        <div class="row">
+                            <div class="col-md-6 mb-4 mb-md-0">
+                                <h2 class="auth-section-title">Log In</h2>
+                                <p class="auth-section-subtitle">Sign in to your account to continue.</p>
+
+                                <div class="alert alert-danger alert-dismissible" id="divAlert">
+                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                    <p id="lblErrorText">
+                                        <strong>Error!</strong> Indicates a successful or positive action.
+                                    </p>                                    
+                                </div>
+
+                                <form action="login.html" method="POST" id="frmLogin">
+                                    <div class="form-group">
+                                        <label for="email">Email <sup>*</sup></label>
+                                        <input type="email" class="form-control" id="email" required name="email" placeholder="a.farouq@imtechnetronics.com">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">Password <sup>*</sup></label>
+                                        <input type="password" class="form-control" required id="password" name="password" placeholder="Password *">
+                                    </div>
+                                    <div class="form-actions-wrapper d-flex flex-wrap align-items-center justify-content-between">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="keepLogin">
+                                            <label class="form-check-label" for="keepLogin">
+                                                keep me login
+                                            </label>
+                                        </div>
+                                        <a href="#!" class="forgot-password-link">Forgot password?</a>
+                                    </div>
+                                    <button class="btn btn-primary btn-auth-submit" type="submit" id="btnSubmit">Submit</button>
+                                </form>
+                                <p class="mb-0">
+                                    <a href="register.html" class="text-dark font-weight-bold">New User? Sign Up</a>
+                                </p>
+                            </div>
+                            <div class="col-md-6 d-flex align-items-center">
+                                <img src="assets/images/login.png" alt="login" class="img-fluid">
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="assets/vendors/jquery/jquery.min.js"></script>
+    <script src="assets/vendors/popper.js/popper.min.js"></script>
+    <script src="assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+
+    <script src="assets/js/app.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            console.log("Jquery is ready to shoot!!");
+            $("#divAlert").hide();
+
+            $("#nav").load("layouts/nav.html");
+
+            $("#footer").load("layouts/footer.html");
+
+
+            //validate form
+            $("#frmLogin").validate();
+            $("#frmLogin").on('submit', function (e) {
+
+                e.preventDefault();
+
+                if ($("#frmLogin").valid()) {
+
+                    e.preventDefault();
+                    $("#divAlert").hide();
+
+                } else {
+                    $("#divAlert").show().addClass("alert alert-warning alert-dismissible fade show").slideDown("slow");
+                    $("#lblErrorText").html("Please fill out the required field(s)");
+                    return;
+                }
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>

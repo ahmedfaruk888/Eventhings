@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Eventhings App Landing Page</title>
+    <link rel="stylesheet" href="assets/vendors/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <header class="foi-header landing-header">
+        <div class="container">
+
+            <div id="nav"></div>
+
+            <div id="banner"></div>
+
+        </div>
+    </header>
+    
+    <div id="app-features"></div>
+    
+    <div id="special-offer"></div>
+
+    <div id="plan"></div>
+    
+    <div id="success"></div>
+
+    <div id="faq"></div>
+    
+    <div id="footer"></div>
+
+    <script src="assets/vendors/jquery/jquery.min.js"></script>
+    <script src="assets/vendors/popper.js/popper.min.js"></script>
+    <script src="assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            console.log("Jquery is ready to shoot!!");
+
+            $("#nav").load("layouts/nav.html");
+
+            $("#banner").load("layouts/banner.html");
+
+            $("#app-features").load("layouts/app-features.html");
+
+            $("#special-offer").load("layouts/special-offer.html");
+
+            $("#plan").load("layouts/plan.html");
+
+            $("#success").load("layouts/success.html");
+
+            $("#faq").load("layouts/faq.html");
+
+            $("#footer").load("layouts/footer.html");
+        });
+    </script>
+
+</body>
+
+</html>

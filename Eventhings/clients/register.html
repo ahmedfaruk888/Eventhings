@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>FOI App Landing Page</title>
+    <link rel="stylesheet" href="assets/vendors/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <header class="foi-header" style="padding-top:2px">
+        <div class="container">
+            <div id="nav"></div>
+        </div>
+    </header>
+
+    <main class="page-auth">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 offset-lg-1">
+                    <section class="auth-wrapper" style="padding-top:10px">
+                        <div class="row">
+                            <div class="col-md-6 mb-4 mb-md-0">
+                                <h2 class="auth-section-title">Create account</h2>
+                                <p class="auth-section-subtitle">Create your account to continue.</p>
+
+                                <div class="alert alert-danger alert-dismissible" id="divAlert">
+                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                    <p id="lblErrorText">
+                                        <strong>Error!</strong> Indicates a successful or positive action.
+                                    </p>
+                                </div>
+
+                                <form action="register.html" method="POST" id="frmRegister">
+                                    <div class="form-group">
+                                        <label for="email">Email <sup>*</sup></label>
+                                        <input type="email" class="form-control" id="email" required name="email" placeholder="a.farouq@imtechnetronics.com">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">Password <sup>*</sup></label>
+                                        <input type="password" class="form-control" id="password" required name="password" placeholder="Password">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="confirmPassword">Confirm Password <sup>*</sup></label>
+                                        <input type="password" class="form-control" required id="confirmPassword" name="confirmPassword" placeholder="Confirm Password">
+                                    </div>
+                                    <button class="btn btn-primary btn-auth-submit" type="submit" id="btnSubmit">Create account</button>
+                                </form>
+                                <p class="mb-0">
+                                    <a href="login.html" class="text-dark font-weight-bold">Already have an acocunt? Sign in</a>
+                                </p>
+                            </div>
+                            <div class="col-md-6 d-flex align-items-center">
+                                <img src="assets/images/Register.png" alt="login" class="img-fluid">
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="assets/vendors/jquery/jquery.min.js"></script>
+    <script src="assets/vendors/popper.js/popper.min.js"></script>
+    <script src="assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+
+    <script src="assets/js/app.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            console.log("Jquery is ready to shoot!!");
+            $("#divAlert").hide();
+
+            $("#nav").load("layouts/nav.html");
+
+            $("#footer").load("layouts/footer.html");
+
+
+            //validate form
+            $("#frmRegister").validate();
+            $("#frmRegister").on('submit', function (e) {
+
+                e.preventDefault();
+
+                if ($("#frmRegister").valid()) {
+
+                    e.preventDefault();
+                    $("#divAlert").hide();
+
+                } else {
+                    $("#divAlert").show().addClass("alert alert-warning alert-dismissible fade show").slideDown("slow");
+                    $("#lblErrorText").html("Please fill out the required field(s)");
+                    return;
+                }
+            });
+        });
+    </script>
+
+
+
+
+</body>
+
+</html>
