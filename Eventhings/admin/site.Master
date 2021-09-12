@@ -1,0 +1,250 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="site.master.cs" Inherits="Eventhings.admin.site" %>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <title>Eventhings administrator portal</title>
+    <asp:ContentPlaceHolder ID="headContentPlaceHolder" runat="server">
+    </asp:ContentPlaceHolder>
+    <meta content="Admin Dashboard" name="description" />
+    <meta content="ThemeDesign" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+    <!-- DataTables -->
+    <link href="assets/plugins/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/datatables/buttons.bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/datatables/fixedHeader.bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/datatables/responsive.bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/datatables/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/datatables/scroller.bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Sweet Alert -->
+    <link href="assets/plugins/bootstrap-sweetalert/sweet-alert.css" rel="stylesheet" type="text/css">
+
+    <!--Morris Chart CSS -->
+    <link rel="stylesheet" href="assets/plugins/morris/morris.css">
+
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/icons.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body class="fixed-left">
+    <div id="wrapper">
+        <div class="topbar">
+            <div class="topbar-left">
+                <a href="dashboard.aspx" class="logo">
+                    <img src="assets/images/logo.png" height="20" alt="logo"></a>
+                <a href="dashboard.aspx" class="logo-sm">
+                    <img src="assets/images/logo_sm.png" height="30" alt="logo"></a>
+            </div>
+            <div class="navbar navbar-default" role="navigation">
+                <div class="container">
+                    <div class="">
+                        <div class="pull-left">
+                            <button type="button" class="button-menu-mobile open-left waves-effect waves-light">
+                                <i class="ion-navicon"></i>
+                            </button>
+                            <span class="clearfix"></span>
+                        </div>
+
+                        <ul class="nav navbar-nav navbar-right pull-right">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle profile waves-effect waves-light" data-toggle="dropdown" aria-expanded="true">
+                                    <img src="assets/images/users/avatar-1.jpg" alt="user-img" class="img-circle">
+                                    <span class="profile-username">Ahmed Farouqs <span class="caret"></span>
+                                    </span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="javascript:void(0)">Profile</a></li>
+                                    <li><a href="javascript:void(0)"><span class="badge badge-success pull-right">5</span> Settings </a></li>
+                                    <li><a href="javascript:void(0)">Lock screen</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="javascript:void(0)">Logout</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Start left menu here -->
+        <div class="left side-menu">
+            <div class="sidebar-inner slimscrollleft">
+
+                <div id="sidebar-menu">
+                    <ul>
+                        <li>
+                            <a href="../admin/dashboard.aspx" class="waves-effect"><i class="ti-home"></i><span>Dashboard <span class="badge badge-primary pull-right">update</span></span></a>
+                        </li>
+
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="ti-bar-chart"></i><span>Customers </span><span class="pull-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <ul class="list-unstyled">
+                                <li><a href="managecustomer.aspx">Add Customers</a></li>
+                                <li><a href="#">Generate Pass</a></li>
+                                <li><a href="#">Cusrtomer Privillege</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="ti-paint-bucket"></i><span>Transactions </span><span class="pull-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <ul class="list-unstyled">
+                                <li><a href="#">View Customer Transx</a></li>
+                                <li><a href="#">Generate Receipt</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="ti-pencil-alt"></i><span>E-wallets </span><span class="pull-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <ul class="list-unstyled">
+                                <li><a href="#">Manage Wallet</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="ti-spray"></i><span>Products &amp; Points</span> <span class="pull-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <ul class="list-unstyled">
+                                <li><a href="#">Add Product</a></li>
+                                <li><a href="#">Manage Stock</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="typography.html" class="waves-effect"><i class="ti-text"></i><span>Reports <span class="badge badge-primary pull-right">4</span></span></a>
+                        </li>
+
+                        <li>
+                            <a href="typography.html" class="waves-effect"><i class="ti-text"></i><span>Pass Management
+                                <span class="badge badge-primary pull-right">4</span></span>
+                            </a>
+                        </li>
+
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="ti-list"></i><span>Sales </span><span class="pull-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <ul class="list-unstyled">
+                                <li><a href="#">View Sales</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="menu-title">Extras</li>
+
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="ti-location-pin"></i><span>Staff Management </span><span class="pull-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <ul class="list-unstyled">
+                                <li><a href="#">Add Staff</a></li>
+                                <li><a href="#">Staff Settings</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="ti-location-pin"></i><span>Roles Management </span><span class="pull-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <ul class="list-unstyled">
+                                <li><a href="#">Add Role</a></li>
+                                <li><a href="#">Role Mapping</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="menu-title">Settings</li>
+
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="ti-files"></i><span>General Settings </span><span class="pull-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <ul class="list-unstyled">
+                                <li><a href="#">Customer Settings</a></li>
+                                <li><a href="#">Product Settings</a></li>
+                                <li><a href="#">Wallet Settings</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="collapse-menu.html" class="waves-effect"><i class="ti-layout-media-left"></i><span>Menu Collapse </span></a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="clearfix"></div>
+
+            </div>
+        </div>
+
+        <!-- Start right Content here -->
+        <div class="content-page">
+
+            <asp:ContentPlaceHolder ID="mainContentPlaceHolder" runat="server">
+            </asp:ContentPlaceHolder>
+
+            <div id="footer"></div>
+
+        </div>
+    </div>
+
+
+    <!-- jQuery  -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/modernizr.min.js"></script>
+    <script src="assets/js/detect.js"></script>
+    <script src="assets/js/fastclick.js"></script>
+    <script src="assets/js/jquery.slimscroll.js"></script>
+    <script src="assets/js/jquery.blockUI.js"></script>
+    <script src="assets/js/waves.js"></script>
+    <script src="assets/js/wow.min.js"></script>
+    <script src="assets/js/jquery.nicescroll.js"></script>
+    <script src="assets/js/jquery.scrollTo.min.js"></script>
+
+    <!--Morris Chart-->
+    <script src="assets/plugins/morris/morris.min.js"></script>
+    <script src="assets/plugins/raphael/raphael-min.js"></script>
+
+    <script src="assets/pages/dashborad.js"></script>
+
+    <!-- Datatables-->
+    <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="assets/plugins/datatables/dataTables.bootstrap.js"></script>
+    <script src="assets/plugins/datatables/dataTables.buttons.min.js"></script>
+    <script src="assets/plugins/datatables/buttons.bootstrap.min.js"></script>
+    <script src="assets/plugins/datatables/jszip.min.js"></script>
+    <script src="assets/plugins/datatables/pdfmake.min.js"></script>
+    <script src="assets/plugins/datatables/vfs_fonts.js"></script>
+    <script src="assets/plugins/datatables/buttons.html5.min.js"></script>
+    <script src="assets/plugins/datatables/buttons.print.min.js"></script>
+    <script src="assets/plugins/datatables/dataTables.fixedHeader.min.js"></script>
+    <script src="assets/plugins/datatables/dataTables.keyTable.min.js"></script>
+    <script src="assets/plugins/datatables/dataTables.responsive.min.js"></script>
+    <script src="assets/plugins/datatables/responsive.bootstrap.min.js"></script>
+    <script src="assets/plugins/datatables/dataTables.scroller.min.js"></script>
+
+    <!-- Datatable init js -->
+    <script src="assets/pages/datatables.init.js"></script>
+
+    <!-- Sweet-Alert  -->
+    <script src="assets/plugins/bootstrap-sweetalert/sweet-alert.min.js"></script>
+    <script src="assets/pages/sweet-alert.init.js"></script>
+
+    <script src="assets/js/app.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            console.log("Jquery is ready to shoot!!");
+
+            $("#topnav").load("layouts/topnav.html");
+
+            $("#sidemenu").load("layouts/sidemenu.html");
+
+            $("#footer").load("layouts/footer.html");
+
+        });
+
+    </script>
+
+</body>
+</html>

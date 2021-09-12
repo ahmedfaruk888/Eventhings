@@ -44,6 +44,27 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="SqlKata, Version=2.3.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SqlKata.2.3.7\lib\netstandard2.0\SqlKata.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -67,6 +88,144 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="admin\assets\css\bootstrap.min.css" />
+    <Content Include="admin\assets\css\icons.css" />
+    <Content Include="admin\assets\css\style.css" />
+    <Content Include="admin\assets\fonts\fontawesome-webfont3e6e.svg" />
+    <Content Include="admin\assets\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="admin\assets\fonts\ioniconsaa26.svg" />
+    <Content Include="admin\assets\fonts\materialdesignicons-webfont6c9c.svg" />
+    <Content Include="admin\assets\fonts\themify9f24.svg" />
+    <Content Include="admin\assets\images\big\img1.jpg" />
+    <Content Include="admin\assets\images\favicon.ico" />
+    <Content Include="admin\assets\images\logo.png" />
+    <Content Include="admin\assets\images\logo_dark.png" />
+    <Content Include="admin\assets\images\logo_sm.png" />
+    <Content Include="admin\assets\images\stardust.png" />
+    <Content Include="admin\assets\images\users\avatar-1.jpg" />
+    <Content Include="admin\assets\images\users\avatar-2.jpg" />
+    <Content Include="admin\assets\images\users\avatar-3.jpg" />
+    <Content Include="admin\assets\images\users\avatar-4.jpg" />
+    <Content Include="admin\assets\images\users\avatar-5.jpg" />
+    <Content Include="admin\assets\images\users\avatar-6.jpg" />
+    <Content Include="admin\assets\js\app.js" />
+    <Content Include="admin\assets\js\bootstrap.min.js" />
+    <Content Include="admin\assets\js\detect.js" />
+    <Content Include="admin\assets\js\fastclick.js" />
+    <Content Include="admin\assets\js\jquery.blockUI.js" />
+    <Content Include="admin\assets\js\jquery.min.js" />
+    <Content Include="admin\assets\js\jquery.nicescroll.js" />
+    <Content Include="admin\assets\js\jquery.scrollTo.min.js" />
+    <Content Include="admin\assets\js\jquery.slimscroll.js" />
+    <Content Include="admin\assets\js\modernizr.min.js" />
+    <Content Include="admin\assets\js\waves.js" />
+    <Content Include="admin\assets\js\wow.min.js" />
+    <Content Include="admin\assets\pages\calendar-init.js" />
+    <Content Include="admin\assets\pages\chartist.init.js" />
+    <Content Include="admin\assets\pages\chartjs.init.js" />
+    <Content Include="admin\assets\pages\dashborad.js" />
+    <Content Include="admin\assets\pages\datatables.init.js" />
+    <Content Include="admin\assets\pages\flot.init.js" />
+    <Content Include="admin\assets\pages\form-advanced.js" />
+    <Content Include="admin\assets\pages\gmaps.js" />
+    <Content Include="admin\assets\pages\jvectormap.init.js" />
+    <Content Include="admin\assets\pages\morris.init.js" />
+    <Content Include="admin\assets\pages\sweet-alert.init.js" />
+    <Content Include="admin\assets\pages\xeditable.js" />
+    <Content Include="admin\assets\plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.min.css" />
+    <Content Include="admin\assets\plugins\bootstrap-colorpicker\img\bootstrap-colorpicker\alpha-horizontal.png" />
+    <Content Include="admin\assets\plugins\bootstrap-colorpicker\img\bootstrap-colorpicker\alpha.png" />
+    <Content Include="admin\assets\plugins\bootstrap-colorpicker\img\bootstrap-colorpicker\hue-horizontal.png" />
+    <Content Include="admin\assets\plugins\bootstrap-colorpicker\img\bootstrap-colorpicker\hue.png" />
+    <Content Include="admin\assets\plugins\bootstrap-colorpicker\img\bootstrap-colorpicker\saturation.png" />
+    <Content Include="admin\assets\plugins\bootstrap-colorpicker\js\bootstrap-colorpicker.min.js" />
+    <Content Include="admin\assets\plugins\bootstrap-datepicker\css\bootstrap-datepicker.min.css" />
+    <Content Include="admin\assets\plugins\bootstrap-datepicker\js\bootstrap-datepicker.min.js" />
+    <Content Include="admin\assets\plugins\bootstrap-filestyle\js\bootstrap-filestyle.min.js" />
+    <Content Include="admin\assets\plugins\bootstrap-inputmask\bootstrap-inputmask.min.js" />
+    <Content Include="admin\assets\plugins\bootstrap-maxlength\bootstrap-maxlength.min.js" />
+    <Content Include="admin\assets\plugins\bootstrap-sweetalert\sweet-alert.css" />
+    <Content Include="admin\assets\plugins\bootstrap-sweetalert\sweet-alert.min.js" />
+    <Content Include="admin\assets\plugins\bootstrap-touchspin\css\jquery.bootstrap-touchspin.min.css" />
+    <Content Include="admin\assets\plugins\bootstrap-touchspin\js\jquery.bootstrap-touchspin.min.js" />
+    <Content Include="admin\assets\plugins\bootstrap-wysihtml5\bootstrap-wysihtml5.css" />
+    <Content Include="admin\assets\plugins\bootstrap-wysihtml5\bootstrap-wysihtml5.js" />
+    <Content Include="admin\assets\plugins\bootstrap-wysihtml5\wysihtml5-0.3.0.js" />
+    <Content Include="admin\assets\plugins\chart.js\chart.min.js" />
+    <Content Include="admin\assets\plugins\chartist\css\chartist.min.css" />
+    <Content Include="admin\assets\plugins\chartist\js\chartist-plugin-tooltip.min.js" />
+    <Content Include="admin\assets\plugins\chartist\js\chartist.min.js" />
+    <Content Include="admin\assets\plugins\datatables\buttons.bootstrap.min.css" />
+    <Content Include="admin\assets\plugins\datatables\buttons.bootstrap.min.js" />
+    <Content Include="admin\assets\plugins\datatables\buttons.html5.min.js" />
+    <Content Include="admin\assets\plugins\datatables\buttons.print.min.js" />
+    <Content Include="admin\assets\plugins\datatables\dataTables.bootstrap.js" />
+    <Content Include="admin\assets\plugins\datatables\dataTables.bootstrap.min.css" />
+    <Content Include="admin\assets\plugins\datatables\dataTables.buttons.min.js" />
+    <Content Include="admin\assets\plugins\datatables\dataTables.fixedHeader.min.js" />
+    <Content Include="admin\assets\plugins\datatables\dataTables.keyTable.min.js" />
+    <Content Include="admin\assets\plugins\datatables\dataTables.responsive.min.js" />
+    <Content Include="admin\assets\plugins\datatables\dataTables.scroller.min.js" />
+    <Content Include="admin\assets\plugins\datatables\fixedHeader.bootstrap.min.css" />
+    <Content Include="admin\assets\plugins\datatables\jquery.dataTables.min.css" />
+    <Content Include="admin\assets\plugins\datatables\jquery.dataTables.min.js" />
+    <Content Include="admin\assets\plugins\datatables\jszip.min.js" />
+    <Content Include="admin\assets\plugins\datatables\pdfmake.min.js" />
+    <Content Include="admin\assets\plugins\datatables\responsive.bootstrap.min.css" />
+    <Content Include="admin\assets\plugins\datatables\responsive.bootstrap.min.js" />
+    <Content Include="admin\assets\plugins\datatables\scroller.bootstrap.min.css" />
+    <Content Include="admin\assets\plugins\datatables\vfs_fonts.js" />
+    <Content Include="admin\assets\plugins\dropzone\dist\dropzone.css" />
+    <Content Include="admin\assets\plugins\dropzone\dist\dropzone.js" />
+    <Content Include="admin\assets\plugins\flot-chart\jquery.flot.crosshair.js" />
+    <Content Include="admin\assets\plugins\flot-chart\jquery.flot.min.js" />
+    <Content Include="admin\assets\plugins\flot-chart\jquery.flot.pie.js" />
+    <Content Include="admin\assets\plugins\flot-chart\jquery.flot.resize.js" />
+    <Content Include="admin\assets\plugins\flot-chart\jquery.flot.selection.js" />
+    <Content Include="admin\assets\plugins\flot-chart\jquery.flot.stack.js" />
+    <Content Include="admin\assets\plugins\flot-chart\jquery.flot.time.js" />
+    <Content Include="admin\assets\plugins\flot-chart\jquery.flot.tooltip.min.js" />
+    <Content Include="admin\assets\plugins\fullcalendar\css\fullcalendar.min.css" />
+    <Content Include="admin\assets\plugins\fullcalendar\js\fullcalendar.min.js" />
+    <Content Include="admin\assets\plugins\gmaps\gmaps.min.js" />
+    <Content Include="admin\assets\plugins\jquery-knob\excanvas.js" />
+    <Content Include="admin\assets\plugins\jquery-knob\jquery.knob.js" />
+    <Content Include="admin\assets\plugins\jquery-ui\jquery-ui.min.js" />
+    <Content Include="admin\assets\plugins\jvectormap\gdp-data.js" />
+    <Content Include="admin\assets\plugins\jvectormap\jquery-jvectormap-2.0.2.css" />
+    <Content Include="admin\assets\plugins\jvectormap\jquery-jvectormap-2.0.2.min.js" />
+    <Content Include="admin\assets\plugins\jvectormap\jquery-jvectormap-europe-mill-en.js" />
+    <Content Include="admin\assets\plugins\jvectormap\jquery-jvectormap-uk-mill-en.js" />
+    <Content Include="admin\assets\plugins\jvectormap\jquery-jvectormap-us-aea-en.js" />
+    <Content Include="admin\assets\plugins\jvectormap\jquery-jvectormap-us-il-chicago-mill-en.js" />
+    <Content Include="admin\assets\plugins\jvectormap\jquery-jvectormap-world-mill-en.js" />
+    <Content Include="admin\assets\plugins\moment\moment.js" />
+    <Content Include="admin\assets\plugins\morris\morris.css" />
+    <Content Include="admin\assets\plugins\morris\morris.min.js" />
+    <Content Include="admin\assets\plugins\parsleyjs\parsley.min.js" />
+    <Content Include="admin\assets\plugins\raphael\raphael-min.js" />
+    <Content Include="admin\assets\plugins\RWD-Table-Patterns\dist\css\rwd-table.min.css" />
+    <Content Include="admin\assets\plugins\RWD-Table-Patterns\dist\js\rwd-table.min.js" />
+    <Content Include="admin\assets\plugins\summernote\summernote.css" />
+    <Content Include="admin\assets\plugins\summernote\summernote.min.js" />
+    <Content Include="admin\assets\plugins\timepicker\bootstrap-timepicker.js" />
+    <Content Include="admin\assets\plugins\timepicker\bootstrap-timepicker.min.css" />
+    <Content Include="admin\assets\plugins\tiny-editable\mindmup-editabletable.js" />
+    <Content Include="admin\assets\plugins\tiny-editable\numeric-input-example.js" />
+    <Content Include="admin\assets\plugins\x-editable\css\bootstrap-editable.css" />
+    <Content Include="admin\assets\plugins\x-editable\img\clear.png" />
+    <Content Include="admin\assets\plugins\x-editable\img\loading.gif" />
+    <Content Include="admin\assets\plugins\x-editable\js\bootstrap-editable.min.js" />
+    <Content Include="admin\collapse-menu.html" />
+    <Content Include="admin\dashboard.aspx" />
+    <Content Include="admin\image\index.html" />
+    <Content Include="admin\layouts\customer-modal.html" />
+    <Content Include="admin\layouts\footer.html" />
+    <Content Include="admin\layouts\notification.html" />
+    <Content Include="admin\layouts\sidemenu.html" />
+    <Content Include="admin\layouts\topnav.html" />
+    <Content Include="admin\managecustomer.aspx" />
+    <Content Include="admin\pages-404.html" />
     <Content Include="clients\404.html" />
     <Content Include="clients\about.html" />
     <Content Include="clients\assets\css\style.css" />
@@ -137,7 +296,9 @@
     <Content Include="clients\assets\images\ios-white.svg" />
     <Content Include="clients\assets\images\ios.svg" />
     <Content Include="clients\assets\images\login.png" />
+    <Content Include="clients\assets\images\logo-white.png" />
     <Content Include="clients\assets\images\logo-white.svg" />
+    <Content Include="clients\assets\images\logo.png" />
     <Content Include="clients\assets\images\logo.svg" />
     <Content Include="clients\assets\images\Register.png" />
     <Content Include="clients\assets\images\twitter %283%29.png" />
@@ -1832,6 +1993,7 @@
     <Content Include="clients\faq.html" />
     <Content Include="clients\layouts\service-faq.html" />
     <Content Include="clients\layouts\service.html" />
+    <Content Include="clients\forgot-password.html" />
     <Content Include="clients\service.html" />
     <Content Include="clients\gulpfile.js" />
     <Content Include="clients\index.html" />
@@ -1848,14 +2010,40 @@
     <Content Include="clients\login.html" />
     <Content Include="clients\privacy-policy.html" />
     <Content Include="clients\register.html" />
+    <Content Include="DbScript\eventhings-heidi-export.sql" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="admin\dashboard.aspx.cs">
+      <DependentUpon>dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\dashboard.aspx.designer.cs">
+      <DependentUpon>dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\managecustomer.aspx.cs">
+      <DependentUpon>managecustomer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\managecustomer.aspx.designer.cs">
+      <DependentUpon>managecustomer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\site.Master.cs">
+      <DependentUpon>site.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\site.Master.designer.cs">
+      <DependentUpon>site.Master</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\ICustomer.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\IRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\Repository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="clients\assets\css\style.css.map" />
@@ -2052,6 +2240,33 @@
     <Content Include="clients\package-lock.json" />
     <Content Include="clients\package.json" />
     <Content Include="clients\assets\js\sessioin.min.js" />
+    <Content Include="admin\assets\fonts\fontawesome-webfont3e6e.eot" />
+    <Content Include="admin\assets\fonts\fontawesome-webfont3e6e.ttf" />
+    <Content Include="admin\assets\fonts\fontawesome-webfont3e6e.woff" />
+    <Content Include="admin\assets\fonts\fontawesome-webfont3e6e.woff2" />
+    <Content Include="admin\assets\fonts\fontawesome-webfontd41d.eot" />
+    <Content Include="admin\assets\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="admin\assets\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="admin\assets\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="admin\assets\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="admin\assets\fonts\glyphicons-halflings-regulard41d.eot" />
+    <Content Include="admin\assets\fonts\ioniconsaa26.eot" />
+    <Content Include="admin\assets\fonts\ioniconsaa26.ttf" />
+    <Content Include="admin\assets\fonts\ioniconsaa26.woff" />
+    <Content Include="admin\assets\fonts\materialdesignicons-webfont6c9c.eot" />
+    <Content Include="admin\assets\fonts\materialdesignicons-webfont6c9c.ttf" />
+    <Content Include="admin\assets\fonts\materialdesignicons-webfont6c9c.woff" />
+    <Content Include="admin\assets\fonts\materialdesignicons-webfont6c9c.woff2" />
+    <Content Include="admin\assets\fonts\materialdesignicons-webfontd41d.eot" />
+    <Content Include="admin\assets\fonts\themify9f24.eot" />
+    <Content Include="admin\assets\fonts\themify9f24.ttf" />
+    <Content Include="admin\assets\fonts\themify9f24.woff" />
+    <Content Include="admin\assets\fonts\themifyd41d.eot" />
+    <Content Include="admin\assets\plugins\summernote\font\summernoted41d.eot" />
+    <Content Include="admin\assets\plugins\summernote\font\summernotef534.eot" />
+    <Content Include="admin\assets\plugins\summernote\font\summernotef534.ttf" />
+    <Content Include="admin\assets\plugins\summernote\font\summernotef534.woff" />
+    <Content Include="admin\site.Master" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -2061,14 +2276,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="admin\" />
+    <Folder Include="API\" />
     <Folder Include="App_Data\" />
     <Folder Include="Common\" />
+    <Folder Include="DbContexts\" />
     <Folder Include="DbEntities\" />
     <Folder Include="Dto\" />
-    <Folder Include="Interfaces\" />
     <Folder Include="Models\" />
-    <Folder Include="Repository\" />
     <Folder Include="Response\" />
     <Folder Include="Services\" />
   </ItemGroup>
