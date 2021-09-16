@@ -31,7 +31,7 @@
                                 <div class="alert alert-danger alert-dismissible" id="divAlert">
                                     <button type="button" class="close" data-dismiss="alert">&times;</button>
                                     <p id="lblErrorText">
-                                        <strong>Error!</strong> Indicates a successful or positive action.
+                                        <!--<strong>Error!</strong> Indicates a successful or positive action.-->
                                     </p>
                                 </div>
 
@@ -84,6 +84,11 @@
         $(document).ready(function () {
 
             console.log("Jquery is ready to shoot!!");
+
+            console.log(window.location.href);
+            console.log(window.location.host);
+            console.log(window.location.hostname);
+
             $("#divAlert").hide();
 
             $("#nav").load("layouts/nav.html");
@@ -96,11 +101,56 @@
             $("#frmLogin").on('submit', function (e) {
 
                 e.preventDefault();
+                var login = {
+                    email: $("#email").val(),
+                    password_hash: $("#password").val(),
+                    keep_me_signin: $("#keepLogin").attr('checked')
+                };
+
+                var data = {
+                    login: login
+                };
 
                 if ($("#frmLogin").valid()) {
 
-                    e.preventDefault();
-                    $("#divAlert").hide();
+                    $.ajax({
+                        type: "POST",
+                        url: "/Services/authenticate.asmx/Login",
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(data),
+                        success: function (response) {
+
+                            var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
+
+                            //parse the response as json data;
+                            responseData = JSON.parse(responseData);
+                            var status = responseData.Status;
+                            if (status == '1') {
+
+                                /*window.location.href = window.location.host + "/admin/qrcodegen.aspx";*/
+
+                                sessionStorage.setItem('email', $("#email").val());
+
+                                var referLink = document.createElement("a");
+                                referLink.href = "/admin/qrcodegen.aspx";
+                                document.body.appendChild(referLink);
+                                referLink.click();
+
+                            }
+                            else if (status == '0') {
+                                $("#divAlert").addClass("alert alert-danger alert-dismissible fade show").slideDown("slow");
+                                $("#lblErrorText").html(responseData.Message);
+                            }
+                        },
+                        error: function (data) {
+                            console.log(data);
+                            $("#divAlert").addClass("alert alert-danger alert-dismissible fade show").slideDown("slow");
+                            $("#lblErrorText").html("Error occured while submiting form");
+                            /*console.error(data);*/
+                        }
+                    });
+
 
                 } else {
                     $("#divAlert").show().addClass("alert alert-warning alert-dismissible fade show").slideDown("slow");

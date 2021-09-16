@@ -58,7 +58,8 @@
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle profile waves-effect waves-light" data-toggle="dropdown" aria-expanded="true">
                                     <img src="assets/images/users/avatar-1.jpg" alt="user-img" class="img-circle">
-                                    <span class="profile-username">Ahmed Farouqs <span class="caret"></span>
+                                    <span class="profile-username" id="profile-name">
+                                        <span class="caret"></span>
                                     </span>
                                 </a>
                                 <ul class="dropdown-menu">
@@ -66,7 +67,7 @@
                                     <li><a href="javascript:void(0)"><span class="badge badge-success pull-right">5</span> Settings </a></li>
                                     <li><a href="javascript:void(0)">Lock screen</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="javascript:void(0)">Logout</a></li>
+                                    <li><a href="javascript:void(0)" id="logout">Logout</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -247,6 +248,16 @@
             $("#sidemenu").load("layouts/sidemenu.html");
 
             $("#footer").load("layouts/footer.html");
+
+            $("#logout").click(function () {
+
+                var referLink = document.createElement("a");
+                referLink.href = "/clients/index.html";
+                document.body.appendChild(referLink);
+                referLink.click();
+            })
+
+            $("#profile-name").html(sessionStorage.getItem('email'));
 
         });
 

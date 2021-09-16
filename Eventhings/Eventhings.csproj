@@ -2027,6 +2027,7 @@
     <Content Include="clients\register.html" />
     <Content Include="DbScript\eventhings-heidi-export.sql" />
     <Content Include="Global.asax" />
+    <Content Include="Services\authenticate.asmx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -2076,6 +2077,8 @@
     <Compile Include="DbContexts\tmstrcodestore.cs" />
     <Compile Include="Dto\TCoreRole.cs" />
     <Compile Include="Dto\TCoreTransactionChannel.cs" />
+    <Compile Include="Dto\LoginDto.cs" />
+    <Compile Include="Dto\RegisterDto.cs" />
     <Compile Include="Dto\TCoreUser.cs" />
     <Compile Include="Dto\TCoreUserRole.cs" />
     <Compile Include="Dto\tcorewallet.cs" />
@@ -2095,6 +2098,10 @@
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Repository\GenericRepository.cs" />
     <Compile Include="Response\ResponseMessage.cs" />
+    <Compile Include="Services\authenticate.asmx.cs">
+      <DependentUpon>authenticate.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Services\QrCodeStoreService.cs" />
     <Compile Include="Services\RoleService.cs" />
     <Compile Include="Services\UserService.cs" />

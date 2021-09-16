@@ -165,20 +165,12 @@
                     var tr = '';
 
                     $.each(responseData, function (i, item) {
-
-                        console.log(item);
-
-                        /*tr += '<tr><td>' + item.code + '</td>' + '<td><canvas onload=' + generateQRCode("canv" + i, item) + 'id=canv' + i + '></canvas></td> </tr>';*/
-
-                        console.log(item.code);
-
-                        //tr += '<tr><td>' + item.id + '</td><td><canvas id=' + item.id + '|' + item.code + '></canvas></td></tr>';
+                        
                         tr += '<div class="col-md-2"><canvas id=' + item.id + '|' + item.code + '></canvas></div > ';
+
                     });
 
                     $("#divbody").append(tr)
-
-                    //$("#tbody").append(tr);
 
                     var can = document.getElementsByTagName('canvas');
 
@@ -193,16 +185,14 @@
                         qr = new QRious({
                             element: can[x],
                             size: 53,
-                            value: 'https://localhost:44329/admin/codelink.aspx?code=' + splitid,
+                            value: 'https://www.eventi.ng/admin/codelink.aspx?code=' + splitid,
                             foreground: 'black'
                         });
                     }
                 },
                 error: function (data) {
-                    console.log(data);
                     $("#divAlert").addClass("alert alert-danger alert-dismissible fade show").slideDown("slow");
                     $("#lblErrorText").html("Error occured while submiting form");
-                    /*console.error(data);*/
                 }
             });
         });
