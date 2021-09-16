@@ -43,10 +43,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="SqlKata, Version=2.3.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SqlKata.2.3.7\lib\netstandard2.0\SqlKata.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="IronBarCode">
+      <HintPath>..\..\..\..\Downloads\IronBarCode\net40\IronBarCode.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
     </Reference>
@@ -63,6 +74,7 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web.DynamicData" />
@@ -81,6 +93,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
@@ -123,7 +136,6 @@
     <Content Include="admin\assets\pages\calendar-init.js" />
     <Content Include="admin\assets\pages\chartist.init.js" />
     <Content Include="admin\assets\pages\chartjs.init.js" />
-    <Content Include="admin\assets\pages\dashborad.js" />
     <Content Include="admin\assets\pages\datatables.init.js" />
     <Content Include="admin\assets\pages\flot.init.js" />
     <Content Include="admin\assets\pages\form-advanced.js" />
@@ -216,6 +228,7 @@
     <Content Include="admin\assets\plugins\x-editable\img\clear.png" />
     <Content Include="admin\assets\plugins\x-editable\img\loading.gif" />
     <Content Include="admin\assets\plugins\x-editable\js\bootstrap-editable.min.js" />
+    <Content Include="admin\codelink.aspx" />
     <Content Include="admin\collapse-menu.html" />
     <Content Include="admin\dashboard.aspx" />
     <Content Include="admin\image\index.html" />
@@ -226,6 +239,7 @@
     <Content Include="admin\layouts\topnav.html" />
     <Content Include="admin\managecustomer.aspx" />
     <Content Include="admin\pages-404.html" />
+    <Content Include="admin\qrcodegen.aspx" />
     <Content Include="clients\404.html" />
     <Content Include="clients\about.html" />
     <Content Include="clients\assets\css\style.css" />
@@ -1994,6 +2008,7 @@
     <Content Include="clients\layouts\service-faq.html" />
     <Content Include="clients\layouts\service.html" />
     <Content Include="clients\forgot-password.html" />
+    <Content Include="clients\random.html" />
     <Content Include="clients\service.html" />
     <Content Include="clients\gulpfile.js" />
     <Content Include="clients\index.html" />
@@ -2015,6 +2030,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="admin\codelink.aspx.cs">
+      <DependentUpon>codelink.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\codelink.aspx.designer.cs">
+      <DependentUpon>codelink.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\dashboard.aspx.cs">
       <DependentUpon>dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2029,6 +2051,13 @@
     <Compile Include="admin\managecustomer.aspx.designer.cs">
       <DependentUpon>managecustomer.aspx</DependentUpon>
     </Compile>
+    <Compile Include="admin\qrcodegen.aspx.cs">
+      <DependentUpon>qrcodegen.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\qrcodegen.aspx.designer.cs">
+      <DependentUpon>qrcodegen.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\site.Master.cs">
       <DependentUpon>site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2036,14 +2065,39 @@
     <Compile Include="admin\site.Master.designer.cs">
       <DependentUpon>site.Master</DependentUpon>
     </Compile>
+    <Compile Include="Common\CommonConstants.cs" />
+    <Compile Include="Common\CommonHelper.cs" />
+    <Compile Include="Common\EncryptionHelper.cs" />
+    <Compile Include="DbContexts\EventiDataModel.cs" />
+    <Compile Include="DbContexts\tcorerole.cs" />
+    <Compile Include="DbContexts\tcoreuser.cs" />
+    <Compile Include="DbContexts\tcoreuserrole.cs" />
+    <Compile Include="DbContexts\tcorewallet.cs" />
+    <Compile Include="DbContexts\tmstrcodestore.cs" />
+    <Compile Include="Dto\TCoreRole.cs" />
+    <Compile Include="Dto\TCoreTransactionChannel.cs" />
+    <Compile Include="Dto\TCoreUser.cs" />
+    <Compile Include="Dto\TCoreUserRole.cs" />
+    <Compile Include="Dto\tcorewallet.cs" />
+    <Compile Include="Dto\TmstrCodeStoreRequest.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\ICustomer.cs" />
-    <Compile Include="Interfaces\IRepository.cs" />
-    <Compile Include="Interfaces\IRole.cs" />
+    <Compile Include="Interfaces\AbstractGenericRepository.cs" />
+    <Compile Include="Interfaces\ITransactionChannelRepository.cs" />
+    <Compile Include="Interfaces\IUserRepository.cs" />
+    <Compile Include="Interfaces\IGenericRepository.cs" />
+    <Compile Include="Interfaces\IRoleRepository.cs" />
+    <Compile Include="Interfaces\IUserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\Repository.cs" />
+    <Compile Include="Repository\RoleRepository.cs" />
+    <Compile Include="Repository\TransactionChannelRepository.cs" />
+    <Compile Include="Repository\UserRepository.cs" />
+    <Compile Include="Repository\GenericRepository.cs" />
+    <Compile Include="Response\ResponseMessage.cs" />
+    <Compile Include="Services\QrCodeStoreService.cs" />
+    <Compile Include="Services\RoleService.cs" />
+    <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="clients\assets\css\style.css.map" />
@@ -2267,6 +2321,7 @@
     <Content Include="admin\assets\plugins\summernote\font\summernotef534.ttf" />
     <Content Include="admin\assets\plugins\summernote\font\summernotef534.woff" />
     <Content Include="admin\site.Master" />
+    <Content Include="efpt.config.json" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -2278,13 +2333,8 @@
   <ItemGroup>
     <Folder Include="API\" />
     <Folder Include="App_Data\" />
-    <Folder Include="Common\" />
-    <Folder Include="DbContexts\" />
-    <Folder Include="DbEntities\" />
-    <Folder Include="Dto\" />
+    <Folder Include="CodeFile\" />
     <Folder Include="Models\" />
-    <Folder Include="Response\" />
-    <Folder Include="Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

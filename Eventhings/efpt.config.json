@@ -1,0 +1,53 @@
+﻿{
+   "CodeGenerationMode": 1,
+   "ContextClassName": "DeveventhingsDbContext",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": true,
+   "ModelNamespace": null,
+   "OutputContextPath": "DbContexts",
+   "OutputPath": "DbEntities",
+   "ProjectRootNamespace": "Deveventhings.DbEntities",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 0,
+   "SelectedToBeGenerated": 0,
+   "Tables": [
+      {
+         "Name": "[dbo].[tcorerole]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tcoreuser]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tcoreuserrole]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tcorewallet]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tmstrcodestore]",
+         "ObjectType": 0
+      }
+   ],
+   "UiHint": "IMT.deveventhings",
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": true,
+   "UseDbContextSplitting": false,
+   "UseFluentApiOnly": false,
+   "UseHandleBars": false,
+   "UseInflector": true,
+   "UseLegacyPluralizer": false,
+   "UseNoConstructor": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UseSchemaFolders": false,
+   "UseSpatial": false
+}

@@ -15,7 +15,7 @@
                             <div class="col-md-12">
                                 <div class="panel panel-primary">
                                     <div class="panel-body">
-                                        <h4 class="m-b-30 m-t-0">Manage Customerss</h4>
+                                        <h4 class="m-b-30 m-t-10">Manage Customerss</h4>
                                         <div class="pull-right m-l-10">
                                             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#custom-width-modal">Add New</button>
                                         </div>

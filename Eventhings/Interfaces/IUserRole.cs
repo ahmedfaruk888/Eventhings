@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Eventhings.DbEntities;
 
 namespace Eventhings.Interfaces
 {
-    public interface IRole
+    public interface IUserRole /*: IGenericRepository<TCoreUserRole>*/
     {
+
     }
 }

@@ -28,7 +28,7 @@
     <link href="assets/plugins/bootstrap-sweetalert/sweet-alert.css" rel="stylesheet" type="text/css">
 
     <!--Morris Chart CSS -->
-    <link rel="stylesheet" href="assets/plugins/morris/morris.css">
+    <%--<link rel="stylesheet" href="assets/plugins/morris/morris.css">--%>
 
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="assets/css/icons.css" rel="stylesheet" type="text/css">
@@ -85,59 +85,65 @@
                             <a href="../admin/dashboard.aspx" class="waves-effect"><i class="ti-home"></i><span>Dashboard <span class="badge badge-primary pull-right">update</span></span></a>
                         </li>
 
-                        <li class="has_sub">
+                        <%--<li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="ti-bar-chart"></i><span>Customers </span><span class="pull-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="managecustomer.aspx">Add Customers</a></li>
                                 <li><a href="#">Generate Pass</a></li>
                                 <li><a href="#">Cusrtomer Privillege</a></li>
                             </ul>
-                        </li>
+                        </li>--%>
 
-                        <li class="has_sub">
+                        <%--<li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="ti-paint-bucket"></i><span>Transactions </span><span class="pull-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="#">View Customer Transx</a></li>
                                 <li><a href="#">Generate Receipt</a></li>
                             </ul>
-                        </li>
+                        </li>--%>
 
-                        <li class="has_sub">
+                        <%--<li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="ti-pencil-alt"></i><span>E-wallets </span><span class="pull-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="#">Manage Wallet</a></li>
                             </ul>
-                        </li>
+                        </li>--%>
 
-                        <li class="has_sub">
+                        <%--<li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="ti-spray"></i><span>Products &amp; Points</span> <span class="pull-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="#">Add Product</a></li>
                                 <li><a href="#">Manage Stock</a></li>
                             </ul>
-                        </li>
+                        </li>--%>
+
+                       <%-- <li>
+                            <a href="typography.html" class="waves-effect">
+                                <i class="ti-marker"></i>
+                                <span>Reports
+                                    <span class="badge badge-primary pull-right">4</span>
+                                </span>
+
+                            </a>
+                        </li>--%>
 
                         <li>
-                            <a href="typography.html" class="waves-effect"><i class="ti-text"></i><span>Reports <span class="badge badge-primary pull-right">4</span></span></a>
-                        </li>
-
-                        <li>
-                            <a href="typography.html" class="waves-effect"><i class="ti-text"></i><span>Pass Management
-                                <span class="badge badge-primary pull-right">4</span></span>
+                            <a href="qrcodegen.aspx" class="waves-effect"><i class="ti-ticket"></i><span>QR Code
+                                <%--<span class="badge badge-primary pull-right">4</span>--%></span>
                             </a>
                         </li>
 
-                        <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="ti-list"></i><span>Sales </span><span class="pull-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                        <%--<li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="ti-money"></i><span>Sales </span><span class="pull-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="#">View Sales</a></li>
                             </ul>
-                        </li>
+                        </li>--%>
 
-                        <li class="menu-title">Extras</li>
+                        <%--<li class="menu-title">Extras</li>--%>
 
-                        <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="ti-location-pin"></i><span>Staff Management </span><span class="pull-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                        <%--<li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="ti-user"></i><span>Staff Management </span><span class="pull-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="#">Add Staff</a></li>
                                 <li><a href="#">Staff Settings</a></li>
@@ -150,18 +156,18 @@
                                 <li><a href="#">Add Role</a></li>
                                 <li><a href="#">Role Mapping</a></li>
                             </ul>
-                        </li>
+                        </li>--%>
 
-                        <li class="menu-title">Settings</li>
+                        <%--<li class="menu-title">Settings</li>--%>
 
-                        <li class="has_sub">
+                        <%--<li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="ti-files"></i><span>General Settings </span><span class="pull-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="#">Customer Settings</a></li>
                                 <li><a href="#">Product Settings</a></li>
                                 <li><a href="#">Wallet Settings</a></li>
                             </ul>
-                        </li>
+                        </li>--%>
 
                         <li>
                             <a href="collapse-menu.html" class="waves-effect"><i class="ti-layout-media-left"></i><span>Menu Collapse </span></a>
@@ -199,9 +205,9 @@
     <script src="assets/js/jquery.nicescroll.js"></script>
     <script src="assets/js/jquery.scrollTo.min.js"></script>
 
-    <!--Morris Chart-->
+    <%--<!--Morris Chart-->
     <script src="assets/plugins/morris/morris.min.js"></script>
-    <script src="assets/plugins/raphael/raphael-min.js"></script>
+    <script src="assets/plugins/raphael/raphael-min.js"></script>--%>
 
     <script src="assets/pages/dashborad.js"></script>
 
@@ -245,6 +251,8 @@
         });
 
     </script>
-
+    <asp:ContentPlaceHolder ID="scriptContentPlaceHolder" runat="server">
+        
+    </asp:ContentPlaceHolder>
 </body>
 </html>
