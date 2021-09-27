@@ -1,4 +1,4 @@
-namespace Eventhings.DbContexts
+namespace Eventhings.DbEntities
 {
     using System;
     using System.Collections.Generic;
@@ -6,20 +6,13 @@ namespace Eventhings.DbContexts
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("tcorewallet")]
-    public partial class tcorewallet
+    public partial class tcoreuserrole
     {
         public int id { get; set; }
 
-        [Required]
-        [StringLength(256)]
-        public string user_id { get; set; }
+        public int user_id { get; set; }
 
-        public decimal? prev_balance { get; set; }
-
-        public decimal? amount_paid { get; set; }
-
-        public decimal? current_balance { get; set; }
+        public int role_id { get; set; }
 
         public int active { get; set; }
 
@@ -36,5 +29,9 @@ namespace Eventhings.DbContexts
 
         [Column(TypeName = "datetime2")]
         public DateTime? updated_at { get; set; }
+
+        public virtual tcorerole tcorerole { get; set; }
+
+        public virtual tcoreuser tcoreuser { get; set; }
     }
 }

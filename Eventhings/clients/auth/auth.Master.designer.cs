@@ -7,65 +7,47 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Eventhings.admin
+namespace Eventhings.clients.auth
 {
 
 
-    public partial class qrcodegen
+    public partial class auth
     {
 
         /// <summary>
-        /// frmQrcodeGen control.
+        /// headContentPlaceHolder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm frmQrcodeGen;
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder headContentPlaceHolder;
 
         /// <summary>
-        /// txtBatchNumber control.
+        /// pageHeaderContentPlaceHolder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtBatchNumber;
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder pageHeaderContentPlaceHolder;
 
         /// <summary>
-        /// txtBatcgName control.
+        /// bodyContentPlaceHolder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtBatcgName;
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder bodyContentPlaceHolder;
 
         /// <summary>
-        /// txtCodeCount control.
+        /// scriptContentPlaceHolder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl txtCodeCount;
-
-        /// <summary>
-        /// chkActive control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkActive;
-
-        /// <summary>
-        /// btnGenerateCode control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btnGenerateCode;
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder scriptContentPlaceHolder;
     }
 }

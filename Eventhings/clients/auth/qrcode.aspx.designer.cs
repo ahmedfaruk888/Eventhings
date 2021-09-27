@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Eventhings.admin
+namespace Eventhings.clients.auth
 {
 
 
-    public partial class codelink
+    public partial class qrcode
     {
     }
 }

@@ -25,24 +25,10 @@ namespace Eventhings.Services
     // [System.Web.Script.Services.ScriptService]
     public class authenticate : System.Web.Services.WebService
     {
-        public static bool IsValid(string emailaddress)
-        {
-            try
-            {
-                MailAddress m = new MailAddress(emailaddress);
-
-                return true;
-            }
-            catch (FormatException)
-            {
-                return false;
-            }
-        }
-
         [WebMethod]
         public object Login(LoginDto login)
         {
-            var response = new ResponseMessage();
+            var response = new LoginResponse();
 
             if (string.IsNullOrWhiteSpace(login.email) || string.IsNullOrWhiteSpace(login.password_hash))
             {
@@ -60,7 +46,7 @@ namespace Eventhings.Services
 
             try
             {
-                using (var _context = new EventiDataModel())
+                using (var _context = new EventhingsDbContext())
                 {
                     var userLogin = _context.tcoreusers
                         .Where(e => e.email == login.email && e.password_hash == login.password_hash).FirstOrDefault();
@@ -75,14 +61,15 @@ namespace Eventhings.Services
                     else
                     {
                         response.Status = 0;
-                        response.Message = "Error occured validating your login credentials";
+                        response.Message = "Inavalid username or password.";
                     }
                 }
             }
             catch(Exception ex)
             {
                 response.Status = 0;
-                response.Message = "Network error occured.";
+                response.Message = ex.Message;
+                //response.Message = "Network error occured.";
             }
 
             return JsonConvert.SerializeObject(response);
@@ -91,7 +78,7 @@ namespace Eventhings.Services
         [WebMethod]
         public static object Register(RegisterDto register)
         {
-            var response = new ResponseMessage();
+            var response = new RegisterResponse();
             
             if (string.IsNullOrWhiteSpace(register.email))
             {
@@ -114,11 +101,11 @@ namespace Eventhings.Services
                 return JsonConvert.SerializeObject(response);
             }
 
-            using (var _context = new EventiDataModel())
+            using (var _context = new EventhingsDbContext())
             {
                 var userregister = _context.tcoreusers.Add(new tcoreuser
                 {
-                    user_code = $"Evt-{new Random().Next().ToString()}",
+                    user_code = $"Evt-USR-{new Random().Next().ToString()}",
                     email = register.email,
                     phone_number = register.phone_number,
                     first_name = register.first_name,

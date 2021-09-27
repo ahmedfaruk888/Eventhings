@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <title>Eventhings administrator portal</title>
+    <title>Eventi - Administrator Dashboard</title>
     <asp:ContentPlaceHolder ID="headContentPlaceHolder" runat="server">
     </asp:ContentPlaceHolder>
     <meta content="Admin Dashboard" name="description" />
@@ -17,15 +17,15 @@
     <link rel="shortcut icon" href="assets/images/favicon.ico">
 
     <!-- DataTables -->
-    <link href="assets/plugins/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+   <%-- <link href="assets/plugins/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/plugins/datatables/buttons.bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/plugins/datatables/fixedHeader.bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/plugins/datatables/responsive.bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/plugins/datatables/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="assets/plugins/datatables/scroller.bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/datatables/scroller.bootstrap.min.css" rel="stylesheet" type="text/css" />--%>
 
     <!-- Sweet Alert -->
-    <link href="assets/plugins/bootstrap-sweetalert/sweet-alert.css" rel="stylesheet" type="text/css">
+    <%--<link href="assets/plugins/bootstrap-sweetalert/sweet-alert.css" rel="stylesheet" type="text/css">--%>
 
     <!--Morris Chart CSS -->
     <%--<link rel="stylesheet" href="assets/plugins/morris/morris.css">--%>
@@ -128,10 +128,18 @@
                             </a>
                         </li>--%>
 
-                        <li>
-                            <a href="qrcodegen.aspx" class="waves-effect"><i class="ti-ticket"></i><span>QR Code
+                        <%--<li>
+                            <a  class="waves-effect"><i class="ti-ticket"></i><span>QR Code
                                 <%--<span class="badge badge-primary pull-right">4</span>--%></span>
                             </a>
+                        </li>--%>
+
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="ti-user ti-ticket"></i><span>QR Codes </span><span class="pull-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <ul class="list-unstyled">
+                                <li><a href="qrcodegen.aspx">Generate New</a></li>
+                                <li><a href="#">Manage Active Codes</a></li>
+                            </ul>
                         </li>
 
                         <%--<li class="has_sub">
@@ -170,9 +178,9 @@
                             </ul>
                         </li>--%>
 
-                        <li>
+                        <%--<li>
                             <a href="collapse-menu.html" class="waves-effect"><i class="ti-layout-media-left"></i><span>Menu Collapse </span></a>
-                        </li>
+                        </li>--%>
                     </ul>
                 </div>
 
@@ -185,6 +193,7 @@
         <div class="content-page">
 
             <asp:ContentPlaceHolder ID="mainContentPlaceHolder" runat="server">
+
             </asp:ContentPlaceHolder>
 
             <div id="footer"></div>
@@ -257,7 +266,7 @@
                 referLink.click();
             })
 
-            $("#profile-name").html(sessionStorage.getItem('email'));
+            $("#profile-name").append(sessionStorage.getItem('email'));
 
         });
 

@@ -8,8 +8,8 @@ using Eventhings.DbEntities;
 
 namespace Eventhings.Interfaces
 {
-    public interface IRoleRepository : IGenericRepository<tcorerole>
+    public interface IRoleRepository /*: IGenericRepository<tcorerole>*/
     {
-        tcorerole GetUserRole(int userid);
+        //tcorerole GetUserRole(int userid);
     }
 }

@@ -1,4 +1,4 @@
-namespace Eventhings.DbContexts
+namespace Eventhings.DbEntities
 {
     using System;
     using System.Collections.Generic;
@@ -6,11 +6,10 @@ namespace Eventhings.DbContexts
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("tcoreuser")]
-    public partial class tcoreuser
+    public partial class tcorerole
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tcoreuser()
+        public tcorerole()
         {
             tcoreuserroles = new HashSet<tcoreuserrole>();
         }
@@ -19,39 +18,12 @@ namespace Eventhings.DbContexts
 
         [Required]
         [StringLength(128)]
-        public string user_code { get; set; }
-
-        [Required]
-        [StringLength(128)]
-        public string email { get; set; }
-
-        [Column(TypeName = "datetime2")]
-        public DateTime? email_confirmed { get; set; }
-
-        [StringLength(512)]
-        public string password_hash { get; set; }
-
-        public int require_password_change { get; set; }
-
-        [Required]
-        [StringLength(128)]
-        public string phone_number { get; set; }
-
-        [Column(TypeName = "datetime2")]
-        public DateTime? phone_number_confirmed { get; set; }
-
-        public int two_factor_enabled { get; set; }
-
-        [Required]
-        [StringLength(128)]
-        public string first_name { get; set; }
-
-        [Required]
-        [StringLength(128)]
-        public string last_name { get; set; }
+        public string name { get; set; }
 
         [StringLength(128)]
-        public string other_name { get; set; }
+        public string description { get; set; }
+
+        public int level { get; set; }
 
         public int active { get; set; }
 

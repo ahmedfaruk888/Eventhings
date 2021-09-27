@@ -1,13 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.Spatial;
-
-namespace Eventhings.DbContexts
+namespace Eventhings.DbEntities
 {
-    [Table("tmstrcodestore")]
-    public class tmstrcodestore
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
+
+    public partial class tcorecodestore
     {
         public int id { get; set; }
 
@@ -17,13 +16,13 @@ namespace Eventhings.DbContexts
 
         [Required]
         [StringLength(128)]
-        public string batcg_name { get; set; }
+        public string batch_name { get; set; }
 
         [Required]
         [StringLength(128)]
         public string code { get; set; }
 
-        public int? encrypted_code { get; set; }
+        public string encrypted_code { get; set; }
 
         public int active { get; set; }
 

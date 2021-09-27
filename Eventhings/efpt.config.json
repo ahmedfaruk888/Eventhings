@@ -1,11 +1,11 @@
 ﻿{
    "CodeGenerationMode": 1,
    "ContextClassName": "DeveventhingsDbContext",
-   "ContextNamespace": null,
+   "ContextNamespace": "Eventhings.DbContexts",
    "DefaultDacpacSchema": null,
    "FilterSchemas": false,
    "IncludeConnectionString": true,
-   "ModelNamespace": null,
+   "ModelNamespace": "Eventhings.DbDbEntities",
    "OutputContextPath": "DbContexts",
    "OutputPath": "DbEntities",
    "ProjectRootNamespace": "Deveventhings.DbEntities",
@@ -14,27 +14,75 @@
    "SelectedToBeGenerated": 0,
    "Tables": [
       {
-         "Name": "[dbo].[tcorerole]",
+         "Name": "[dbo].[tcoreapplicants]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[tcoreuser]",
+         "Name": "[dbo].[tcoreapplication]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[tcoreuserrole]",
+         "Name": "[dbo].[tcorecodestores]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[tcorewallet]",
+         "Name": "[dbo].[tcoreevents]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[tmstrcodestore]",
+         "Name": "[dbo].[tcorehosts]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tcoreitempoints]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tcoreitems]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tcorejobs]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tcoremappedcodes]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tcoreroles]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tcoretransactions]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tcoreunitmeasurements]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tcoreuserroles]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tcoreusers]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tcorewallets]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tmstrcategories]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tmstrtranxchannels]",
          "ObjectType": 0
       }
    ],
-   "UiHint": "IMT.deveventhings",
+   "UiHint": "EventiConnectionString (Eventhings)",
    "UseBoolPropertiesWithoutDefaultSql": false,
    "UseDatabaseNames": true,
    "UseDbContextSplitting": false,

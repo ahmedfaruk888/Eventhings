@@ -239,7 +239,6 @@
     <Content Include="admin\layouts\topnav.html" />
     <Content Include="admin\managecustomer.aspx" />
     <Content Include="admin\pages-404.html" />
-    <Content Include="admin\qrcodegen.aspx" />
     <Content Include="clients\404.html" />
     <Content Include="clients\about.html" />
     <Content Include="clients\assets\css\style.css" />
@@ -2000,6 +1999,10 @@
     <Content Include="clients\assets\vendors\popper.js\popper-utils.min.js" />
     <Content Include="clients\assets\vendors\popper.js\popper.js" />
     <Content Include="clients\assets\vendors\popper.js\popper.min.js" />
+    <Content Include="clients\auth\codelink.html" />
+    <Content Include="clients\auth\dashboard.aspx" />
+    <Content Include="clients\auth\events.aspx" />
+    <Content Include="clients\auth\qrcode.aspx" />
     <Content Include="clients\blog-single.html" />
     <Content Include="clients\blog.html" />
     <Content Include="clients\careers.html" />
@@ -2025,9 +2028,13 @@
     <Content Include="clients\login.html" />
     <Content Include="clients\privacy-policy.html" />
     <Content Include="clients\register.html" />
+    <Content Include="contest.aspx" />
     <Content Include="DbScript\eventhings-heidi-export.sql" />
     <Content Include="Global.asax" />
+    <Content Include="index.html" />
     <Content Include="Services\authenticate.asmx" />
+    <Content Include="Services\events.asmx" />
+    <Content Include="Services\qrcode.asmx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -2052,13 +2059,6 @@
     <Compile Include="admin\managecustomer.aspx.designer.cs">
       <DependentUpon>managecustomer.aspx</DependentUpon>
     </Compile>
-    <Compile Include="admin\qrcodegen.aspx.cs">
-      <DependentUpon>qrcodegen.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="admin\qrcodegen.aspx.designer.cs">
-      <DependentUpon>qrcodegen.aspx</DependentUpon>
-    </Compile>
     <Compile Include="admin\site.Master.cs">
       <DependentUpon>site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2066,15 +2066,65 @@
     <Compile Include="admin\site.Master.designer.cs">
       <DependentUpon>site.Master</DependentUpon>
     </Compile>
+    <Compile Include="clients\auth\auth.Master.cs">
+      <DependentUpon>auth.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="clients\auth\auth.Master.designer.cs">
+      <DependentUpon>auth.Master</DependentUpon>
+    </Compile>
+    <Compile Include="clients\auth\dashboard.aspx.cs">
+      <DependentUpon>dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="clients\auth\dashboard.aspx.designer.cs">
+      <DependentUpon>dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="clients\auth\events.aspx.cs">
+      <DependentUpon>events.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="clients\auth\events.aspx.designer.cs">
+      <DependentUpon>events.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="clients\auth\qrcode.aspx.cs">
+      <DependentUpon>qrcode.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="clients\auth\qrcode.aspx.designer.cs">
+      <DependentUpon>qrcode.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Common\CommonConstants.cs" />
     <Compile Include="Common\CommonHelper.cs" />
+    <Compile Include="Common\CommonRandomNumber.cs" />
     <Compile Include="Common\EncryptionHelper.cs" />
-    <Compile Include="DbContexts\EventiDataModel.cs" />
-    <Compile Include="DbContexts\tcorerole.cs" />
-    <Compile Include="DbContexts\tcoreuser.cs" />
-    <Compile Include="DbContexts\tcoreuserrole.cs" />
-    <Compile Include="DbContexts\tcorewallet.cs" />
-    <Compile Include="DbContexts\tmstrcodestore.cs" />
+    <Compile Include="contest.aspx.cs">
+      <DependentUpon>contest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="contest.aspx.designer.cs">
+      <DependentUpon>contest.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DbContexts\EventhingsDbContext.cs" />
+    <Compile Include="DbEntities\tcoreapplicant.cs" />
+    <Compile Include="DbEntities\tcoreapplication.cs" />
+    <Compile Include="DbEntities\tcorecodestore.cs" />
+    <Compile Include="DbEntities\tcoreevent.cs" />
+    <Compile Include="DbEntities\tcorehost.cs" />
+    <Compile Include="DbEntities\tcoreitem.cs" />
+    <Compile Include="DbEntities\tcoreitempoint.cs" />
+    <Compile Include="DbEntities\tcorejob.cs" />
+    <Compile Include="DbEntities\tcoremappedcode.cs" />
+    <Compile Include="DbEntities\tcorerole.cs" />
+    <Compile Include="DbEntities\tcoretransaction.cs" />
+    <Compile Include="DbEntities\tcoreunitmeasurement.cs" />
+    <Compile Include="DbEntities\tcoreuser.cs" />
+    <Compile Include="DbEntities\tcoreuserrole.cs" />
+    <Compile Include="DbEntities\tcorewallet.cs" />
+    <Compile Include="DbEntities\tmstrcategory.cs" />
+    <Compile Include="DbEntities\tmstrtranxchannel.cs" />
+    <Compile Include="Dto\EventDto.cs" />
+    <Compile Include="Dto\QRCodeDto.cs" />
     <Compile Include="Dto\TCoreRole.cs" />
     <Compile Include="Dto\TCoreTransactionChannel.cs" />
     <Compile Include="Dto\LoginDto.cs" />
@@ -2097,9 +2147,21 @@
     <Compile Include="Repository\TransactionChannelRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Repository\GenericRepository.cs" />
-    <Compile Include="Response\ResponseMessage.cs" />
+    <Compile Include="Response\BaseResponse.cs" />
+    <Compile Include="Response\EventResponse.cs" />
+    <Compile Include="Response\LoginResponse.cs" />
+    <Compile Include="Response\QrCodeRespose.cs" />
+    <Compile Include="Response\RegisterResponse.cs" />
     <Compile Include="Services\authenticate.asmx.cs">
       <DependentUpon>authenticate.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Services\events.asmx.cs">
+      <DependentUpon>events.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Services\qrcode.asmx.cs">
+      <DependentUpon>qrcode.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Services\QrCodeStoreService.cs" />
@@ -2329,6 +2391,7 @@
     <Content Include="admin\assets\plugins\summernote\font\summernotef534.woff" />
     <Content Include="admin\site.Master" />
     <Content Include="efpt.config.json" />
+    <Content Include="clients\auth\auth.Master" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

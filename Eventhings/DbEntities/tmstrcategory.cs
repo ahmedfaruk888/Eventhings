@@ -1,4 +1,4 @@
-namespace Eventhings.DbContexts
+namespace Eventhings.DbEntities
 {
     using System;
     using System.Collections.Generic;
@@ -6,33 +6,34 @@ namespace Eventhings.DbContexts
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("tcoreuserrole")]
-    public partial class tcoreuserrole
+    public partial class tmstrcategory
     {
         public int id { get; set; }
 
-        public int user_id { get; set; }
+        [Required]
+        [StringLength(128)]
+        public string name { get; set; }
 
-        public int role_id { get; set; }
+        public int parent { get; set; }
+
+        [Required]
+        [StringLength(512)]
+        public string description { get; set; }
 
         public int active { get; set; }
 
         public int is_deleted { get; set; }
 
-        [StringLength(256)]
+        [StringLength(128)]
         public string created_by { get; set; }
 
         [Column(TypeName = "datetime2")]
         public DateTime? created_at { get; set; }
 
-        [StringLength(256)]
+        [StringLength(128)]
         public string updated_by { get; set; }
 
         [Column(TypeName = "datetime2")]
         public DateTime? updated_at { get; set; }
-
-        public virtual tcorerole tcorerole { get; set; }
-
-        public virtual tcoreuser tcoreuser { get; set; }
     }
 }

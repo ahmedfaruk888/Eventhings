@@ -5,9 +5,7 @@ using System.Web;
 
 namespace Eventhings.Response
 {
-    public class ResponseMessage
+    public class RegisterResponse : BaseResponse
     {
-        public int Status { get; set; }
-        public object Message { get; set; }
     }
 }

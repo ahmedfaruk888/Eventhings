@@ -1,4 +1,4 @@
-namespace Eventhings.DbContexts
+namespace Eventhings.DbEntities
 {
     using System;
     using System.Collections.Generic;
@@ -6,25 +6,29 @@ namespace Eventhings.DbContexts
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("tcorerole")]
-    public partial class tcorerole
+    public partial class tcorejob
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tcorerole()
+        public tcorejob()
         {
-            tcoreuserroles = new HashSet<tcoreuserrole>();
+            tcoreapplicants = new HashSet<tcoreapplicant>();
         }
 
         public int id { get; set; }
 
         [Required]
-        [StringLength(128)]
-        public string name { get; set; }
+        [StringLength(256)]
+        public string job_title { get; set; }
 
-        [StringLength(128)]
+        [Required]
+        [StringLength(256)]
+        public string state { get; set; }
+
+        [Required]
+        [StringLength(256)]
+        public string address { get; set; }
+
         public string description { get; set; }
-
-        public int level { get; set; }
 
         public int active { get; set; }
 
@@ -43,6 +47,6 @@ namespace Eventhings.DbContexts
         public DateTime? updated_at { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tcoreuserrole> tcoreuserroles { get; set; }
+        public virtual ICollection<tcoreapplicant> tcoreapplicants { get; set; }
     }
 }

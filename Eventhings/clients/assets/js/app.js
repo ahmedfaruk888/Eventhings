@@ -1,7 +1,5 @@
-﻿function load() {
+﻿///*const { ajaxSetup } = require("jquery");
 
-}
-
-function login(email, password) {
-
-}
+//ajaxSetup({
+//    cache: false;
+//});
