@@ -241,6 +241,8 @@
     <Content Include="admin\pages-404.html" />
     <Content Include="clients\404.html" />
     <Content Include="clients\about.html" />
+    <Content Include="clients\assets\css\jquery.dataTables.min.css" />
+    <Content Include="clients\assets\css\select2.min.css" />
     <Content Include="clients\assets\css\style.css" />
     <Content Include="clients\assets\images\404.png" />
     <Content Include="clients\assets\images\about_img_1.png" />
@@ -327,6 +329,9 @@
     <Content Include="clients\assets\images\youtube.png" />
     <Content Include="clients\assets\images\youtube.svg" />
     <Content Include="clients\assets\js\app.js" />
+    <Content Include="clients\assets\js\dataTables.bootstrap4.min.js" />
+    <Content Include="clients\assets\js\jquery.dataTables.min.js" />
+    <Content Include="clients\assets\js\select2.min.js" />
     <Content Include="clients\assets\vendors\bootstrap\dist\css\bootstrap-grid.css" />
     <Content Include="clients\assets\vendors\bootstrap\dist\css\bootstrap-grid.min.css" />
     <Content Include="clients\assets\vendors\bootstrap\dist\css\bootstrap-reboot.css" />
@@ -1999,9 +2004,13 @@
     <Content Include="clients\assets\vendors\popper.js\popper-utils.min.js" />
     <Content Include="clients\assets\vendors\popper.js\popper.js" />
     <Content Include="clients\assets\vendors\popper.js\popper.min.js" />
+    <Content Include="clients\auth\codelink.aspx" />
     <Content Include="clients\auth\codelink.html" />
+    <Content Include="clients\auth\staff.aspx" />
+    <Content Include="clients\auth\customer.aspx" />
     <Content Include="clients\auth\dashboard.aspx" />
     <Content Include="clients\auth\events.aspx" />
+    <Content Include="clients\auth\item.aspx" />
     <Content Include="clients\auth\qrcode.aspx" />
     <Content Include="clients\blog-single.html" />
     <Content Include="clients\blog.html" />
@@ -2030,6 +2039,7 @@
     <Content Include="clients\register.html" />
     <Content Include="contest.aspx" />
     <Content Include="DbScript\eventhings-heidi-export.sql" />
+    <Content Include="DbScript\eventhings-mssql-ddl-script.sql" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />
     <Content Include="Services\authenticate.asmx" />
@@ -2073,6 +2083,27 @@
     <Compile Include="clients\auth\auth.Master.designer.cs">
       <DependentUpon>auth.Master</DependentUpon>
     </Compile>
+    <Compile Include="clients\auth\codelink.aspx.cs">
+      <DependentUpon>codelink.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="clients\auth\codelink.aspx.designer.cs">
+      <DependentUpon>codelink.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="clients\auth\staff.aspx.cs">
+      <DependentUpon>staff.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="clients\auth\staff.aspx.designer.cs">
+      <DependentUpon>staff.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="clients\auth\customer.aspx.cs">
+      <DependentUpon>customer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="clients\auth\customer.aspx.designer.cs">
+      <DependentUpon>customer.aspx</DependentUpon>
+    </Compile>
     <Compile Include="clients\auth\dashboard.aspx.cs">
       <DependentUpon>dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2086,6 +2117,13 @@
     </Compile>
     <Compile Include="clients\auth\events.aspx.designer.cs">
       <DependentUpon>events.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="clients\auth\item.aspx.cs">
+      <DependentUpon>item.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="clients\auth\item.aspx.designer.cs">
+      <DependentUpon>item.aspx</DependentUpon>
     </Compile>
     <Compile Include="clients\auth\qrcode.aspx.cs">
       <DependentUpon>qrcode.aspx</DependentUpon>

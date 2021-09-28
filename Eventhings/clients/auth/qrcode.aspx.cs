@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Eventhings.DbContexts;
+using Eventhings.Response;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,5 +15,15 @@ namespace Eventhings.clients.auth
         //{
 
         //}
+
+        public IQueryable<QrCodeRespose> BindBatchName()
+        {
+            return new EventhingsDbContext().tcorecodestores.Where(x => x.batch_name != null).Select(x => new QrCodeRespose() { id = x.id, batch_name = x.batch_name }).Distinct();
+        }
+
+        public IQueryable BindBatchNumber()
+        {
+            return new EventhingsDbContext().tcorecodestores.Distinct().Where(x => x.batch_number != null).Select(x => x.batch_name).Distinct();
+        }
     }
 }

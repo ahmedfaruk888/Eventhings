@@ -11,7 +11,7 @@ namespace Eventhings.clients.auth
 {
 
 
-    public partial class qrcode
+    public partial class customer
     {
 
         /// <summary>

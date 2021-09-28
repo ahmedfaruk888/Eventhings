@@ -32,7 +32,7 @@ namespace Eventhings.Services
                 {
                     var batchExists = _context.tcorecodestores.Where(e => e.batch_name == qrcode.batch_name && e.batch_number == qrcode.batch_number).FirstOrDefault();
 
-                    var batchNumberExists = _context.tcorecodestores.Where(e => e.batch_number == qrcode.batch_number).FirstOrDefault();
+                    //var batchNumberExists = _context.tcorecodestores.Where(e => e.batch_number == qrcode.batch_number).FirstOrDefault();
 
                     //if (batchNameExists != null && batchNumberExists != null)
                     //{
@@ -55,8 +55,6 @@ namespace Eventhings.Services
 
                     if (randomGuid.Count > 0)
                     {
-                        _context.Entry<tcorecodestore>(batchExists).State = System.Data.Entity.EntityState.Modified;
-
                         foreach (var ss in randomGuid)
                         {
                             if (batchExists != null) //if bacth exists, update the records
@@ -68,6 +66,8 @@ namespace Eventhings.Services
                                 batchExists.is_deleted = 0;
                                 batchExists.updated_by = "Admin";
                                 batchExists.updated_at = DateTime.Now;
+
+                                _context.Entry(batchExists).State = System.Data.Entity.EntityState.Modified;
                             }
                             else // insert new records
                             {
@@ -141,6 +141,43 @@ namespace Eventhings.Services
             {
                 response.Status = 0;
                 response.Message = ex.Message;
+            }
+
+            return response;
+        }
+
+        [WebMethod]
+        public List<QrCodeRespose> DistinctBatchNameNumber()
+        {
+            var response = new List<QrCodeRespose>();
+
+            try
+            {
+                using (var _context = new EventhingsDbContext())
+                {
+                    var query = _context.tcorecodestores.Where(filter => filter.code != null).Select(x => new QrCodeRespose()
+                    {
+                        id = x.id,
+                        batch_number = x.batch_number,
+                        batch_name = x.batch_name
+                    }).Distinct().ToList();
+
+                    foreach(var ss in query)
+                    {
+                        response.Add(ss);
+                    }
+                }
+
+                //response.Status = 1;
+                //response.Message = "Batch details retrieved successfuly";
+            }
+            catch (Exception ex)
+            {
+                response.Add(new QrCodeRespose()
+                {
+                    Status = 0,
+                    Message = ex.Message
+                });
             }
 
             return response;

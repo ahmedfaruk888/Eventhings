@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/clients/auth/auth.Master" AutoEventWireup="true" CodeBehind="qrcode.aspx.cs" Inherits="Eventhings.clients.auth.qrcode" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/clients/auth/auth.Master" ClientIDMode="Static" AutoEventWireup="true" CodeBehind="qrcode.aspx.cs" Inherits="Eventhings.clients.auth.qrcode" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="headContentPlaceHolder" runat="server">
     <style type="text/css">
@@ -32,7 +32,7 @@
         </div>
     </section>
     <div class="row">
-        <div class="alert alert-danger alert-dismissible" id="divAlert">
+        <div class="alert alert-danger alert-dismissible" id="divAlert" style="display:none">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <p id="lblErrorText">Error messages or success messages displays here.</p>
         </div>
@@ -41,7 +41,7 @@
 
 <asp:Content ID="bodyContent" ContentPlaceHolderID="bodyContentPlaceHolder" runat="server">
     <section class="contact-form-wrapper">
-        <form action="qrcode.aspx" method="POST" id="frmQrcode">
+        <form action="qrcode.aspx" method="POST" id="frmQrcode" runat="server">
 
             <div class="row">
                 <ul class="nav nav-tabs mb-3" id="myTab0" role="tablist">
@@ -74,25 +74,39 @@
                     <div class="tab-pane fade show active" id="newqrcodecontent" role="tabpanel" aria-labelledby="newqrcode-tab">
                         <div class="row">
                             <section class="page-header" style="padding-top: 20px; padding-bottom: 10px">
-                                <h5>Generate New QR Codes</h5>
+                                <p>Generate New QR Codes</p>
                             </section>
-                            <div class="form-group col-md-4">
-                                <label for="txtBatchNumber">Batch Number <sup>*</sup></label> 
+                            <div class="form-group col-md-4" id="insert-batch-number">
+                                <label for="txtBatchNumber">Batch Number <sup>*</sup></label>
                                 <a href="#" class="batch-edit" onclick="javascript:void(0)"><span class="fa fa-edit"></span></a>
                                 <input type="text" class="form-control" readonly="readonly" id="txtBatchNumber" required="required" name="txtBatchNumber" placeholder="BT-55363676">
+
+                                <select class="form-control" id="cmbBatchNumber" name="cmbBatchNumber">
+                                    <%--<option value="value">--Please choose one--</option>
+                                    <option value="value">--Please choose one--</option>--%>
+                                </select>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-4" id="insert-batch-name">
                                 <label for="txtBatchName">Batch Name <sup>*</sup></label>
                                 <input type="text" class="form-control" id="txtBatchName" name="txtBatchName" placeholder="Evening batch">
+
+                                <select class="form-control" id="cmbBatchName" name="cmbBatchName">
+                                    <%--<option value="value">--Please choose one--</option>
+                                    <option value="value">--Please choose one--</option>--%>
+                                </select>
                             </div>
+
+                            
                             <div class="form-group col-md-4">
                                 <label for="txtCodeCount">Generated Code Count <sup>*</sup></label>
                                 <input type="number" min="1" max="50" class="form-control" id="txtCodeCount" name="txtCodeCount" placeholder="Between 1-50">
                             </div>
+
                             <div class="form-group col-md-4">
                                 <input id="chkActive" name="chkActive" checked="checked" required="required" type="checkbox" value="" />
                                 <label for="chkActive">Set generated code to active</label>
                             </div>
+
                         </div>
 
                         <div class="text-center">
@@ -170,69 +184,7 @@
 
 <asp:Content runat="server" ID="scriptConten" ContentPlaceHolderID="scriptContentPlaceHolder">
     <script type="text/javascript">
-
-        function makeAjaxCall(url, reqtype, data, datatype, cache) {
-
-            $.ajax({
-                type: reqtype,
-                url: url,
-                dataType: datatype,
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(data),
-                cache: cache,
-                success: function (response) {
-
-                    var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
-
-                    return responseData;
-                },
-                error: function (err) {
-                    return err;
-                }
-            });
-        }
-
-        function buildQrCodeTextTable(data) {
-
-            $.each(data, function (i, row) {
-                let rows = `<tr>
-                                            <td><div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" />
-                                                </div>
-                                            </td>
-                                            <td>${row.id}</td> 
-                                            <td class='batchnumber'>${row.batch_number}</td> 
-                                            <td class='batchname'>${row.batcg_name}</td>
-                                            <td>${row.code}</td>
-                                            
-                                            <td class='status'>${(row.active == '1') ? 'Active' : 'In-active'}</td>
-                                            <td class='mapped'>${row.created_at}</td>
-                                            <td>${(row.date_used == undefined) ? 'Not Mapped' : 'Mapped'}</td>
-                                        </tr>`;
-
-                $('#tbody').append(rows);
-            });
-
-        }
-
-
         var pageSize = 10;
-        function pageData(e) {
-            var skip = e == 1 ? 0 : (e * pageSize) - pageSize;
-            $.ajax({
-                type: "POST",
-                url: "/Services/qrcode.asmx/GetMappedQrCode",
-                data: "{skip:" + skip + ",take:" + pageSize + "}",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                async: true,
-                cache: false,
-                success: function (msg) {
-                    printCustomer(msg);
-                }
-            });
-            return false;
-        }
 
         function getUnMappedQRCodeText(active, mapped) {
 
@@ -258,7 +210,7 @@
                         var tbody = $('#tbody');
                         var $tr = $('<tr>');
 
-                        $.each(responseData.Message.qr_codes, function (i, row) {
+                        $.each(responseData.qr_codes, function (i, row) {
                             let rows = `<tr>
                                             <td><div class="form-check">
                                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" />
@@ -266,7 +218,7 @@
                                             </td>
                                             <td>${row.id}</td> 
                                             <td class='batchnumber'>${row.batch_number}</td> 
-                                            <td class='batchname'>${row.batcg_name}</td>
+                                            <td class='batchname'>${row.batch_name}</td>
                                             <td>${row.code}</td>
                                             
                                             <td class='status'>${(row.active == '1') ? 'Active' : 'In-active'}</td>
@@ -279,7 +231,7 @@
 
                         $('#qrcodeTable').DataTable();
 
-                        $("#divAlert").addClass("alert alert-success alert-dismissible fade show").attr('display', false).slideDown("slow");
+                        $("#divAlert").addClass("alert alert-success alert-dismissible fade show").show().slideDown("slow");
                         $("#lblErrorText").html(responseData.Message);
 
                     }
@@ -321,7 +273,7 @@
                         var tbody = $('#tbody');
                         var $tr = $('<tr>');
 
-                        $.each(responseData.Message.qr_codes, function (i, row) {
+                        $.each(responseData.qr_codes, function (i, row) {
                             let rows = `<tr>
                                             <td><div class="form-check">
                                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" />
@@ -329,7 +281,7 @@
                                             </td>
                                             <td>${row.id}</td> 
                                             <td class='batchnumber'>${row.batch_number}</td> 
-                                            <td class='batchname'>${row.batcg_name}</td>
+                                            <td class='batchname'>${row.batch_name}</td>
                                             <td>${row.code}</td>
                                             
                                             <td class='status'>${(row.active == '1') ? 'Active' : 'In-active'}</td>
@@ -337,12 +289,12 @@
                                             <td>${(row.date_used == undefined) ? 'No' : 'Yes'}</td>
                                         </tr>`;
 
-                            $('#tbody').append(rows);
+                            $('#mappedtbody').append(rows);
                         });
 
-                        $('#qrcodeTable').DataTable();
+                        $('#mappedQrcodeTable').DataTable();
 
-                        $("#divAlert").addClass("alert alert-success alert-dismissible fade show").attr('display', false).slideDown("slow");
+                        $("#divAlert").addClass("alert alert-success alert-dismissible fade show").show().slideDown("slow");
                         $("#lblErrorText").html(responseData.Message);
 
                     }
@@ -360,21 +312,54 @@
 
         }
 
-        $(document).ready(function () {
+        function getBatchName() {
+            
+            $.ajax({
+                type: "POST",
+                url: "/Services/qrcode.asmx/DistinctBatchNameNumber",
+                dataType: "json",
+                contentType: "application/json",
+                success: function (res) {
+                    $.each(res.d, function (i, data) {
 
-            $(".batch-edit").on('click', function () {
-
-                var propt = prompt('Are you sure you want to edit the batch - type yes to proceed');
-                if (propt == 'Yes' || propt == 'yes') {
-
-                    $('#txtBatchNumber').prop('readonly', false).val(' ').focus();
+                        $("#cmbBatchNumber").append($("<option></option>").val(data.id).html(data.batch_number));
+                        $("#cmbBatchName").append($("<option></option>").val(data.id).html(data.batch_name));
+                    })
                 }
 
             });
 
-            console.log("Jquery is ready to shoot!!");
+        }
+
+        $(document).ready(function () {
 
             $("#divAlert").hide();
+            $('#cmbBatchName').css('display', 'none');
+            $('#cmbBatchNumber').css('display', 'none');
+
+            //$('#cmbBatchName').select2();
+            //$('#cmbBatchNumber').select2();
+
+            $(".batch-edit").on('click', function () {
+
+                //var propt = prompt('Are you sure you want to edit the batch - type yes to proceed');
+                //if (propt == 'Yes' || propt == 'yes') {
+
+                    //$('#txtBatchNumber').prop('readonly', false).val(' ').focus();
+
+                    $('#txtBatchName').css('display', 'none');
+                    $('#txtBatchNumber').css('display', 'none');
+
+                    $('#cmbBatchName').css('display', 'block');
+                    $('#cmbBatchNumber').css('display', 'block');
+
+
+                    getBatchName();
+                //}
+
+            });
+
+            console.log("Jquery is ready to shoot!!");
 
             //Set new batch number
             $("#txtBatchNumber").val("BTCH - " + Math.floor(Math.random() * 1000000) + 1);
@@ -382,7 +367,7 @@
             //Fetch active records fromt the database
             getUnMappedQRCodeText(1, 0);
 
-            getUnMappedQRCodeText(1, 1);
+            getMappedQRCodeText(1, 1);
 
             //validate form
             //$("#frmQrcode").validate();

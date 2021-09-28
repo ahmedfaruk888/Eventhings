@@ -30,6 +30,7 @@ namespace Eventhings.DbContexts
         public virtual DbSet<tcorewallet> tcorewallets { get; set; }
         public virtual DbSet<tmstrcategory> tmstrcategories { get; set; }
         public virtual DbSet<tmstrtranxchannel> tmstrtranxchannels { get; set; }
+        //public virtual DbSet<tmstronaimo> tmstronaimos { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
