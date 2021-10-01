@@ -28,26 +28,30 @@ namespace Eventhings.Services
             var response = new QrCodeRespose();
             try
             {
+                if (string.IsNullOrEmpty(qrcode.batch_number)) 
+                {
+                    response.Status = 0;
+                    response.Message = $"Batch  number is required";
+                    return response;
+                }
+
+                if (string.IsNullOrEmpty(qrcode.batch_name))
+                {
+                    response.Status = 0;
+                    response.Message = $"Batch name is required";
+                    return response;
+                }
+
+                if (string.IsNullOrEmpty(qrcode.code_count.ToString()) || qrcode.code_count < 1)
+                {
+                    response.Status = 0;
+                    response.Message = $"Generated qr code count is required or must be greate than zero";
+                    return response;
+                }
+
                 using (var _context = new EventhingsDbContext())
                 {
                     var batchExists = _context.tcorecodestores.Where(e => e.batch_name == qrcode.batch_name && e.batch_number == qrcode.batch_number).FirstOrDefault();
-
-                    //var batchNumberExists = _context.tcorecodestores.Where(e => e.batch_number == qrcode.batch_number).FirstOrDefault();
-
-                    //if (batchNameExists != null && batchNumberExists != null)
-                    //{
-                    //    response.Status = 0;
-                    //    response.Message = "The batch name specified already exists";
-                    //    return response;
-                    //}
-
-                    
-                    //if (batchNameExists != null)
-                    //{
-                    //    response.Status = 0;
-                    //    response.Message = "The batch number specified already exists";
-                    //    return response;
-                    //}
 
                     var codeCount = qrcode.code_count;
                     var randomGuid = CommonRandomNumber.GetRandomGuid(codeCount);
@@ -59,30 +63,63 @@ namespace Eventhings.Services
                         {
                             if (batchExists != null) //if bacth exists, update the records
                             {
-                                batchExists.batch_number = qrcode.batch_number;
-                                batchExists.batch_name = qrcode.batch_name;
-                                batchExists.code = ss.Value;
-                                batchExists.active = qrcode.active;
-                                batchExists.is_deleted = 0;
-                                batchExists.updated_by = "Admin";
-                                batchExists.updated_at = DateTime.Now;
-
-                                _context.Entry(batchExists).State = System.Data.Entity.EntityState.Modified;
-                            }
-                            else // insert new records
-                            {
                                 _context.tcorecodestores.AddRange(new List<tcorecodestore>()
-                                    {
-                                        new tcorecodestore()
+                                 {
+                                    new tcorecodestore()
                                         {
                                             batch_number = qrcode.batch_number,
                                             batch_name = qrcode.batch_name,
                                             code = ss.Value,
                                             active = qrcode.active,
                                             is_deleted = 0,
-                                            created_by = "Admin"
+                                            created_by = "Admin",
+                                            created_at = DateTime.Now
                                         }
-                                    });
+                                 });
+
+                                //batchExists.batch_number = qrcode.batch_number;
+                                //batchExists.batch_name = qrcode.batch_name;
+                                //batchExists.code = ss.Value;
+                                //batchExists.active = qrcode.active;
+                                //batchExists.is_deleted = 0;
+                                //batchExists.updated_by = "Admin";
+                                //batchExists.updated_at = DateTime.Now;
+
+                                //_context.Entry(batchExists).State = System.Data.Entity.EntityState.Modified;
+                            }
+                            else // insert new records
+                            {
+                                //validatation : check if qrcode name and number exists before inserting new ones
+                                var batchNameExists = _context.tcorecodestores.Where(e => e.batch_name == qrcode.batch_name).FirstOrDefault();
+
+                                var batchNumberExists = _context.tcorecodestores.Where(e => e.batch_number == qrcode.batch_number).FirstOrDefault();
+
+                                if (batchNameExists != null && batchNameExists.batch_name == qrcode.batch_name)
+                                {
+                                    response.Status = 0;
+                                    response.Message = "The batch name specified already exists";
+                                    return response;
+                                }
+
+                                if (batchNumberExists != null && batchNumberExists.batch_number == qrcode.batch_number)
+                                {
+                                    response.Status = 0;
+                                    response.Message = "The batch number specified already exists";
+                                    return response;
+                                }
+                                _context.tcorecodestores.AddRange(new List<tcorecodestore>()
+                                 {
+                                    new tcorecodestore()
+                                        {
+                                            batch_number = qrcode.batch_number,
+                                            batch_name = qrcode.batch_name,
+                                            code = ss.Value,
+                                            active = qrcode.active,
+                                            is_deleted = 0,
+                                            created_by = "Admin",
+                                            created_at = DateTime.Now
+                                        }
+                                 });
                             }
                         }
                     }
@@ -91,7 +128,6 @@ namespace Eventhings.Services
 
                     if (rowsAffected > 0)
                     {
-
                         response.Status = rowsAffected;
                         response.Message = $"{rowsAffected} new QR code text was generated successfuly, switch to 'Un-mapped QR Code Text' tab to view it";
                     }
@@ -100,47 +136,229 @@ namespace Eventhings.Services
             catch(Exception ex)
             {
                 response.Status = 0;
-                response.Message = ex.Message;
+                response.Message = ex.ToString();
             }
 
             return response;
         }
 
         [WebMethod]
-        public QrCodeRespose GetMappedQrCode(/*int skip, int take,*/ int active = 1, int mapped = 0)
+        public List<MappedQrCodeRespose> GetMappedQrCode()
+        {
+            var response = new List<MappedQrCodeRespose>();
+            try
+            {
+                using (var _context = new EventhingsDbContext())
+                {
+                    var query = _context.tcoremappedcodes.Where(p => p.deleted == 0 && p.date_mapped != null).ToList();
+
+                    foreach(var x in query)
+                    {
+                        response.Add(new MappedQrCodeRespose()
+                        {
+                            id = x.id,
+                            user_id = x.user_id,
+                            code_id = x.code_id,
+                            date_mapped = x.date_mapped,
+                            event_id = x.event_id,
+                            deleted = x.deleted,
+                            created_by = x.created_by,
+                            created_at = x.created_at,
+                            Status = 1
+                        });
+                    }
+                }
+
+                //response.Status = 1;
+            }
+            catch(Exception ex)
+            {
+                response.Add(new MappedQrCodeRespose()
+                {
+                    Status = 0,
+                    Message = ex.ToString()
+                });
+            }
+
+            return response;
+        }
+
+        [WebMethod]
+        public MappedQrCodeRespose GetMappedQrCodeById(int codeid)
+        {
+            var response = new MappedQrCodeRespose();
+            try
+            {
+                using (var _context = new EventhingsDbContext())
+                {
+                    var query = _context.tcoremappedcodes.Where(p => p.deleted == 0 && (p.code_id == codeid && p.date_mapped != null)).FirstOrDefault();
+                    if (query != null)
+                        response.Status = 1;
+                    else
+                        response.Status = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = 0;
+                response.Message = ex.ToString();
+            }
+
+            return response;
+        }
+
+        [WebMethod]
+        public MappedQrCodeRespose GetMappedQrCodeByCode(string code)
+        {
+            var response = new MappedQrCodeRespose();
+            try
+            {
+                if (string.IsNullOrWhiteSpace(code))
+                {
+                    response.Status = 0;
+                    response.Message = "The QR code text is required";
+                    return response;
+                }
+
+                using (var _context = new EventhingsDbContext())
+                {
+                    var codeQuery = _context.tcorecodestores.Where(c => c.code == code && c.is_deleted == 0).FirstOrDefault();
+                    
+                    if(codeQuery == null)
+                    {
+                        response.Status = 0;
+                        response.Message = "The QR code text does not exists, please contact eventi.ng administrator";
+                        return response;
+                    }
+
+                    //check if code is mapped... (dissable ui control and display who it is mapped to) - plus the event it is mapped to
+                    //if not mapped
+
+                    var query = _context.tcoremappedcodes
+                        .Join
+                        (
+                            _context.tcoreevents,
+                            mcodes => mcodes.event_id,
+                            eventt => eventt.id,
+                            (mcodes, eventt) => new MappedQrCodeRespose()
+                            {
+                                event_id = eventt.id,
+                                event_name = eventt.name,
+                                date_mapped = mcodes.date_mapped,
+                                code_id = mcodes.code_id,
+                                deleted = mcodes.deleted,
+                                id = mcodes.code_id,
+                                Message = "Success",
+                                user_id = mcodes.user_id
+                            }
+                        )
+                        .Where(p => p.deleted == 0 && (p.code_id == codeQuery.id && p.date_mapped != null))
+                        .Select(cc => new MappedQrCodeRespose() 
+                        {
+                            event_id = cc.id,
+                            event_name = cc.event_name,
+                            date_mapped = cc.date_mapped,
+                            code_id = cc.code_id,
+                            deleted = cc.deleted,
+                            id = cc.code_id,
+                            Message = "Success",
+                            user_id = cc.user_id
+                        })
+                        .ToList();
+
+                        #region
+                    //.Select(n => new MappedQrCodeRespose() 
+                    //{
+                    //    id = n.id,
+                    //    code_id = n.code_id,
+                    //    date_mapped = n.date_mapped,
+                    //    deleted = n.deleted,
+                    //    event_id = n.event_id,
+                    //    user_id = n.user_id,
+                    //    created_by = n.created_by,
+                    //    created_at = n.created_at,
+                    //}).FirstOrDefault();
+                    #endregion
+
+                    if (query != null)
+                        response.Status = 1;
+                    else
+                        response.Status = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = 0;
+                response.Message = ex.ToString();
+            }
+
+            return response;
+        }
+
+        [WebMethod]
+        public QrCodeRespose GetStoreQrCode(string code)
         {
             var response = new QrCodeRespose();
+            try
+            {
+                using (var _context = new EventhingsDbContext())
+                {
+                    var query = _context.tcorecodestores.Where(p => p.is_deleted == 0 && p.code == code).FirstOrDefault();
+                    if (query != null)
+                        response.Status = 1;
+                    else
+                        response.Status = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = 0;
+                response.Message = ex.ToString();
+            }
+
+            return response;
+        }
+
+        [WebMethod]
+        public List<QrCodeRespose> GetUnMappedQrCode()
+        {
+            var response = new List<QrCodeRespose>();
             //var qrCode = new QRCodeDto();
 
             try
             {
                 using (var _context = new EventhingsDbContext())
                 {
-                    var query = new List<tcorecodestore>();
-                    if(mapped == 0)
-                    {
-                        query = (from p in _context.tcorecodestores
-                                 where p.active == active && p.is_deleted == 0 && p.date_used == null select p).OrderBy(p => p.id).ToList();
-                    }
-                    else
-                    {
-                        query = (from p in _context.tcorecodestores
-                                     where p.active == active && p.is_deleted == 0 && p.date_used != null select p).OrderBy(p => p.id).ToList();
-                    }
+                    var query = (from p in _context.tcorecodestores
+                             where /*p.active == 1 &&*/ p.is_deleted == 0 && p.date_used == null
+                             select p).OrderBy(p => p.id).ToList();
 
-                    //query = _context.tmstrcodestores.Skip(skip).Take(take).ToList();
-
-                    response.qr_codes = query;
-                    response.total_code_count = (from p in _context.tcorecodestores select p).Count();
+                    foreach (var x in query)
+                    {
+                        response.Add(new QrCodeRespose()
+                        {
+                            id = x.id,
+                            code = x.code,
+                            encrypted_code = x.encrypted_code,
+                            batch_name = x.batch_name,
+                            batch_number = x.batch_number,
+                            active = x.active,
+                            is_deleted = x.is_deleted,
+                            date_used = x.date_used,
+                            Status = 1,
+                            created_at = x.created_at
+                        });
+                    }
+                    //response.total_code_count = (from p in _context.tcorecodestores select p).Count();
                 }
-
-                response.Status = 1;
-                //response.Message = qrCode;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                response.Status = 0;
-                response.Message = ex.Message;
+                response.Add(new QrCodeRespose()
+                {
+                    Status = 0,
+                    Message = ex.ToString()
+                });
             }
 
             return response;
@@ -155,16 +373,23 @@ namespace Eventhings.Services
             {
                 using (var _context = new EventhingsDbContext())
                 {
-                    var query = _context.tcorecodestores.Where(filter => filter.code != null).Select(x => new QrCodeRespose()
+                    var query = _context.tcorecodestores.Where(filter => filter.batch_number != null).Select(x => new QrCodeRespose()
                     {
                         id = x.id,
                         batch_number = x.batch_number,
                         batch_name = x.batch_name
                     }).Distinct().ToList();
 
-                    foreach(var ss in query)
+                    //var query = _context.tcorecodestores.SqlQuery("select id, batch_number, batch_name from tcorecodestores where active = 1 and is_deleted = 0 and date_used is null").ToList();
+
+                    foreach (var ss in query)
                     {
-                        response.Add(ss);
+                        response.Add(new QrCodeRespose()
+                        {
+                            id = ss.id,
+                            batch_name = ss.batch_name,
+                            batch_number = ss.batch_number,
+                        });
                     }
                 }
 
@@ -184,42 +409,38 @@ namespace Eventhings.Services
         }
 
         [WebMethod]
-        public QrCodeRespose Search(QRCodeDto qrcode)
+        public List<QrCodeRespose> GenerteQRCodeImage(string batchname)
         {
-            var response = new QrCodeRespose();
-            //var qrCode = new QRCodeDto();
-
+            var response = new List<QrCodeRespose>();
             try
             {
                 using (var _context = new EventhingsDbContext())
                 {
-                    var query = new List<tcorecodestore>();
-                    if (qrcode.batch_number != null)
-                    {
-                        query = (from p in _context.tcorecodestores
-                                 where p.active == qrcode.active && p.batch_number == qrcode.batch_number
-                                 select p).OrderBy(p => p.batch_number).ToList();
-                    }
-                    else if(qrcode.batch_name != null)
-                    {
-                        query = (from p in _context.tcorecodestores
-                                 where p.active == qrcode.active && p.batch_name == qrcode.batch_name
-                                 select p).OrderBy(p => p.batch_name).ToList();
-                    }
 
-                    //query = _context.tmstrcodestores.Skip(skip).Take(take).ToList();
+                    var query = _context.tcorecodestores.Where(name => name.batch_name == batchname).ToList();
 
-                    response.qr_codes = query;
-                    response.total_code_count = (from p in _context.tcorecodestores select p).Count();
+                    foreach(var ss in query)
+                    {
+                        response.Add(new QrCodeRespose() 
+                        { 
+                             id = ss.id,
+                             code = ss.code,
+                             batch_name = ss.batch_name,
+                             batch_number = ss.batch_number,
+                             Status = 1,
+                             Message = $"{ss.id}|{ss.code}"
+                        });
+                    }
+                    //response.total_code_count = (from p in _context.tcorecodestores select p).Count();
                 }
-
-                response.Status = 1;
-                //response.Message = qrCode;
             }
             catch (Exception ex)
             {
-                response.Status = 0;
-                response.Message = ex.Message;
+                response.Add(new QrCodeRespose()
+                {
+                    Status = 0,
+                    Message = ex.ToString()
+                });
             }
 
             return response;

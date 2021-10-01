@@ -11,17 +11,17 @@ namespace Eventhings.clients.auth
 {
 
 
-    public partial class qrcode
+    public partial class account
     {
 
         /// <summary>
-        /// frmQrcode control.
+        /// frmAccount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm frmQrcode;
+        protected global::System.Web.UI.HtmlControls.HtmlForm frmAccount;
 
         /// <summary>
         /// cmbGenBatchNames control.

@@ -1,43 +1,43 @@
-﻿////function CallMethod(url, parameters, successCallback) {
-////    //show loading... image
+﻿function callmethod(url, parameters, successcallback) {
+    //show loading... image
 
-////    $.ajax({
-////        type: 'POST',
-////        url: url,
-////        data: JSON.stringify(parameters),
-////        contentType: 'application/json;',
-////        dataType: 'json',
-////        success: successCallback,
-////        error: function (xhr, textStatus, errorThrown) {
-////            console.log('error');
-////        }
-////    });
-////}
+    $.ajax({
+        type: 'post',
+        url: url,
+        data: json.stringify(parameters),
+        contenttype: 'application/json;',
+        datatype: 'json',
+        success: successcallback,
+        error: function (xhr, textstatus, errorthrown) {
+            console.log('error');
+        }
+    });
+}
 
-////CallMethod(url, pars, onSuccess);
+//callmethod(url, pars, onsuccess);
 
-////function onSuccess(param) {
-////    //remove loading... image
-////    //do something with the response
-////}
+function onsuccess(param) {
+    //remove loading... image
+    //do something with the response
+}
 
-////function makeAjaxCall(url, reqtype, data, datatype, cache) {
+function makeajaxcall(url, reqtype, data, datatype, cache) {
 
-////    $.ajax({
-////        type: reqtype,
-////        url: url,
-////        dataType: datatype,
-////        contentType: "application/json; charset=utf-8",
-////        data: JSON.stringify(data),
-////        cache: cache,
-////        success: function (response) {
+    $.ajax({
+        type: reqtype,
+        url: url,
+        datatype: datatype,
+        contenttype: "application/json; charset=utf-8",
+        data: json.stringify(data),
+        cache: cache,
+        success: function (response) {
 
-////            var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
+            var responsedata = (response.d !== null || response.d !== undefined) ? response.d : response;
 
-////            return responseData;
-////        },
-////        error: function (err) {
-////            return err;
-////        }
-////    });
-////}
+            return responsedata;
+        },
+        error: function (err) {
+            return err;
+        }
+    });
+}

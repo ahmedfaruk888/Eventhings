@@ -22,7 +22,8 @@
 
 </head>
 <body>
-    <header class="foi-header" style="padding-top: 2px">
+    <asp:ContentPlaceHolder ID="menuContentplaceHolder" runat="server">
+        <header class="foi-header" style="padding-top: 2px">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light foi-navbar" style="margin-top: 2px">
                 <a class="navbar-brand" href="index.html">
@@ -37,13 +38,13 @@
                             <a class="nav-link" href="dashboard.aspx">Dashboard |<span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="qrcode.aspx">QR Code|</a>
+                            <a class="nav-link" href="qrcode.aspx">QR Codes|</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="customer.aspx">Customer|</a>
+                            <a class="nav-link" href="customer.aspx">Customers|</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="staff.aspx">Staff|</a>
+                            <a class="nav-link" href="account.aspx">Accounts|</a>
                         </li>
                          <li class="nav-item">
                             <a class="nav-link" href="item.aspx">Products|</a>
@@ -67,7 +68,7 @@
             </nav>
         </div>
     </header>
-
+    </asp:ContentPlaceHolder>
 
     <main>
         <div class="container">
@@ -102,7 +103,8 @@
 
     </main>
 
-    <footer class="foi-footer text-white">
+    <asp:ContentPlaceHolder runat="server" ID="footerContentPlaceHolder">
+        <footer class="foi-footer text-white">
         <div class="container">
             <div class="row footer-widget-area">
                 <div class="col-md-3">
@@ -137,7 +139,7 @@
             </div>
         </div>
     </footer>
-
+    </asp:ContentPlaceHolder>
     <script src="../assets/vendors/jquery/jquery.min.js"></script>
     <script src="../assets/vendors/popper.js/popper.min.js"></script>
     <script src="../assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -149,7 +151,7 @@
 
     <script src="../assets/js/app.js"></script>
 
-    <script src="../assets/js/select2.min.js"></script>
+    <script src="../assets/js/jquery.print.min.js"></script>
 
     <asp:ContentPlaceHolder ID="scriptContentPlaceHolder" runat="server">
     </asp:ContentPlaceHolder>

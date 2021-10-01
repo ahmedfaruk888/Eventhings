@@ -8,15 +8,20 @@ namespace Eventhings.Dto
 {
     public partial class RegisterDto
     {
+        public int direction { get; set; }
+        public int user_type { get; set; } = 1;
+        public int active { get; set; }
+        public int require_password_change { get; set; }
         public string user_code { get; set; }
-        [Required]
-        [StringLength(128)]
         public string email { get; set; }
         public DateTime? email_confirmed { get; set; }
+        public DateTime? phone_number_confirmed { get; set; }
         public string password_hash { get; set; }
         public string phone_number { get; set; }
         public string first_name { get; set; }
         public string last_name { get; set; }
         public string other_name { get; set; }
+        public string created_by { get; set; }
+        public DateTime?  created_at { get; set; }
     }
 }

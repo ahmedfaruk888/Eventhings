@@ -1,54 +1,51 @@
-﻿using Eventhings.DbContexts;
-using Eventhings.Dto;
-using Eventhings.Response;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Script.Services;
 using System.Web.Services;
+using Eventhings.DbContexts;
+using Eventhings.Dto;
+using Eventhings.Response;
 
 namespace Eventhings.Services
 {
     /// <summary>
-    /// Summary description for events
+    /// Summary description for roles
     /// </summary>
     [WebService(Namespace = "http://tempuri.org/")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
-    [ScriptService]
-    public class events : System.Web.Services.WebService
+    // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
+    [System.Web.Script.Services.ScriptService]
+    public class roles : System.Web.Services.WebService
     {
 
         [WebMethod]
-        public List<EventResponse> Get()
+        public List<RoleResponse> Get()
         {
-            var response = new List<EventResponse>();
+            var response = new List<RoleResponse>();
 
             try
             {
                 using (var _context = new EventhingsDbContext())
                 {
-                    var query = _context.tcoreevents
-                        .Where(e => e.active == 1 && e.deleted == 0)
-                        .Select(n => new EventResponse() 
+                    var query = _context.tcoreroles
+                        .Where(e => e.active == 1 && e.is_deleted == 0)
+                        .Select(n => new RoleResponse()
                         {
                             id = n.id,
                             name = n.name,
                             description = n.description,
+                            is_deleted = n.is_deleted,
+                            level = n.level,
                             active = n.active,
-                            deleted = n.deleted,
-                            Status = 1,
-                            duration = n.duration,
-                            start_date = n.start_date,
-                            host_id = n.host_id,
-                            end_date = n.end_date,
                             created_at = n.created_at,
-                            created_by = n.created_by
+                            created_by = n.created_by,
+                            updated_at = n.updated_at,
+                            updated_by = n.updated_by
                         }).ToList();
 
-                    foreach(var ss in query)
+                    foreach (var ss in query)
                     {
                         response.Add(ss);
                     }
@@ -56,7 +53,7 @@ namespace Eventhings.Services
             }
             catch (Exception ex)
             {
-                response.Add(new EventResponse()
+                response.Add(new RoleResponse()
                 {
                     Status = 0,
                     Message = ex.ToString()

@@ -15,7 +15,7 @@
         <h2>Manage QR Codes</h2>
         <h5>Generate new QR codes, manage exisiting code by batch and date.</h5>
     </section>--%>
-    <section class="contact-content">
+    <%--<section class="contact-content">
         <div class="contact-widget media">
             <img src="../assets/images/icon-4.png" alt="monitor" width="50">
             <div class="media-body">
@@ -30,11 +30,13 @@
                 <p class="widget-content">Having issues with a customer QR code, deativate it here</p>
             </div>
         </div>
-    </section>
+    </section>--%>
     <div class="row">
-        <div class="alert alert-danger alert-dismissible" id="divAlert" style="display:none">
+        <div class="alert alert-danger alert-dismissible" id="divAlert">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <p id="lblErrorText">Error messages or success messages displays here.</p>
+            <p id="lblErrorText">
+
+            </p>
         </div>
     </div>
 </asp:Content>
@@ -90,10 +92,10 @@
                                 <label for="txtBatchName">Batch Name <sup>*</sup></label>
                                 <input type="text" class="form-control" id="txtBatchName" name="txtBatchName" placeholder="Evening batch">
 
-                                <select class="form-control" id="cmbBatchName" name="cmbBatchName">
+                                <%--<select class="form-control" id="cmbBatchName" name="cmbBatchName">
                                     <%--<option value="value">--Please choose one--</option>
-                                    <option value="value">--Please choose one--</option>--%>
-                                </select>
+                                    <option value="value">--Please choose one--</option>
+                                </select>--%>
                             </div>
 
                             
@@ -107,11 +109,12 @@
                                 <label for="chkActive">Set generated code to active</label>
                             </div>
 
-                        </div>
-
-                        <div class="text-center">
-                            <button type="submit" id="btnSubmit" class="btn btn-lg btn-primary mb-4">Generate New Code</button>
-                            <p class="form-footer-text">Switch to the active QR Code tab to view active QR codes.</p>
+                            <div class="text-right">
+                                <button type="submit" id="btnSubmit" class="btn btn-lg btn-primary mb-4">Generate New Code</button>
+                            </div>
+                            <div class="text-center">
+                                <p class="form-footer-text">Switch to the active QR Code tab to view active QR codes.</p>
+                            </div>
                         </div>
                     </div>
 
@@ -119,7 +122,7 @@
                         <p class="feature-title" style="margin-bottom: 10px">
                            Mapped QR code text are QR code text that has been mapped to any customer.
                         </p>
-                        <table class="table table-striped table-bordered"  style="width:100%; font-size: .8rem;" id="mappedQrcodeTable">
+                        <table class="table table-striped"  style="width:100%; max-height: 500px; font-size: .7rem;" id="mappedQrcodeTable">
                             <thead>
                                 <tr>
                                     <th scope="col">
@@ -128,12 +131,12 @@
                                         </div>
                                     </th>
                                     <th scope="col">S/N</th>
-                                    <th scope="col">Number</th>
-                                    <th scope="col">Name</th>
+                                    <th scope="col">User ID</th>
                                     <th scope="col">Code Text</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Is Mapped</th>
+                                    <th scope="col">Date Mapped</th>
+                                    <th scope="col">Event</th>
+                                    <%--<th scope="col">Date</th>
+                                    <th scope="col">Mapped</th>--%>
                                 </tr>
                             </thead>
                             <tbody id="mappedtbody">
@@ -147,7 +150,7 @@
                             Un-mapped QR code text are QR code text that has not been mapped to any customer. Mapping can be done directly from within 
                             this tab or from the customer profile page.
                         </p>
-                        <table class="table table-striped table-bordered"  style="width:100%; font-size: .8rem;" id="qrcodeTable">
+                        <table class="table table-striped table-bordered"  style="width:100%; font-size: .7rem;" id="unmappedTable">
                             <thead>
                                 <tr>
                                     <th scope="col">
@@ -159,21 +162,51 @@
                                     <th scope="col">Number</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Code Text</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Is Mapped</th>
+                                    <th scope="col">Active</th>
+                                    <th scope="col">Created Date</th>
+                                    <th scope="col">Mapped</th>
                                 </tr>
                             </thead>
-                            <tbody id="tbody">
+                            <tbody id="unmappedtbody">
                                 
                             </tbody>
                         </table>
                     </div>
 
                     <div class="tab-pane fade" id="printqrcodecontent" role="tabpanel" aria-labelledby="printqrcode-tab">
-                        <p class="feature-title">
-                            You can print QR Codes from exisiting un-mapped QR Code texts
-                        </p>
+                        <section class="page-header" style="padding-top: 20px; padding-bottom: 10px">
+                            <p>Print QR Code Images From Store QR Code Text</p>
+                        </section>
+                        
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <%--<label for="cmbGenBatchNames">Batch Name </label>--%>
+                                <select class="form-control" name="cmbGenBatchNames" id="cmbGenBatchNames" runat="server">
+                                    <option value="1">New Bach Test</option>
+                                    <option value="2">New Bach Test A</option>
+                                    <option value="2">New Bach Test Z</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <%--<button type="submit" id="btnGenerateQrCodeImages" class="btn btn-lg btn-primary mb-4">Generate QR Code</button>--%>
+                                <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-mdb-toggle="dropdown"
+                                    aria-expanded="false"> Choose an action
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <li>
+                                        <a class="dropdown-item" id="btnGenerateQrCodeImages" href="#">Generate QR Code Image</a>
+                                    </li>
+                                    <li><a class="dropdown-item" id="btnPrintSection" href="print.aspx">Print</a></li>
+                                    <li><a class="dropdown-item" href="#">Extras</a></li>
+                                </ul>
+                            </div>
+                            </div>
+                        </div>
+
+                        <div class="row" id="divQrCardBody">
+                            
+                        </div>
                     </div>
                 </div>
             </div>
@@ -186,52 +219,47 @@
     <script type="text/javascript">
         var pageSize = 10;
 
-        function getUnMappedQRCodeText(active, mapped) {
-
-            var data = {
-                active: active,
-                mapped : mapped
-            };
+        function getUnMappedQRCodeText() {
 
             $.ajax({
                 type: "POST",
-                url: "/Services/qrcode.asmx/GetMappedQrCode",
+                url: "/Services/qrcode.asmx/GetUnMappedQrCode",
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(data),
+                //data: JSON.stringify(data),
                 cache: false,
                 success: function (response) {
 
                     var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
-                    /*console.log(responseData);*/
+                    console.log(responseData[0].Status);
                     var status = responseData.Status;
-                    if (status >= '1') {
+                    if (responseData[0].Status >= '1') {
 
-                        var tbody = $('#tbody');
-                        var $tr = $('<tr>');
+                        //var tbody = $('#unmappedtbody');
+                        //var $tr = $('<tr>');
 
-                        $.each(responseData.qr_codes, function (i, row) {
+                        $.each(responseData, function (i, row) {
                             let rows = `<tr>
                                             <td><div class="form-check">
                                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" />
                                                 </div>
                                             </td>
                                             <td>${row.id}</td> 
-                                            <td class='batchnumber'>${row.batch_number}</td> 
-                                            <td class='batchname'>${row.batch_name}</td>
+                                            <td>${row.batch_number}</td> 
+                                            <td>${row.batch_name}</td>
                                             <td>${row.code}</td>
                                             
-                                            <td class='status'>${(row.active == '1') ? 'Active' : 'In-active'}</td>
-                                            <td class='mapped'>${row.created_at}</td>
+                                            <td>${(row.active == '1') ? 'Yes' : 'No'}</td>
+                                            <td>${row.created_at}</td >
                                             <td>${(row.date_used == undefined) ? 'No' : 'Yes'}</td>
                                         </tr>`;
 
-                            $('#tbody').append(rows);
+                            $('#unmappedtbody').append(rows);
                         });
 
-                        $('#qrcodeTable').DataTable();
+                        $('#unmappedTable').DataTable();
 
-                        $("#divAlert").addClass("alert alert-success alert-dismissible fade show").show().slideDown("slow");
+                        //$("#divAlert").addClass("alert alert-success alert-dismissible fade show").show().slideDown("slow");
                         $("#lblErrorText").html(responseData.Message);
 
                     }
@@ -243,50 +271,42 @@
                 },
                 error: function (data) {
                     /*$("#divAlert").addClass("alert alert-danger alert-dismissible fade show").slideDown("slow");*/
-                    $("#lblErrorText").html("Error occured while submiting form");
+                    $("#lblErrorText").html("Error occured while fetching data - Un-mapped code");
                 }
             });
 
         }
 
-        function getMappedQRCodeText(active, mapped) {
-
-            var data = {
-                active: active,
-                mapped: mapped
-            };
+        function getMappedQRCodeText() {
 
             $.ajax({
                 type: "POST",
                 url: "/Services/qrcode.asmx/GetMappedQrCode",
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(data),
+                //data: JSON.stringify(data),
                 cache: false,
                 success: function (response) {
 
                     var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
                     /*console.log(responseData);*/
-                    var status = responseData.Status;
+                    var status = responseData[0].Status;
                     if (status >= '1') {
 
                         var tbody = $('#tbody');
                         var $tr = $('<tr>');
 
-                        $.each(responseData.qr_codes, function (i, row) {
+                        $.each(responseData, function (i, row) {
                             let rows = `<tr>
                                             <td><div class="form-check">
                                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" />
                                                 </div>
                                             </td>
                                             <td>${row.id}</td> 
-                                            <td class='batchnumber'>${row.batch_number}</td> 
-                                            <td class='batchname'>${row.batch_name}</td>
-                                            <td>${row.code}</td>
-                                            
-                                            <td class='status'>${(row.active == '1') ? 'Active' : 'In-active'}</td>
-                                            <td class='mapped'>${row.created_at}</td>
-                                            <td>${(row.date_used == undefined) ? 'No' : 'Yes'}</td>
+                                            <td>${row.user_id}</td>
+                                            <td>${row.code_id}</td>
+                                            <td>${row.date_mapped}</td>
+                                            <td>${row.event_id}</td>
                                         </tr>`;
 
                             $('#mappedtbody').append(rows);
@@ -306,24 +326,28 @@
                 },
                 error: function (data) {
                     /*$("#divAlert").addClass("alert alert-danger alert-dismissible fade show").slideDown("slow");*/
-                    $("#lblErrorText").html("Error occured while submiting form");
+                    $("#lblErrorText").html("Error occured while fetching data - mapped codes");
                 }
             });
 
         }
 
         function getBatchName() {
-            
+
+            $("#cmbBatchNumber").empty();
             $.ajax({
                 type: "POST",
                 url: "/Services/qrcode.asmx/DistinctBatchNameNumber",
                 dataType: "json",
                 contentType: "application/json",
+                cache: false,
                 success: function (res) {
                     $.each(res.d, function (i, data) {
 
-                        $("#cmbBatchNumber").append($("<option></option>").val(data.id).html(data.batch_number));
-                        $("#cmbBatchName").append($("<option></option>").val(data.id).html(data.batch_name));
+                        $("#cmbBatchNumber").append($("<option></option>").val(data.id).html(data.batch_number + ' | ' + data.batch_name));
+                        //$("#cmbBatchName").append($("<option></option>").val(data.id).html(data.batch_name));
+
+                        $("#cmbGenBatchNames").append($("<option></option>").val(data.id).html(data.batch_name));
                     })
                 }
 
@@ -333,46 +357,63 @@
 
         $(document).ready(function () {
 
-            $("#divAlert").hide();
+            //Fetch active records from the database
+            getUnMappedQRCodeText();
+            getMappedQRCodeText();
+
+            //getBatchName();
+
+            //$('#divAlert').css('display', 'none');
+
             $('#cmbBatchName').css('display', 'none');
             $('#cmbBatchNumber').css('display', 'none');
 
-            //$('#cmbBatchName').select2();
-            //$('#cmbBatchNumber').select2();
-
+            //Edit existing QR Code batch and code
             $(".batch-edit").on('click', function () {
 
-                //var propt = prompt('Are you sure you want to edit the batch - type yes to proceed');
-                //if (propt == 'Yes' || propt == 'yes') {
+                if ($(".batch-edit span").hasClass('fa fa-edit')) {
 
-                    //$('#txtBatchNumber').prop('readonly', false).val(' ').focus();
-
-                    $('#txtBatchName').css('display', 'none');
                     $('#txtBatchNumber').css('display', 'none');
+                    $('#txtBatchName').attr('readonly', true);
 
-                    $('#cmbBatchName').css('display', 'block');
+                    //$('#cmbBatchName').css('display', 'block');
                     $('#cmbBatchNumber').css('display', 'block');
 
+                    $(".batch-edit span").removeClass('fa fa-edit').addClass('fa fa-directions');
 
                     getBatchName();
-                //}
+
+                } else if ($(".batch-edit span").hasClass('fa fa-directions')) {
+
+                    $('#txtBatchNumber').css('display', 'block');
+                    $('#txtBatchName').attr('readonly', false);
+
+                    //$('#cmbBatchName').css('display', 'block');
+                    $('#cmbBatchNumber').css('display', 'none');
+
+                    $(".batch-edit span").removeClass('fa fa-directions').addClass('fa fa-edit');
+
+                } else { return; }
 
             });
+
+            //Get QR Code bact name from number
+            $('#cmbBatchNumber').on('change', function () {
+
+                $('#txtBatchName').val($("#cmbBatchNumber option:selected").text().split('|')[1].trim());
+
+            })
 
             console.log("Jquery is ready to shoot!!");
 
             //Set new batch number
             $("#txtBatchNumber").val("BTCH - " + Math.floor(Math.random() * 1000000) + 1);
 
-            //Fetch active records fromt the database
-            getUnMappedQRCodeText(1, 0);
-
-            getMappedQRCodeText(1, 1);
-
             //validate form
             //$("#frmQrcode").validate();
             $("#btnSubmit").on('click', function (e) {
 
+                //alert('clicked');
                 e.preventDefault();
 
                 var _bnumber = $('#txtBatchNumber').val();
@@ -396,8 +437,7 @@
                 }
 
                 var qrcode = {
-
-                    batch_number: $("#txtBatchNumber").val(),
+                    batch_number: ($("#cmbBatchNumber").css('display') == 'none') ? $("#txtBatchNumber").val() : $("#cmbBatchNumber option:selected").text().split('|')[0].trim(),
                     batch_name: $("#txtBatchName").val(),
                     code_count: $("#txtCodeCount").val(),
                     active: ($("#chkActive").prop('checked')) ? 1 : 0
@@ -418,43 +458,112 @@
 
                         var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
                         var status = responseData.Status;
-                        if (status >= '1') {
 
-                            //Refresh the table
-                            getMappedQRCodeText();
+                        $("#lblErrorText").html(responseData.Message);
+                        //$("#frmQrcode").val(0); $("#txtBatchName").val();
+                        document.getElementById('frmQrcode').reset();
+                        $("#txtBatchNumber").val("BTCH - " + Math.floor(Math.random() * 1000000) + 1);
 
-                            $("#divAlert").addClass("alert alert-success alert-dismissible fade show").attr('display', false).slideDown("slow");
-                            $("#lblErrorText").html(responseData.Message);
 
-                        }
-                        else if (status == '0') {
+                        //Generate the QR Code images
 
-                            $("#lblErrorText").html(responseData.Message);
-
-                        }
+                        //Fetch active records from the database
+                        getUnMappedQRCodeText();
                     },
                     error: function (data) {
                         /*$("#divAlert").addClass("alert alert-danger alert-dismissible fade show").slideDown("slow");*/
                         $("#lblErrorText").html("Error occured while submiting form");
                     }
                 });
-
-                //if ($("#frmQrcode").valid()) {
-
-                   
-                //} else {
-                //    $("#divAlert").show().addClass("alert alert-warning alert-dismissible fade show").attr('display', false).slideDown("slow");
-                //    $("#lblErrorText").html("Oops!!! Please fill out the required fields on the form to proceed");
-                //    return;
-                //}
             });
 
-            $("#btnSearcBatchName").on('click', function () {
+            $("#btnGenerateQrCodeImages").on('click', function (e) {
 
-                alert('weclome');
+                e.preventDefault();
+
+                $('#divQrCardBody').empty();
+
+                var data = {
+
+                    batchname: $("#cmbGenBatchNames option:selected").text()
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Services/qrcode.asmx/GenerteQRCodeImage",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(data),
+                    cache: false,
+                    success: function (response) {
+
+                        var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
+                        /*var status = responseData.length;*/
+                        
+                        if (responseData.length > 0) {
+                            console.log('lenght = ' + responseData.length);
+                            $.each(responseData, function (i, row) {
+                                let rows = $("<div class='card border border-primary shadow-0 col-md-2'>" +
+                                    "<div class='card - body'><canvas id='" + row.id + '|' + row.code + "'></canvas></div><div class='card - footer'></div></div>");
+
+                                $('#divQrCardBody').append(rows);
+                            });
+
+                            var can = document.getElementsByTagName('canvas');
+
+                            var idx = '';
+                            var splitid = '';
+
+                            for (x = 0; x <= can.length; x++) {
+
+                                idx = can[x].id;
+                                splitid = idx.split('|')[1];
+
+                                qr = new QRious({
+                                    element: can[x],
+                                    size: 106,
+                                    value: 'https://localhost:44329/clients/auth/codelink.aspx?code=' + splitid,
+                                    foreground: 'black'
+                                });
+                            }
+
+                        }
+
+                        $("#lblErrorText").html(responseData.Message);
+                    },
+                    error: function (data) {
+                        $("#lblErrorText").html("Error occured while submiting form");
+                    }
+                });
+
+            });
+
+            $("#btnPrintSection").on('click', function () {
+                //alert('printing...');
+
+                /*printdiv('divQrCardBody');*/
+                alert($('#divQrCardBody').html());
+                sessionStorage.setItem('cc', $('#divQrCardBody').html());
 
             });
         });
+        function printdiv(printdivname) {
+            var headstr = "<html><head><title>Booking Details</title></head><body>";
+            var footstr = "</body>";
+            var newstr = document.getElementById(printdivname).innerHTML;
+            var oldstr = document.body.innerHTML;
+            document.body.innerHTML = headstr + newstr + footstr;
+            window.print();
+            document.body.innerHTML = oldstr;
+            return false;
+        }
 
+        function printContent(el) {
+            var restorepage = $('body').html();
+            var printcontent = $('#' + el).clone();
+            $('body').empty().html(printcontent);
+            window.print();
+            $('body').html(restorepage);
+        }
     </script>
 </asp:Content>

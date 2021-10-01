@@ -7,5 +7,6 @@ namespace Eventhings.Response
 {
     public class RegisterResponse : BaseResponse
     {
+
     }
 }

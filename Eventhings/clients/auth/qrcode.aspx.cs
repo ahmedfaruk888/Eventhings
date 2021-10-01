@@ -25,5 +25,10 @@ namespace Eventhings.clients.auth
         {
             return new EventhingsDbContext().tcorecodestores.Distinct().Where(x => x.batch_number != null).Select(x => x.batch_name).Distinct();
         }
+
+        protected void btnSubmit_ServerClick(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

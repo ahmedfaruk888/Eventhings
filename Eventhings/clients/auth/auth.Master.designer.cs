@@ -24,6 +24,15 @@ namespace Eventhings.clients.auth
         protected global::System.Web.UI.WebControls.ContentPlaceHolder headContentPlaceHolder;
 
         /// <summary>
+        /// menuContentplaceHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder menuContentplaceHolder;
+
+        /// <summary>
         /// pageHeaderContentPlaceHolder control.
         /// </summary>
         /// <remarks>
@@ -40,6 +49,15 @@ namespace Eventhings.clients.auth
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder bodyContentPlaceHolder;
+
+        /// <summary>
+        /// footerContentPlaceHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder footerContentPlaceHolder;
 
         /// <summary>
         /// scriptContentPlaceHolder control.

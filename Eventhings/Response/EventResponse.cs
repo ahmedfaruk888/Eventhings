@@ -8,8 +8,15 @@ namespace Eventhings.Response
 {
     public class EventResponse : BaseResponse
     {
-        public tcoreevent eventt { get; set; }
-        public List<tcoreevent> events { get; set; }
-        public int total_count { get; set; }
+        public int id { get; set; }
+        public string name { get; set; }
+        public string description { get; set; }
+        public string location { get; set; }
+        public DateTime? start_date { get; set; }
+        public DateTime? end_date { get; set; }
+        public int? duration { get; set; }
+        public int host_id { get; set; }
+        public int active { get; set; }
+        public int deleted { get; set; }
     }
 }

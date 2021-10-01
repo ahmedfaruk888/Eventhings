@@ -331,6 +331,7 @@
     <Content Include="clients\assets\js\app.js" />
     <Content Include="clients\assets\js\dataTables.bootstrap4.min.js" />
     <Content Include="clients\assets\js\jquery.dataTables.min.js" />
+    <Content Include="clients\assets\js\jquery.print.min.js" />
     <Content Include="clients\assets\js\select2.min.js" />
     <Content Include="clients\assets\vendors\bootstrap\dist\css\bootstrap-grid.css" />
     <Content Include="clients\assets\vendors\bootstrap\dist\css\bootstrap-grid.min.css" />
@@ -2004,8 +2005,12 @@
     <Content Include="clients\assets\vendors\popper.js\popper-utils.min.js" />
     <Content Include="clients\assets\vendors\popper.js\popper.js" />
     <Content Include="clients\assets\vendors\popper.js\popper.min.js" />
+    <Content Include="clients\auth\account.aspx" />
     <Content Include="clients\auth\codelink.aspx" />
     <Content Include="clients\auth\codelink.html" />
+    <Content Include="clients\auth\ewallet.aspx" />
+    <Content Include="clients\auth\print.aspx" />
+    <Content Include="clients\auth\sales.aspx" />
     <Content Include="clients\auth\staff.aspx" />
     <Content Include="clients\auth\customer.aspx" />
     <Content Include="clients\auth\dashboard.aspx" />
@@ -2021,6 +2026,8 @@
     <Content Include="clients\layouts\service.html" />
     <Content Include="clients\forgot-password.html" />
     <Content Include="clients\random.html" />
+    <Content Include="clients\create-password.html" />
+    <Content Include="clients\verify-account.html" />
     <Content Include="clients\service.html" />
     <Content Include="clients\gulpfile.js" />
     <Content Include="clients\index.html" />
@@ -2045,6 +2052,8 @@
     <Content Include="Services\authenticate.asmx" />
     <Content Include="Services\events.asmx" />
     <Content Include="Services\qrcode.asmx" />
+    <Content Include="Services\roles.asmx" />
+    <Content Include="Services\user.asmx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -2076,6 +2085,13 @@
     <Compile Include="admin\site.Master.designer.cs">
       <DependentUpon>site.Master</DependentUpon>
     </Compile>
+    <Compile Include="clients\auth\account.aspx.cs">
+      <DependentUpon>account.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="clients\auth\account.aspx.designer.cs">
+      <DependentUpon>account.aspx</DependentUpon>
+    </Compile>
     <Compile Include="clients\auth\auth.Master.cs">
       <DependentUpon>auth.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2089,6 +2105,27 @@
     </Compile>
     <Compile Include="clients\auth\codelink.aspx.designer.cs">
       <DependentUpon>codelink.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="clients\auth\ewallet.aspx.cs">
+      <DependentUpon>ewallet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="clients\auth\ewallet.aspx.designer.cs">
+      <DependentUpon>ewallet.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="clients\auth\print.aspx.cs">
+      <DependentUpon>print.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="clients\auth\print.aspx.designer.cs">
+      <DependentUpon>print.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="clients\auth\sales.aspx.cs">
+      <DependentUpon>sales.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="clients\auth\sales.aspx.designer.cs">
+      <DependentUpon>sales.aspx</DependentUpon>
     </Compile>
     <Compile Include="clients\auth\staff.aspx.cs">
       <DependentUpon>staff.aspx</DependentUpon>
@@ -2163,6 +2200,7 @@
     <Compile Include="DbEntities\tmstrtranxchannel.cs" />
     <Compile Include="Dto\EventDto.cs" />
     <Compile Include="Dto\QRCodeDto.cs" />
+    <Compile Include="Dto\RoleDto.cs" />
     <Compile Include="Dto\TCoreRole.cs" />
     <Compile Include="Dto\TCoreTransactionChannel.cs" />
     <Compile Include="Dto\LoginDto.cs" />
@@ -2171,6 +2209,7 @@
     <Compile Include="Dto\TCoreUserRole.cs" />
     <Compile Include="Dto\tcorewallet.cs" />
     <Compile Include="Dto\TmstrCodeStoreRequest.cs" />
+    <Compile Include="Dto\UserDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2188,8 +2227,11 @@
     <Compile Include="Response\BaseResponse.cs" />
     <Compile Include="Response\EventResponse.cs" />
     <Compile Include="Response\LoginResponse.cs" />
+    <Compile Include="Response\MappedQrCodeRespose.cs" />
     <Compile Include="Response\QrCodeRespose.cs" />
     <Compile Include="Response\RegisterResponse.cs" />
+    <Compile Include="Response\RoleResponse.cs" />
+    <Compile Include="Response\UserResponse.cs" />
     <Compile Include="Services\authenticate.asmx.cs">
       <DependentUpon>authenticate.asmx</DependentUpon>
       <SubType>Component</SubType>
@@ -2202,9 +2244,14 @@
       <DependentUpon>qrcode.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Services\QrCodeStoreService.cs" />
-    <Compile Include="Services\RoleService.cs" />
-    <Compile Include="Services\UserService.cs" />
+    <Compile Include="Services\roles.asmx.cs">
+      <DependentUpon>roles.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Services\user.asmx.cs">
+      <DependentUpon>user.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="clients\assets\css\style.css.map" />
