@@ -1,4 +1,19 @@
-﻿function callmethod(url, parameters, successcallback) {
+﻿$.formattedDate = function (dateToFormat) {
+
+    dateToFormat = new Date(parseInt(dateToFormat.replace("/Date(", "").replace(")/", ""), 10)).toDateString(); //.toLocaleDateString();
+
+    //var dateObject = new Date(dateToFormat);
+    //var day = dateObject.getDate();
+    //var month = dateObject.getMonth() + 1;
+    //var year = dateObject.getFullYear();
+    //day = day < 10 ? "0" + day : day;
+    //month = month < 10 ? "0" + month : month;
+    //var formattedDate = day + "/" + month + "/" + year;
+    /*return formattedDate;*/
+    return dateToFormat;
+};
+
+function callmethod(url, parameters, successcallback) {
     //show loading... image
 
     $.ajax({

@@ -26,7 +26,7 @@
         </div>
     </section>--%>
     <div class="row">
-        <div class="alert alert-danger alert-dismissible" id="divAlert">
+        <div class="alert alert-info alert-dismissible" id="divAlert">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <p id="lblErrorText">
 

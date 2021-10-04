@@ -21,7 +21,7 @@ namespace Eventhings.DbEntities
 
         public decimal? price { get; set; }
 
-        public int category { get; set; }
+        public string category { get; set; }
 
         public int quantity { get; set; }
 

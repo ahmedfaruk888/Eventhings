@@ -181,7 +181,7 @@ namespace Eventhings.DbContexts
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<tcorehost>()
-                .Property(e => e.name)
+                .Property(e => e.full_name)
                 .IsUnicode(false);
 
             modelBuilder.Entity<tcorehost>()

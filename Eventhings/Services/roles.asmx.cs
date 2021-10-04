@@ -6,6 +6,7 @@ using System.Web.Services;
 using Eventhings.DbContexts;
 using Eventhings.Dto;
 using Eventhings.Response;
+using Eventhings.DbEntities;
 
 namespace Eventhings.Services
 {
@@ -58,6 +59,51 @@ namespace Eventhings.Services
                     Status = 0,
                     Message = ex.ToString()
                 });
+            }
+
+            return response;
+        }
+
+        [WebMethod]
+        public RoleResponse Save(RoleDto roledto)
+        {
+            var response = new RoleResponse();
+
+            try
+            {
+                using (var _context = new EventhingsDbContext())
+                {
+
+                    var query = _context.tcoreroles.Where(name => name.name == roledto.name).FirstOrDefault();
+                    if(query != null)
+                    {
+                        response.Status = 0;
+                        response.Message = "The role name specified already exists";
+                        return response;
+                    }
+                    else
+                    {
+                        _context.tcoreroles.Add(new tcorerole
+                        {
+                            name = (roledto.name.Contains(" ")) ? roledto.name.Replace(" ", "") : roledto.name,
+                            description = roledto.description,
+                            level = roledto.level,
+                            active = roledto.active,
+                            is_deleted = 0,
+                            created_by = roledto.created_by,
+                            created_at = DateTime.Now,
+                        });
+
+                        var affected =_context.SaveChanges();
+                        response.Status = (affected >= 1) ? affected : 0;
+                        response.Message = "Role created successfuly";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = 0;
+                response.Message = ex.ToString();
             }
 
             return response;

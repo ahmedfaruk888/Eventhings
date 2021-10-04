@@ -27,7 +27,7 @@
                                 <h2 class="auth-section-title">Log In</h2>
                                 <p class="auth-section-subtitle">Sign in to your account to continue.</p>
 
-                                <div class="alert alert-danger alert-dismissible" id="divAlert" style="display:none">
+                                <div class="alert alert-info alert-dismissible" id="divAlert" style="display:none">
                                     <button type="button" class="close" data-dismiss="alert">&times;</button>
                                     <p id="lblErrorText"></p>
                                 </div>
@@ -121,9 +121,7 @@
                         success: function (response) {
 
                             var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
-
-                            //parse the response as json data;
-                            responseData = JSON.parse(responseData);
+                            console.log(responseData);
                             var status = responseData.Status;
                             if (status == '1') {
 
@@ -132,27 +130,38 @@
                                 sessionStorage.setItem('email', $("#email").val());
 
                                 var referLink = document.createElement("a");
-                                referLink.href = "auth/dashboard.aspx";
+                                referLink.href = "auth/dashboard.aspx?email=" + responseData.Message;
                                 document.body.appendChild(referLink);
                                 referLink.click();
 
                             }
+                            else if (status == '2') { //require password change
+                                var referLink = document.createElement("a");
+                                referLink.href = "create-password.html?email=" + responseData.Message;
+                                document.body.appendChild(referLink);
+                                referLink.click();
+                            }
+                            else if (status == '3') { //account not confirmed
+                                var referLink = document.createElement("a");
+                                referLink.href = "verify-account.html?email=" + responseData.Message;
+                                document.body.appendChild(referLink);
+                                referLink.click();
+                            }
                             else if (status == '0') {
-                                $("#divAlert").addClass("alert alert-danger alert-dismissible fade show").attr('display', false).slideDown("slow");
+                                $("#divAlert").addClass("alert alert-info alert-dismissible fade show").attr('display', false).slideDown("slow");
                                 $("#lblErrorText").html(responseData.Message);
                             }
                         },
                         beforeSend: function () {
-                            $("#spinner").show();
+                            //$("#spinner").show();
                             $("#btnSubmit").attr('disabled', true);
                         },
                         complete: function () {
-                            $("#spinner").hide();
+                            //$("#spinner").hide();
                             $("#btnSubmit").attr('disabled', false);
                         },
                         error: function (data) {
-                            console.log(data);
-                            $("#divAlert").addClass("alert alert-danger alert-dismissible fade show").attr('display', false).slideDown("slow");
+                            $("#divAlert").addClass("alert alert-info alert-dismissible fade show").attr('display', false).slideDown("slow");
                             $("#lblErrorText").html("Error occured while submiting form");
                             /*console.error(data);*/
                         }

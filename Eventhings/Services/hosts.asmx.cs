@@ -1,56 +1,52 @@
-﻿using Eventhings.DbContexts;
-using Eventhings.DbEntities;
-using Eventhings.Dto;
-using Eventhings.Response;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Script.Services;
 using System.Web.Services;
+using Eventhings.DbEntities;
+using Eventhings.Response;
+using Eventhings.Dto;
+using Eventhings.DbContexts;
 
 namespace Eventhings.Services
 {
     /// <summary>
-    /// Summary description for events
+    /// Summary description for hosts
     /// </summary>
     [WebService(Namespace = "http://tempuri.org/")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
-    [ScriptService]
-    public class events : System.Web.Services.WebService
+    [System.Web.Script.Services.ScriptService]
+    public class hosts : System.Web.Services.WebService
     {
-
         [WebMethod]
-        public List<EventResponse> Get()
+        public List<HostResponse> Get()
         {
-            var response = new List<EventResponse>();
+            var response = new List<HostResponse>();
 
             try
             {
                 using (var _context = new EventhingsDbContext())
                 {
-                    var query = _context.tcoreevents
+                    var query = _context.tcorehosts
                         .Where(e => e.active == 1 && e.deleted == 0)
-                        .Select(n => new EventResponse() 
+                        .Select(n => new HostResponse()
                         {
                             id = n.id,
-                            name = n.name,
+                            full_name = n.full_name,
                             description = n.description,
-                            location = n.location,
+                            phone = n.phone,
+                            email = n.email,
+                            address = n.address,
                             active = n.active,
                             deleted = n.deleted,
-                            Status = 1,
-                            duration = n.duration,
-                            start_date = n.start_date,
-                            host_id = n.host_id,
-                            end_date = n.end_date,
                             created_at = n.created_at,
-                            created_by = n.created_by
+                            created_by = n.created_by,
+                            updated_at = n.updated_at,
+                            updated_by = n.updated_by
                         }).ToList();
 
-                    foreach(var ss in query)
+                    foreach (var ss in query)
                     {
                         response.Add(ss);
                     }
@@ -58,7 +54,7 @@ namespace Eventhings.Services
             }
             catch (Exception ex)
             {
-                response.Add(new EventResponse()
+                response.Add(new HostResponse()
                 {
                     Status = 0,
                     Message = ex.ToString()
@@ -78,12 +74,29 @@ namespace Eventhings.Services
                 using (var _context = new EventhingsDbContext())
                 {
 
-                    var query = _context.tcorehosts.Where(name => name.full_name == hostdto.full_name || name.phone == hostdto.phone).FirstOrDefault();
+                    var query = _context.tcorehosts.Where(name => name.full_name == hostdto.full_name || name.phone == hostdto.phone || name.email == hostdto.email).FirstOrDefault();
                     if (query != null)
                     {
-                        response.Status = 0;
-                        response.Message = "The host specified already exists";
-                        return response;
+                        if (query.phone == hostdto.phone)
+                        {
+                            response.Status = 0;
+                            response.Message = "The specified phone number already exists";
+                            return response;
+                        }
+
+                        if (query.email == hostdto.email)
+                        {
+                            response.Status = 0;
+                            response.Message = "The specified email address already exists";
+                            return response;
+                        }
+
+                        if (query.full_name == hostdto.full_name)
+                        {
+                            response.Status = 0;
+                            response.Message = "The host specified already exists";
+                            return response;
+                        }
                     }
                     else
                     {
@@ -94,18 +107,18 @@ namespace Eventhings.Services
                             phone = hostdto.phone,
                             email = hostdto.email,
                             address = hostdto.address,
-                            deleted = hostdto.deleted,
+                            deleted = 0,
                             active = hostdto.active,
                             created_by = hostdto.created_by,
                             created_at = DateTime.Now,
                         });
 
-                        var affected = _context.SaveChanges();
+                        var rowsAffected = _context.SaveChanges();
 
-                        if (affected > 0)
+                        if (rowsAffected > 0)
                         {
-                            response.Status = affected;
-                            response.Message = $"{affected} Event created successfuly, switch to 'Manage Event' tab to view it";
+                            response.Status = rowsAffected;
+                            response.Message = $"{rowsAffected} Host created successfuly, switch to 'Manage Host' tab to view it";
                         }
                     }
                 }

@@ -32,7 +32,7 @@
         </div>
     </section>--%>
     <div class="row">
-        <div class="alert alert-danger alert-dismissible" id="divAlert">
+        <div class="alert alert-info alert-dismissible" id="divAlert">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <p id="lblErrorText">
 
@@ -81,9 +81,9 @@
                             <div class="form-group col-md-4" id="insert-batch-number">
                                 <label for="txtBatchNumber">Batch Number <sup>*</sup></label>
                                 <a href="#" class="batch-edit" onclick="javascript:void(0)"><span class="fa fa-edit"></span></a>
-                                <input type="text" class="form-control" readonly="readonly" id="txtBatchNumber" required="required" name="txtBatchNumber" placeholder="BT-55363676">
-
+                                <input type="text" class="form-control" readonly="readonly" id="txtBatchNumber" required="required" name="txtBatchNumber" />
                                 <select class="form-control" id="cmbBatchNumber" name="cmbBatchNumber">
+
                                     <%--<option value="value">--Please choose one--</option>
                                     <option value="value">--Please choose one--</option>--%>
                                 </select>
@@ -91,13 +91,7 @@
                             <div class="form-group col-md-4" id="insert-batch-name">
                                 <label for="txtBatchName">Batch Name <sup>*</sup></label>
                                 <input type="text" class="form-control" id="txtBatchName" name="txtBatchName" placeholder="Evening batch">
-
-                                <%--<select class="form-control" id="cmbBatchName" name="cmbBatchName">
-                                    <%--<option value="value">--Please choose one--</option>
-                                    <option value="value">--Please choose one--</option>
-                                </select>--%>
                             </div>
-
                             
                             <div class="form-group col-md-4">
                                 <label for="txtCodeCount">Generated Code Count <sup>*</sup></label>
@@ -122,7 +116,11 @@
                         <p class="feature-title" style="margin-bottom: 10px">
                            Mapped QR code text are QR code text that has been mapped to any customer.
                         </p>
-                        <table class="table table-striped"  style="width:100%; max-height: 500px; font-size: .7rem;" id="mappedQrcodeTable">
+                        <div class="form-group col-md-12">
+                                <input type="text" class="form-control col-md-12" id="txtSearch" name="txtSearch" placeholder="Search... by phone or email">
+                            </div>
+                        <div style="max-height: 300px; overflow-y:scroll">
+                            <table class="table table-striped"  style="width:100%;" font-size: .7rem;" id="mappedQrcodeTable">
                             <thead>
                                 <tr>
                                     <th scope="col">
@@ -143,6 +141,7 @@
                                 
                             </tbody>
                         </table>
+                        </div>
                     </div>
 
                     <div class="tab-pane fade" id="unmappedqrcodecontent" role="tabpanel" aria-labelledby="unmappedqrcode-tab">
@@ -150,7 +149,11 @@
                             Un-mapped QR code text are QR code text that has not been mapped to any customer. Mapping can be done directly from within 
                             this tab or from the customer profile page.
                         </p>
-                        <table class="table table-striped table-bordered"  style="width:100%; font-size: .7rem;" id="unmappedTable">
+                         <div class="form-group col-md-12">
+                                <input type="text" class="form-control col-md-12" id="txtSearch" name="txtSearch" placeholder="Search... by phone or email">
+                            </div>
+                        <div style="max-height: 300px; overflow-y:scroll;">
+                            <table class="table table-striped table-bordered"  style="width:100%; font-size: .7rem;" id="unmappedTable">
                             <thead>
                                 <tr>
                                     <th scope="col">
@@ -164,13 +167,14 @@
                                     <th scope="col">Code Text</th>
                                     <th scope="col">Active</th>
                                     <th scope="col">Created Date</th>
-                                    <th scope="col">Mapped</th>
+                                    <th scope="col">Mapped Status</th>
                                 </tr>
                             </thead>
                             <tbody id="unmappedtbody">
                                 
                             </tbody>
                         </table>
+                        </div>
                     </div>
 
                     <div class="tab-pane fade" id="printqrcodecontent" role="tabpanel" aria-labelledby="printqrcode-tab">
@@ -179,16 +183,12 @@
                         </section>
                         
                         <div class="row">
-                            <div class="form-group col-md-6">
-                                <%--<label for="cmbGenBatchNames">Batch Name </label>--%>
+                            <div class="form-group col-md-9">
                                 <select class="form-control" name="cmbGenBatchNames" id="cmbGenBatchNames" runat="server">
-                                    <option value="1">New Bach Test</option>
-                                    <option value="2">New Bach Test A</option>
-                                    <option value="2">New Bach Test Z</option>
+                                   
                                 </select>
                             </div>
-                            <div class="form-group col-md-4">
-                                <%--<button type="submit" id="btnGenerateQrCodeImages" class="btn btn-lg btn-primary mb-4">Generate QR Code</button>--%>
+                            <div class="form-group col-md-3">
                                 <div class="dropdown">
                                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-mdb-toggle="dropdown"
                                     aria-expanded="false"> Choose an action
@@ -204,7 +204,7 @@
                             </div>
                         </div>
 
-                        <div class="row" id="divQrCardBody">
+                        <div class="row" id="divQrCardBody" style="max-height:400px; overflow-y:scroll">
                             
                         </div>
                     </div>
@@ -235,8 +235,7 @@
                     var status = responseData.Status;
                     if (responseData[0].Status >= '1') {
 
-                        //var tbody = $('#unmappedtbody');
-                        //var $tr = $('<tr>');
+                        $('#unmappedtbody').empty();
 
                         $.each(responseData, function (i, row) {
                             let rows = `<tr>
@@ -249,15 +248,15 @@
                                             <td>${row.batch_name}</td>
                                             <td>${row.code}</td>
                                             
-                                            <td>${(row.active == '1') ? 'Yes' : 'No'}</td>
-                                            <td>${row.created_at}</td >
-                                            <td>${(row.date_used == undefined) ? 'No' : 'Yes'}</td>
+                                            <td>${(row.active == '1') ? 'Active' : 'In-active'}</td>
+                                            <td>${(row.created_at != undefined) ? $.formattedDate(row.created_at) : " - "}</td >
+                                            <td>${(row.date_used == undefined) ? 'Not Mapped' : 'Mapped'}</td>
                                         </tr>`;
 
                             $('#unmappedtbody').append(rows);
                         });
 
-                        $('#unmappedTable').DataTable();
+                        //$('#unmappedTable').DataTable();
 
                         //$("#divAlert").addClass("alert alert-success alert-dismissible fade show").show().slideDown("slow");
                         $("#lblErrorText").html(responseData.Message);
@@ -270,7 +269,7 @@
                     }
                 },
                 error: function (data) {
-                    /*$("#divAlert").addClass("alert alert-danger alert-dismissible fade show").slideDown("slow");*/
+                    /*$("#divAlert").addClass("alert alert-info alert-dismissible fade show").slideDown("slow");*/
                     $("#lblErrorText").html("Error occured while fetching data - Un-mapped code");
                 }
             });
@@ -293,8 +292,7 @@
                     var status = responseData[0].Status;
                     if (status >= '1') {
 
-                        var tbody = $('#tbody');
-                        var $tr = $('<tr>');
+                        $('#mappedtbody').empty();
 
                         $.each(responseData, function (i, row) {
                             let rows = `<tr>
@@ -305,14 +303,14 @@
                                             <td>${row.id}</td> 
                                             <td>${row.user_id}</td>
                                             <td>${row.code_id}</td>
-                                            <td>${row.date_mapped}</td>
+                                            <td>${(row.date_mapped != undefined) ? $.formattedDate(row.date_mapped) : " - "}</td>
                                             <td>${row.event_id}</td>
                                         </tr>`;
 
                             $('#mappedtbody').append(rows);
                         });
 
-                        $('#mappedQrcodeTable').DataTable();
+                        //$('#mappedQrcodeTable').DataTable();
 
                         $("#divAlert").addClass("alert alert-success alert-dismissible fade show").show().slideDown("slow");
                         $("#lblErrorText").html(responseData.Message);
@@ -325,7 +323,7 @@
                     }
                 },
                 error: function (data) {
-                    /*$("#divAlert").addClass("alert alert-danger alert-dismissible fade show").slideDown("slow");*/
+                    /*$("#divAlert").addClass("alert alert-info alert-dismissible fade show").slideDown("slow");*/
                     $("#lblErrorText").html("Error occured while fetching data - mapped codes");
                 }
             });
@@ -350,8 +348,25 @@
                         $("#cmbGenBatchNames").append($("<option></option>").val(data.id).html(data.batch_name));
                     })
                 }
-
             });
+
+            var code = {};
+            $("select[id='cmbBatchNumber'] > option").each(function () {
+                if (code[this.text]) {
+                    $(this).remove();
+                } else {
+                    code[this.text] = this.value;
+                }
+            });
+
+            //var usedNames = {};
+            //$("#cmbGenBatchNames options").each(function () {
+            //    if (usedNames[this.html()]) {
+            //        $(this).remove();
+            //    } else {
+            //        usedNames[this.html()] = this.text;
+            //    }
+            //});
 
         }
 
@@ -360,8 +375,7 @@
             //Fetch active records from the database
             getUnMappedQRCodeText();
             getMappedQRCodeText();
-
-            //getBatchName();
+            getBatchName();
 
             //$('#divAlert').css('display', 'none');
 
@@ -471,7 +485,7 @@
                         getUnMappedQRCodeText();
                     },
                     error: function (data) {
-                        /*$("#divAlert").addClass("alert alert-danger alert-dismissible fade show").slideDown("slow");*/
+                        /*$("#divAlert").addClass("alert alert-info alert-dismissible fade show").slideDown("slow");*/
                         $("#lblErrorText").html("Error occured while submiting form");
                     }
                 });
@@ -547,6 +561,7 @@
 
             });
         });
+
         function printdiv(printdivname) {
             var headstr = "<html><head><title>Booking Details</title></head><body>";
             var footstr = "</body>";

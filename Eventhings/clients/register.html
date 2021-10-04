@@ -28,7 +28,7 @@
                                 <h2 class="auth-section-title">Create account</h2>
                                 <p class="auth-section-subtitle">Create your account to continue.</p>
 
-                                <div class="alert alert-danger alert-dismissible" id="divAlert">
+                                <div class="alert alert-info alert-dismissible" id="divAlert">
                                     <button type="button" class="close" data-dismiss="alert">&times;</button>
                                     <p id="lblErrorText">
                                         <strong>Error!</strong> Indicates a successful or positive action.
@@ -152,7 +152,7 @@
 
                             }
                             else if (status == '0') {
-                                $("#divAlert").addClass("alert alert-danger alert-dismissible fade show").attr('display', false).slideDown("slow");
+                                $("#divAlert").addClass("alert alert-info alert-dismissible fade show").attr('display', false).slideDown("slow");
                                 $("#lblErrorText").html(responseData.Message);
                             }
                         },
@@ -166,7 +166,7 @@
                         },
                         error: function (data) {
                             console.log(data);
-                            $("#divAlert").addClass("alert alert-danger alert-dismissible fade show").attr('display', false).slideDown("slow");
+                            $("#divAlert").addClass("alert alert-info alert-dismissible fade show").attr('display', false).slideDown("slow");
                             $("#lblErrorText").html("Error occured while submiting form");
                             /*console.error(data);*/
                         }

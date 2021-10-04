@@ -53,6 +53,7 @@ namespace Eventhings.Services
                             created_by = n.created_by,
                             updated_at = n.updated_at,
                             updated_by = n.updated_by
+                            //full_name = $"{n.last_name} {n.first_name} {n.other_name}"
                         }).ToList();
 
                     foreach (var ss in query)
@@ -281,27 +282,29 @@ namespace Eventhings.Services
 
                         if (userLogin.email_confirmed == null)
                         {
-                            response.Status = 0;
-                            response.Message = "Can't login at the moment, please confirm your email";
+                            response.Status = 3;
+                            response.Message = login.email; 
+                            //Server.MapPath("~/clients/verify-account.html#");
                             return response;
                         }
 
                         if(userLogin.phone_number_confirmed == null)
                         {
                             response.Status = 0;
-                            response.Message = "Can't login at the moment, please confirm your phone number";
+                            response.Message = login.email;
                             return response;
                         }
 
                         if (userLogin.require_password_change == 1)
                         {
                             response.Status = 2;
-                            response.Message = Server.MapPath("~/clients/create-password.html");
+                            response.Message = login.email;
+                            //response.Message = Server.MapPath("~/clients/create-password.html");
                             return response;
                         }
 
                         response.Status = 1;
-                        response.Message = Server.MapPath("~/admin/dashboard.aspx");
+                        response.Message = login.email;
                         //FormsAuthentication.RedirectFromLoginPage(login.email, login.keep_me_signin);
                         //HttpContext.Current.Session["email"] = login.email;
                     }
@@ -316,7 +319,90 @@ namespace Eventhings.Services
             {
                 response.Status = 0;
                 response.Message = ex.Message;
-                //response.Message = "Network error occured.";
+            }
+
+            return response;
+        }
+
+        [WebMethod]
+        public LoginResponse CreatePassword(LoginDto login)
+        {
+            var response = new LoginResponse();
+
+            if (string.IsNullOrWhiteSpace(login.email) || string.IsNullOrWhiteSpace(login.password_hash))
+            {
+                response.Status = 0;
+                response.Message = "Email is required";
+                return response;
+            }
+
+            if (!login.email.Contains("@") || !login.email.Contains("."))
+            {
+                response.Status = 0;
+                response.Message = "Invalid email address, please change it";
+                return response;
+            }
+
+            try
+            {
+                using (var _context = new EventhingsDbContext())
+                {
+                    //var userInRole = _context.tcoreuserroles.Where(role => role.id == existingRole.id && role.id == existingUser.id).FirstOrDefault();
+
+                    var userLogin = _context.tcoreusers.Where(e => e.email == login.email).FirstOrDefault();
+
+                    if (userLogin != null)
+                    {
+                        if (userLogin.active == 0)
+                        {
+                            response.Status = 0;
+                            response.Message = "Your account is in-active, please contact administrator.";
+                            return response;
+                        }
+
+                        if (string.IsNullOrWhiteSpace(login.password_hash))
+                        {
+                            response.Status = 0;
+                            response.Message = "Password is required.";
+                            return response;
+                        }
+
+                        if (string.IsNullOrWhiteSpace(login.retry_password_hash))
+                        {
+                            response.Status = 0;
+                            response.Message = "Retry password is required.";
+                            return response;
+                        }
+
+                        if (!login.retry_password_hash.Equals(login.password_hash))
+                        {
+                            response.Status = 0;
+                            response.Message = "Password and retry password must be equal.";
+                            return response;
+                        }
+
+                        userLogin.password_hash = login.password_hash;
+                        userLogin.updated_at = DateTime.Now;
+                        userLogin.updated_by = login.email;
+                        userLogin.require_password_change = 0;
+
+                        _context.Entry(userLogin).State = System.Data.Entity.EntityState.Modified;
+                        _context.SaveChanges();
+
+                        response.Status = 1;
+                        response.Message = "Your new password was created successfuly";
+                    }
+                    else
+                    {
+                        response.Status = 0;
+                        response.Message = "User account can not be determined.";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = 0;
+                response.Message = ex.Message;
             }
 
             return response;

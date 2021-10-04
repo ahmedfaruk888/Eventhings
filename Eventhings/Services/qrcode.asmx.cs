@@ -378,17 +378,34 @@ namespace Eventhings.Services
                         id = x.id,
                         batch_number = x.batch_number,
                         batch_name = x.batch_name
-                    }).Distinct().ToList();
+                    }).ToList();
 
-                    //var query = _context.tcorecodestores.SqlQuery("select id, batch_number, batch_name from tcorecodestores where active = 1 and is_deleted = 0 and date_used is null").ToList();
+                    var arrtemp = new List<QrCodeRespose>();
+                    bool duplicatefound = false;
+                    foreach (var qr1 in query)
+                    {
+                        arrtemp.Add(qr1);
+                        foreach (var qr2 in arrtemp)
+                        {
+                            if (qr1.batch_name == qr2.batch_name)
+                                duplicatefound = true;
 
-                    foreach (var ss in query)
+                            if (!duplicatefound)
+                            {
+                                arrtemp.Add(qr2);
+                            }
+                        }
+                    }
+
+                    foreach(var qr2 in arrtemp)
                     {
                         response.Add(new QrCodeRespose()
                         {
-                            id = ss.id,
-                            batch_name = ss.batch_name,
-                            batch_number = ss.batch_number,
+                            id = qr2.id,
+                            batch_name = qr2.batch_name,
+                            batch_number = qr2.batch_number,
+                            Status = 1,
+                            Message = "Success"
                         });
                     }
                 }

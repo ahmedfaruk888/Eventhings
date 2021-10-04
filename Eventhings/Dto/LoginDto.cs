@@ -10,6 +10,7 @@ namespace Eventhings.Dto
     {
         public string email { get; set; }
         public string password_hash { get; set; }
+        public string retry_password_hash { get; set; }
         public bool keep_me_signin { get; set; } = false;
     }
 }

@@ -12,7 +12,7 @@ namespace Eventhings.DbEntities
 
         [Required]
         [StringLength(128)]
-        public string name { get; set; }
+        public string full_name { get; set; }
 
         [StringLength(256)]
         public string description { get; set; }
@@ -33,7 +33,7 @@ namespace Eventhings.DbEntities
         [StringLength(128)]
         public string created_by { get; set; }
 
-        public DateTime? created_date { get; set; }
+        public DateTime? created_at { get; set; }
 
         [StringLength(128)]
         public string updated_by { get; set; }

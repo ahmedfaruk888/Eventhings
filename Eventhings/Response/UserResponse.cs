@@ -19,7 +19,9 @@ namespace Eventhings.Response
         public string first_name { get; set; }
         public string last_name { get; set; }
         public string other_name { get; set; }
+        public string full_name { get; set; }
         public int active { get; set; }
         public int is_deleted { get; set; }
+        public string role_name { get; set; }
     }
 }

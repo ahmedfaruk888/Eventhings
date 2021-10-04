@@ -22,7 +22,7 @@
         </div>
     </section>
     <div class="row">
-        <div class="alert alert-danger alert-dismissible" id="divAlert" style="display:none">
+        <div class="alert alert-info alert-dismissible" id="divAlert" style="display:none">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <p id="lblErrorText">Error messages or success messages displays here.</p>
         </div>
