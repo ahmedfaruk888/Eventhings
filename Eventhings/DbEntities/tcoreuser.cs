@@ -20,7 +20,12 @@ namespace Eventhings.DbEntities
         [StringLength(128)]
         public string user_code { get; set; }
 
-        [Required]
+        [StringLength(258)]
+        public string verification_token { get; set; }
+
+        [StringLength(50)]
+        public string verification_code { get; set; }
+
         [StringLength(128)]
         public string email { get; set; }
 

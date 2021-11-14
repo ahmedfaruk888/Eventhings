@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Eventi.ng - transaction success</title>
+    <link rel="stylesheet" href="assets/vendors/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <header class="foi-header" style="padding-top:2px">
+        <div class="container">
+            <div id="nav"></div>
+        </div>
+    </header>
+
+    <main class="page-auth">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 offset-lg-1">
+                    <section class="auth-wrapper">
+                        <!--style="padding-top:10px"-->
+                        <div class="row">
+                            <div class="col-md-9 mb-4 mb-md-0">
+
+
+                                <div class="alert alert-info alert-dismissible" id="divAlert">
+                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                    <p id="lblErrorText">
+                                        <strong>Transaction Ref:</strong> Indicates a successful or positive action.
+                                    </p>
+                                </div>
+                                <h2 class="auth-section-title" id="tranx-title">Payment Transaction Successful</h2>
+                                <p class="about-section-one-content" id="tranx-sub-title"></p>
+
+                                <form action="transaction-success.html" method="POST" id="frmTransactionSuccess">
+                                    <button class="btn btn-primary btn-auth-submit" type="button" id="btnPrintTicket">Print Ticket</button>
+                                </form>
+                            </div>
+                            <div class="col-md-3 d-flex align-items-center">
+                                <img src="assets/images/Register.png" alt="login" class="img-fluid">
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="assets/vendors/jquery/jquery.min.js"></script>
+    <script src="assets/vendors/popper.js/popper.min.js"></script>
+    <script src="assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+
+    <script src="assets/js/app.js"></script>
+
+    <script type="text/javascript">
+
+        var ref = new URLSearchParams(window.location.search).get('ref');
+        //var code = new URLSearchParams(window.location.search).get('code');
+        var status = new URLSearchParams(window.location.search).get('status');
+        var attempt = new URLSearchParams(window.location.search).get('attempt');
+
+        function GetCustomerWalletTranxHistory() {
+
+            var tranxdto = {
+
+                ref_code : ref,
+                event_id : 4,
+                user_id : 1,
+                channel : "Payment gateway transaction",
+                tranx_amount : '5000'
+            }
+
+            var data = {
+
+                tranxdto: tranxdto
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/Services/transaction.asmx/Save",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(data),
+                cache: false,
+                success: function (response) {
+
+                    var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
+                    $('#tranx-title').text("Payment Status - Successful");
+                    $('#tranx-sub-title').text("The transaction was successfuly completed, generate your ticket to gain access at the event");
+
+                },
+                beforeSend: function () {
+                    /*$('#cmbUserType').append($("<option>Loading roles..</option>"));*/
+                },
+                error: function (data) {
+                    /*$("#lblErrorText").html("Error occured while submiting form");*/
+                }
+            });
+        }
+
+        var searchQueryString = '';
+        var searchParams = '';
+        var paramLength = '';
+
+        $(document).ready(function () {
+
+            $("#divAlert").hide();
+
+            $("#nav").load("layouts/nav.html");
+
+            $("#footer").load("layouts/footer.html");
+
+            if (ref > 0 && status.toLowerCase() == 'paid' && attempt == '1') {
+
+                //make ajax call and save the transaction
+                GetCustomerWalletTranxHistory();
+            } else {
+                return;
+            }
+
+            $("#btnPrintTicket").on('click', function (e) {
+
+                //var mail = {
+
+                //    from : "info@imaftechnetronics@gmail.vom",
+                //    from_display_name: "Ahmed Faruk M",
+                //    to : "ahmedfaruk888@gmail.com",
+                //      to_display_name: "Eventi Help Desk",
+                //      subject: "Welcome to Lagos cokctail Party",
+                //      body: "Welcome, your account was created successfuly",
+                //      html_body: "<b>Welcome, your account was created successfuly</b>"
+
+                //}
+
+                //var data = {
+
+                //    mail: mail
+
+                //}
+
+                //$.ajax({
+                //    type: "POST",
+                //    url: "/Services/mail.asmx/SendInvoiceAsync",
+                //    dataType: "json",
+                //    contentType: "application/json; charset=utf-8",
+                //    data: JSON.stringify(data),
+                //    cache: false,
+                //    success: function (response) {
+
+                //        var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
+                //        alert(responseData.Message);
+
+                //    },
+                //    beforeSend: function () {
+                //        /*$('#cmbUserType').append($("<option>Loading roles..</option>"));*/
+                //    },
+                //    error: function (data) {
+                //        /*$("#lblErrorText").html("Error occured while submiting form");*/
+                //    }
+                //});
+
+
+                var referLink = document.createElement("a");
+                referLink.href = "/templates/invoice.html";
+                document.body.appendChild(referLink);
+                referLink.click();
+
+                e.preventDefault();
+            });
+        });
+    </script>
+</body>
+
+</html>

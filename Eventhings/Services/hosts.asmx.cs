@@ -107,6 +107,7 @@ namespace Eventhings.Services
                             phone = hostdto.phone,
                             email = hostdto.email,
                             address = hostdto.address,
+                            
                             deleted = 0,
                             active = hostdto.active,
                             created_by = hostdto.created_by,
@@ -118,7 +119,7 @@ namespace Eventhings.Services
                         if (rowsAffected > 0)
                         {
                             response.Status = rowsAffected;
-                            response.Message = $"{rowsAffected} Host created successfuly, switch to 'Manage Host' tab to view it";
+                            response.Message = $"{rowsAffected} Host created successfuly";
                         }
                     }
                 }

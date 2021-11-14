@@ -15,5 +15,6 @@ namespace Eventhings.Dto
         public int active { get; set; }
         public string encrypted_code { get; set; }
         public int is_deleted { get; set; }
+        public string created_by { get; set; }
     }
 }

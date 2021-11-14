@@ -9,7 +9,7 @@ namespace Eventhings.DbContexts
     public partial class EventhingsDbContext : DbContext
     {
         public EventhingsDbContext()
-            : base("name=EventhingsDbContext")
+            : base("name=MochaConnEventhingsDbContext")
         {
         }
 
@@ -23,14 +23,17 @@ namespace Eventhings.DbContexts
         public virtual DbSet<tcorejob> tcorejobs { get; set; }
         public virtual DbSet<tcoremappedcode> tcoremappedcodes { get; set; }
         public virtual DbSet<tcorerole> tcoreroles { get; set; }
+        public virtual DbSet<tcoresale> tcoresales { get; set; }
         public virtual DbSet<tcoretransaction> tcoretransactions { get; set; }
         public virtual DbSet<tcoreunitmeasurement> tcoreunitmeasurements { get; set; }
         public virtual DbSet<tcoreuserrole> tcoreuserroles { get; set; }
         public virtual DbSet<tcoreuser> tcoreusers { get; set; }
+        public virtual DbSet<tcorevendoritem> tcorevendoritems { get; set; }
         public virtual DbSet<tcorewallet> tcorewallets { get; set; }
         public virtual DbSet<tmstrcategory> tmstrcategories { get; set; }
         public virtual DbSet<tmstrtranxchannel> tmstrtranxchannels { get; set; }
-        //public virtual DbSet<tmstronaimo> tmstronaimos { get; set; }
+        public virtual DbSet<tcoreeventpayment> tcoreeventpayments { get; set; }
+        public virtual DbSet<tcoreverification> tcoreverifications { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -135,6 +138,10 @@ namespace Eventhings.DbContexts
                 .IsUnicode(false);
 
             modelBuilder.Entity<tcorecodestore>()
+                .Property(e => e.encrypted_code)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<tcorecodestore>()
                 .Property(e => e.date_used)
                 .HasPrecision(0);
 
@@ -209,7 +216,7 @@ namespace Eventhings.DbContexts
                 .IsUnicode(false);
 
             modelBuilder.Entity<tcoreitempoint>()
-                .Property(e => e.item_id)
+                .Property(e => e.item_name)
                 .IsUnicode(false);
 
             modelBuilder.Entity<tcoreitempoint>()
@@ -254,6 +261,14 @@ namespace Eventhings.DbContexts
 
             modelBuilder.Entity<tcoreitem>()
                 .Property(e => e.price)
+                .HasPrecision(19, 4);
+
+            modelBuilder.Entity<tcoreitem>()
+                .Property(e => e.category)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<tcoreitem>()
+                .Property(e => e.point)
                 .HasPrecision(19, 4);
 
             modelBuilder.Entity<tcoreitem>()
@@ -348,6 +363,30 @@ namespace Eventhings.DbContexts
                 .HasForeignKey(e => e.role_id)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<tcoresale>()
+                .Property(e => e.price)
+                .HasPrecision(19, 4);
+
+            modelBuilder.Entity<tcoresale>()
+                .Property(e => e.point)
+                .HasPrecision(19, 4);
+
+            modelBuilder.Entity<tcoresale>()
+                .Property(e => e.created_by)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<tcoresale>()
+                .Property(e => e.created_at)
+                .HasPrecision(0);
+
+            modelBuilder.Entity<tcoresale>()
+                .Property(e => e.updated_by)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<tcoresale>()
+                .Property(e => e.updated_at)
+                .HasPrecision(0);
+
             modelBuilder.Entity<tcoretransaction>()
                 .Property(e => e.channel)
                 .IsUnicode(false);
@@ -392,12 +431,6 @@ namespace Eventhings.DbContexts
                 .Property(e => e.updated_at)
                 .HasPrecision(0);
 
-            modelBuilder.Entity<tcoreunitmeasurement>()
-                .HasMany(e => e.tcoreitempoints)
-                .WithRequired(e => e.tcoreunitmeasurement)
-                .HasForeignKey(e => e.unit_id)
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<tcoreuserrole>()
                 .Property(e => e.created_by)
                 .IsUnicode(false);
@@ -416,6 +449,14 @@ namespace Eventhings.DbContexts
 
             modelBuilder.Entity<tcoreuser>()
                 .Property(e => e.user_code)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<tcoreuser>()
+                .Property(e => e.verification_token)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<tcoreuser>()
+                .Property(e => e.verification_code)
                 .IsUnicode(false);
 
             modelBuilder.Entity<tcoreuser>()
@@ -472,8 +513,20 @@ namespace Eventhings.DbContexts
                 .HasForeignKey(e => e.user_id)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<tcorevendoritem>()
+                .Property(e => e.created_by)
+                .IsUnicode(false);
+
             modelBuilder.Entity<tcorewallet>()
                 .Property(e => e.user_id)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<tcorewallet>()
+                .Property(e => e.point)
+                .HasPrecision(19, 4);
+
+            modelBuilder.Entity<tcorewallet>()
+                .Property(e => e.payment_channel)
                 .IsUnicode(false);
 
             modelBuilder.Entity<tcorewallet>()
@@ -551,6 +604,18 @@ namespace Eventhings.DbContexts
             modelBuilder.Entity<tmstrtranxchannel>()
                 .Property(e => e.updated_at)
                 .HasPrecision(0);
+
+            modelBuilder.Entity<tcoreeventpayment>()
+                .Property(e => e.created_by)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<tcoreeventpayment>()
+                .Property(e => e.updated_by)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<tcoreverification>()
+                .Property(e => e.verification_code)
+                .IsUnicode(false);
         }
     }
 }

@@ -22,24 +22,24 @@
             <div class="row">
                 <ul class="nav nav-tabs mb-3" id="myTab0" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="newqrcode-tab" data-mdb-toggle="tab" data-mdb-target="#newqrcodecontent" type="button"
+                        <button class="nav-link active" id="newqrcode-tab" data-bs-toggle="tab" data-bs-target="#newqrcodecontent" type="button"
                             role="tab" aria-controls="home" aria-selected="true">
                             New Account
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="mappedqrcode-tab" data-mdb-toggle="tab" data-mdb-target="#mappedqrcodecontent"
+                        <button class="nav-link" id="mappedqrcode-tab" data-bs-toggle="tab" data-bs-target="#mappedqrcodecontent"
                             type="button" role="tab" aria-controls="profile" aria-selected="false">
                             New Roles</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="unmappedqrcode-tab" data-mdb-toggle="tab" data-mdb-target="#unmappedqrcodecontent"
+                        <button class="nav-link" id="unmappedqrcode-tab" data-bs-toggle="tab" data-bs-target="#unmappedqrcodecontent"
                             type="button" role="tab" aria-controls="contact" aria-selected="false">
                             Manage User
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="printqrcode-tab" data-mdb-toggle="tab" data-mdb-target="#printqrcodecontent"
+                        <button class="nav-link" id="printqrcode-tab" data-bs-toggle="tab" data-bs-target="#printqrcodecontent"
                             type="button" role="tab" aria-controls="contact" aria-selected="false">
                             Manage Role
                         </button>
@@ -58,33 +58,36 @@
                             </div>
 
                             <div class="form-group col-md-3">
-                                <label for="txtBatchName">First Name <sup>*</sup></label>
+                                <label for="txtFirstName">First Name <sup>*</sup></label>
                                 <input type="text" class="form-control" id="txtFirstName" required="required" name="txtFirstName" placeholder="Farouq">
                             </div>
 
                             <div class="form-group col-md-3">
-                                <label for="txtBatchName">Last Name <sup>*</sup></label>
+                                <label for="txtLastName">Last Name <sup>*</sup></label>
                                 <input type="text" class="form-control" id="txtLastName" required="required" name="txtLastName" placeholder="Ahmed">
                             </div>
 
                             <div class="form-group col-md-3">
-                                <label for="txtBatchName">Other Name</label>
+                                <label for="txtOtherName">Other Name</label>
                                 <input type="text" class="form-control" id="txtOtherName" name="txtOtherName" placeholder="Monkwo">
                             </div>
 
                             <div class="form-group col-md-3">
-                                <label for="txtCustomerFullName"> Email <sup>*</sup></label>
-                                <input type="email" class="form-control" id="txtEmail" required="required" name="txtEmail" placeholder="ahmedfaruk888@gmail.com">
+                                <label for="txtEmail"> Email </label>
+                                <input type="email" class="form-control" id="txtEmail" name="txtEmail" placeholder="ahmedfaruk888@gmail.com">
                             </div>
 
                             <div class="form-group col-md-3">
-                                <label for="txtCustomerFullName"> Phone Number <sup>*</sup></label>
-                                <input type="tel" class="form-control" id="txtPhone" required="required" name="txtPhone" placeholder="+2348144488577">
+                                <label for="txtPhone"> Phone Number <sup>*</sup></label> 
+                                <a href="#" class="dummy-number" title="Generate dummy number"> 
+                                    <span class="fas fa-phone-square fa-lg"></span>
+                                </a>
+                                <input type="tel" class="form-control" id="txtPhone" required="required" name="txtPhone" placeholder="Phone number">
                             </div>
 
                             <div class="form-group col-md-9">
                                 <label for="cmbUserType">User Type <sup>*</sup></label>
-                                <select required="required" class="form-control" id="cmbUserType" name="cmbUserType">
+                                <select required="required" class="form-select form-select-lg" id="cmbUserType" name="cmbUserType">
                                     
                                 </select>
                             </div>
@@ -92,7 +95,7 @@
                             <div class="row" id="attendantDiv">
                                 <div class="form-group col-md-3">
                                     <label for="txtAddress">Address <sup>*</sup></label>
-                                    <input type="text" class="form-control" id="txtAddress" name="txtAddress" placeholder="11 folarin street, lagos">
+                                    <input type="text" class="form-control" id="txtAddress" name="txtAddress" placeholder="Address">
                                 </div>
 
                                 <div class="form-group col-md-3">
@@ -184,7 +187,7 @@
                             <input type="text" class="form-control col-md-12" id="txtSearch1" name="txtSearch" placeholder="Search... by phone or email">
                         </div>
                         <div style="max-height: 300px; overflow-y:scroll">
-                            <table class="table table-striped table-bordered" style="width: 100%; font-size: .7rem;" id="userTable">
+                            <table class="table table-striped table-bordered" style="width: 100%; " id="userTable">
                             <thead>
                                 <tr>
                                     <th scope="col">
@@ -215,7 +218,7 @@
                                 <input type="text" class="form-control col-md-12" id="txtSearch2" name="txtSearch" placeholder="Search... by phone or email">
                             </div>
                         <div style="max-height: 300px; overflow-y:scroll">
-                            <table class="table table-striped table-bordered"  style="width:100%; font-size: .7rem;" id="roleTable">
+                            <table class="table table-striped table-bordered"  style="width:100%; " id="roleTable">
                             <thead>
                                 <tr>
                                     <th scope="col">
@@ -326,7 +329,7 @@
                                             <td>${row.id}</td> 
                                             <td>${row.user_code}</td>
                                             <td>${row.last_name + " " + row.first_name}</td>
-                                            <td>${row.email}</td>
+                                            <td>${(row.email != undefined || row.email != null) ? row.email : ' - '}</td>
                                             <td>${row.phone_number}</td>
                                             <td>${(row.active == 1) ? "Active" : "Inactive"}</td>
                                             <td>${(row.created_at == undefined) ? " - " : $.formattedDate(row.created_at)}</td>
@@ -355,6 +358,13 @@
 
             $('#walletDiv').css('display', 'none');
             $('#attendantDiv').css('display', 'none');
+            //$('#cmbUserType').select2();
+
+            $('.dummy-number').on('click', function (e) {
+
+                $('#txtPhone').val('080' + Math.floor(Math.random() * 100000000) + 1);
+                e.preventDefault();
+            });
 
 
             $('#cmbUserType').on('change', function () {
@@ -389,7 +399,8 @@
                 var phone_number= $("#txtPhone").val();
                 var user_type = $("#cmbUserType option:selected").val();
                 var first_name= $("#txtFirstName").val();
-                var last_name= $("#txtLastName").val();
+                var last_name = $("#txtLastName").val();
+                var topup = $("#txtTopUpAmount").val();
 
                 if (first_name == '' || first_name.length < 1) {
                     $("#lblErrorText").html("Please fill out the required field(s) - first name is required"); return;
@@ -397,14 +408,18 @@
                 if (last_name == '' || last_name.length < 1) {
                     $("#lblErrorText").html("Please fill out the required field(s) - last name is required"); return;
                 }
-                if (email == '' || email.length < 1) {
-                    $("#lblErrorText").html("Please fill out the required field(s) - email addres is required"); return;
-                }
+                //if (email == '' || email.length < 1) {
+                //    $("#lblErrorText").html("Please fill out the required field(s) - email addres is required"); return;
+                //}
                 if (phone_number == '' || phone_number.length < 1){
                     $("#lblErrorText").html("Please fill out the required field(s) - phone number is required"); return;
                 }
                 if (user_type == '0' || last_name.length < 1) {
                     $("#lblErrorText").html("Please fill out the required field(s) - choose a valid user type"); return;
+                }
+
+                if (user_type == '1' && (topup == '' || topup.length < 1)) {
+                    topup = 0.0;
                 }
 
                 var register = {
@@ -417,7 +432,8 @@
                     other_name: $("#txtOtherName").val(),
                     direction: 1,
                     active: ($('#chkEnable').prop('checked') == true) ? 1 : 0,
-                    created_by : sessionStorage.getItem('email'),
+                    created_by: sessionStorage.getItem('email'),
+                    topup_amount: topup
                 };
 
                 var data = {
@@ -441,7 +457,7 @@
                             $("#lblErrorText").html(responseData.Message);
 
                             document.getElementById('frmAccount').reset();
-
+                            GetAllUsers();
                         }
                         else if (status == '0') {
                             $("#divAlert").addClass("alert alert-info alert-dismissible fade show").attr('display', false).slideDown("slow");

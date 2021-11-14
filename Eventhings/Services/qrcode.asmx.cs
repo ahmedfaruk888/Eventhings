@@ -72,7 +72,7 @@ namespace Eventhings.Services
                                             code = ss.Value,
                                             active = qrcode.active,
                                             is_deleted = 0,
-                                            created_by = "Admin",
+                                            created_by = qrcode.created_by,
                                             created_at = DateTime.Now
                                         }
                                  });
@@ -208,94 +208,6 @@ namespace Eventhings.Services
         }
 
         [WebMethod]
-        public MappedQrCodeRespose GetMappedQrCodeByCode(string code)
-        {
-            var response = new MappedQrCodeRespose();
-            try
-            {
-                if (string.IsNullOrWhiteSpace(code))
-                {
-                    response.Status = 0;
-                    response.Message = "The QR code text is required";
-                    return response;
-                }
-
-                using (var _context = new EventhingsDbContext())
-                {
-                    var codeQuery = _context.tcorecodestores.Where(c => c.code == code && c.is_deleted == 0).FirstOrDefault();
-                    
-                    if(codeQuery == null)
-                    {
-                        response.Status = 0;
-                        response.Message = "The QR code text does not exists, please contact eventi.ng administrator";
-                        return response;
-                    }
-
-                    //check if code is mapped... (dissable ui control and display who it is mapped to) - plus the event it is mapped to
-                    //if not mapped
-
-                    var query = _context.tcoremappedcodes
-                        .Join
-                        (
-                            _context.tcoreevents,
-                            mcodes => mcodes.event_id,
-                            eventt => eventt.id,
-                            (mcodes, eventt) => new MappedQrCodeRespose()
-                            {
-                                event_id = eventt.id,
-                                event_name = eventt.name,
-                                date_mapped = mcodes.date_mapped,
-                                code_id = mcodes.code_id,
-                                deleted = mcodes.deleted,
-                                id = mcodes.code_id,
-                                Message = "Success",
-                                user_id = mcodes.user_id
-                            }
-                        )
-                        .Where(p => p.deleted == 0 && (p.code_id == codeQuery.id && p.date_mapped != null))
-                        .Select(cc => new MappedQrCodeRespose() 
-                        {
-                            event_id = cc.id,
-                            event_name = cc.event_name,
-                            date_mapped = cc.date_mapped,
-                            code_id = cc.code_id,
-                            deleted = cc.deleted,
-                            id = cc.code_id,
-                            Message = "Success",
-                            user_id = cc.user_id
-                        })
-                        .ToList();
-
-                        #region
-                    //.Select(n => new MappedQrCodeRespose() 
-                    //{
-                    //    id = n.id,
-                    //    code_id = n.code_id,
-                    //    date_mapped = n.date_mapped,
-                    //    deleted = n.deleted,
-                    //    event_id = n.event_id,
-                    //    user_id = n.user_id,
-                    //    created_by = n.created_by,
-                    //    created_at = n.created_at,
-                    //}).FirstOrDefault();
-                    #endregion
-
-                    if (query != null)
-                        response.Status = 1;
-                    else
-                        response.Status = 0;
-                }
-            }
-            catch (Exception ex)
-            {
-                response.Status = 0;
-                response.Message = ex.ToString();
-            }
-
-            return response;
-        }
-
-        [WebMethod]
         public QrCodeRespose GetStoreQrCode(string code)
         {
             var response = new QrCodeRespose();
@@ -368,6 +280,7 @@ namespace Eventhings.Services
         public List<QrCodeRespose> DistinctBatchNameNumber()
         {
             var response = new List<QrCodeRespose>();
+            //var arrtemp = new List<QrCodeRespose>();
 
             try
             {
@@ -375,33 +288,32 @@ namespace Eventhings.Services
                 {
                     var query = _context.tcorecodestores.Where(filter => filter.batch_number != null).Select(x => new QrCodeRespose()
                     {
-                        id = x.id,
+                        //id = x.id,
                         batch_number = x.batch_number,
                         batch_name = x.batch_name
-                    }).ToList();
+                    }).Distinct().ToList();
 
-                    var arrtemp = new List<QrCodeRespose>();
-                    bool duplicatefound = false;
-                    foreach (var qr1 in query)
-                    {
-                        arrtemp.Add(qr1);
-                        foreach (var qr2 in arrtemp)
-                        {
-                            if (qr1.batch_name == qr2.batch_name)
-                                duplicatefound = true;
+                    //bool duplicatefound = false;
+                    //foreach (var qr1 in query)
+                    //{
+                    //    arrtemp.Add(qr1);
+                    //    foreach (var qr2 in arrtemp)
+                    //    {
+                    //        if (qr1.batch_name == qr2.batch_name)
+                    //            duplicatefound = true;
 
-                            if (!duplicatefound)
-                            {
-                                arrtemp.Add(qr2);
-                            }
-                        }
-                    }
+                    //        if (!duplicatefound)
+                    //        {
+                    //            arrtemp.Add(qr2);
+                    //        }
+                    //    }
+                    //}
 
-                    foreach(var qr2 in arrtemp)
+                    foreach(var qr2 in query)
                     {
                         response.Add(new QrCodeRespose()
                         {
-                            id = qr2.id,
+                            //id = qr2.id,
                             batch_name = qr2.batch_name,
                             batch_number = qr2.batch_number,
                             Status = 1,
@@ -415,10 +327,17 @@ namespace Eventhings.Services
             }
             catch (Exception ex)
             {
+                #if DEBUG
                 response.Add(new QrCodeRespose()
                 {
                     Status = 0,
-                    Message = ex.Message
+                    Message = ex.ToString()
+                });
+                #endif
+                response.Add(new QrCodeRespose()
+                {
+                    Status = 0,
+                    Message = "An network error occured"
                 });
             }
 
@@ -436,16 +355,33 @@ namespace Eventhings.Services
 
                     var query = _context.tcorecodestores.Where(name => name.batch_name == batchname).ToList();
 
+                    //Get the base qr code text to embed into QR code from the appsettings section of the web.config file
+                    var stringToEncode = ConfigurationHelper.GetBaseUrlConfiSection();
+                    if (string.IsNullOrEmpty(stringToEncode))
+                    {
+                        response.Add(new QrCodeRespose()
+                        {
+                            Status = 0,
+                            Message = "Qr code image can not be generated - missing QR code text from the configuration file"
+                        });
+
+                        return response;
+                    }
+
+                    var msgDelimeter = ',';
+                    string messageUrl = string.Empty;
+
                     foreach(var ss in query)
                     {
                         response.Add(new QrCodeRespose() 
                         { 
                              id = ss.id,
+                             base_qrcode_url = stringToEncode,
                              code = ss.code,
                              batch_name = ss.batch_name,
                              batch_number = ss.batch_number,
                              Status = 1,
-                             Message = $"{ss.id}|{ss.code}"
+                             Message = new Uri($"{stringToEncode}?codeid={ss.id},code={ss.code},batch_name={ss.batch_name},batch_number={ss.batch_number}").ToString()
                         });
                     }
                     //response.total_code_count = (from p in _context.tcorecodestores select p).Count();
@@ -455,9 +391,280 @@ namespace Eventhings.Services
             {
                 response.Add(new QrCodeRespose()
                 {
-                    Status = 0,
+                    Status = -1,
                     Message = ex.ToString()
                 });
+            }
+
+            return response;
+        }
+
+        [WebMethod]
+        public UserResponse GetCustomer(string phone_number)
+        {
+            var response = new UserResponse();
+
+            try
+            {
+                using (var _context = new EventhingsDbContext())
+                {
+                    if (string.IsNullOrWhiteSpace(phone_number))
+                    {
+                        response.Status = 0;
+                        response.Message = "Phone number is required";
+                    }
+
+                    var query = _context.tcoreusers
+                        .Where(e => e.phone_number == phone_number && e.active == 1 && e.is_deleted == 0)
+                        .Select(n => new UserResponse()
+                        {
+                            id = n.id,
+                            user_code = n.user_code,
+                            first_name = n.first_name,
+                            last_name = n.last_name,
+                            other_name = n.other_name,
+                            email = n.email,
+                            email_confirmed = n.email_confirmed,
+                            phone_number = n.phone_number,
+                            phone_number_confirmed = n.phone_number_confirmed,
+                            password_hash = n.password_hash,
+                            require_password_change = n.require_password_change,
+                            active = n.active,
+                            created_at = n.created_at,
+                            created_by = n.created_by,
+                            updated_at = n.updated_at,
+                            updated_by = n.updated_by,
+                            Status = 1,
+                            Message = "Success"
+                        }).FirstOrDefault();
+
+                    //var wallet = _context.tcorewallets.Where(p => p.user_id == query.id.ToString()).FirstOrDefault();
+                    //query.current_balance = wallet.current_balance.ToString();
+                    if(query == null)
+                    {
+                        response.Status = 0;
+                        response.Message = "The specified phone number does not exists..";
+                        return response;
+                    }
+                    response = query;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = 0;
+                response.Message = ex.ToString();
+            }
+
+            return response;
+        }
+
+        [WebMethod]
+        public MappedQrCodeRespose MapCodeToCustomer(MappedQrCodeDto map)
+        {
+            var response = new MappedQrCodeRespose();
+            try
+            {
+                if (string.IsNullOrEmpty(map.base_point.ToString()))
+                {
+                    response.Status = 0;
+                    response.Message = "Customer base point is required before entering the event hall";
+                    return response;
+                }
+
+                if (string.IsNullOrEmpty(map.base_amount.ToString()))
+                {
+                    response.Status = 0;
+                    response.Message = "Customer base amount is required before entering the event hall";
+                    return response;
+                }
+
+                if (string.IsNullOrEmpty(map.user_id.ToString()))
+                {
+                    response.Status = 0;
+                    response.Message = "Customer Id is required to map code to customer";
+                    return response;
+                }
+
+                if (string.IsNullOrEmpty(map.code.ToString()))
+                {
+                    response.Status = 0;
+                    response.Message = "Customer QR code text is required";
+                    return response;
+                }
+
+                if (string.IsNullOrEmpty(map.event_id.ToString()))
+                {
+                    response.Status = 0;
+                    response.Message = "Event is required to map customer";
+                    return response;
+                }
+
+                using (var _context = new EventhingsDbContext())
+                {
+                    //allows only one entry on the foreign key
+                    var maping = _context.tcoremappedcodes
+                                            .Where(e => e.user_id == map.user_id && e.event_id == map.event_id).FirstOrDefault();
+                    
+                    if(maping != null) //return error
+                    {
+                        response.Status = 0;
+                        response.Message = $"The specified phone number has been mapped to another QR Code for the same event";
+                        return response;
+                    }
+                    else //insert
+                    {
+                        //Update the date_used column on the code store table
+                        var qr = _context.tcorecodestores
+                                            .Where(e => e.code == map.code && e.active == 1).FirstOrDefault();
+
+                        qr.date_used = DateTime.Now;
+                        _context.Entry(qr).State = System.Data.Entity.EntityState.Modified;
+
+                        //insert a new entry into the mapped code table
+                        _context.tcoremappedcodes.Add(new tcoremappedcode
+                        {
+                            user_id = map.user_id,
+                            code_id = qr.id,
+                            event_id = map.event_id,
+                            deleted = 0,
+                            created_at = DateTime.Now,
+                            date_mapped = DateTime.Now
+                        });
+
+                        //check if the user has an entry in the wallet table before
+                        var wallet = _context.tcorewallets.Where(identity => identity.user_id == map.user_id.ToString() && identity.active == 1).FirstOrDefault();
+                        
+                        if(wallet != null) //update the entry
+                        {
+                            //if the user currently have an active e-wallet
+                            //var newPrevBal = wallet.current_balance;
+
+                            wallet.point = (wallet.point + map.base_point.Value);
+                            wallet.prev_balance = wallet.current_balance;
+                            wallet.amount_paid = (wallet.amount_paid + map.base_amount.Value);
+                            wallet.current_balance = (wallet.current_balance + map.base_amount.Value);
+
+                            _context.Entry(wallet).State = System.Data.Entity.EntityState.Modified;
+                        }
+                        else //insert a new entry
+                        {
+                            //Insert a new default record for the user in the wallet table
+                            _context.tcorewallets.Add(new tcorewallet
+                            {
+                                user_id = map.user_id.ToString(),
+                                point = map.base_point.Value,
+                                payment_channel = map.payment_channel,
+                                prev_balance = 0,
+                                amount_paid = map.base_amount.Value,
+                                current_balance = map.base_amount.Value,
+                                active = 1,
+                                is_deleted = 0,
+                                created_by = map.email_address,
+                                created_at = DateTime.Now
+                            });
+                        }
+
+
+                        //_context.tcorewallets.Add(new tcorewallet
+                        //{
+                        //    user_id = map.user_id.ToString(),
+                        //    point = map.base_point.Value,
+
+                        //    prev_balance = 0,
+                        //});
+
+                        //save the changes to the database
+                        var affected = _context.SaveChanges();
+                        if (affected > 0)
+                        {
+                            response.Status = 1;
+                            response.Message = $"Customer QR code text '{map.code}' was successfully mapped";
+                            return response;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = 0;
+                response.Message = ex.ToString();
+            }
+
+            return response;
+        }
+
+        [WebMethod]
+        public MappedQrCodeRespose GetMappedQrCodeByCode(string code)
+        {
+            var response = new MappedQrCodeRespose();
+            try
+            {
+                if (string.IsNullOrWhiteSpace(code))
+                {
+                    response.Status = 0;
+                    response.Message = "The QR code text is required";
+                    return response;
+                }
+
+                using (var _context = new EventhingsDbContext())
+                {
+                    var codeQuery = _context.tcorecodestores.Where(c => c.code == code && c.is_deleted == 0).FirstOrDefault();
+
+                    if (codeQuery == null)
+                    {
+                        response.Status = 0;
+                        response.Message = "The QR code text does not exists, please contact eventi.ng administrator";
+                        return response;
+                    }
+
+                    //New mapping
+                    //var codeStore = _context.tcorecodestores.Where(id => id.code == code).FirstOrDefault();
+                    var mappedCode = _context.tcoremappedcodes.Where(id => id.code_id == codeQuery.id).FirstOrDefault();
+
+                    if (mappedCode == null || mappedCode.date_mapped == null)
+                    {
+                        //Open the floor for insertion
+                        response.Status = 2;
+                        response.Message = "The QR code text has not been mapped";
+                        return response;
+                    }
+                    else
+                    {
+                        //Display
+                        //Get the user details
+                        var user = _context.tcoreusers.Where(id => id.id == mappedCode.user_id).FirstOrDefault();
+                        if (user != null)
+                        {
+                            response.full_name = user.last_name + " " + user.first_name;
+                            response.phone_number = user.phone_number;
+                            response.date_mapped = mappedCode.date_mapped;
+
+                            //Wallet details retrived
+                            var wallet = _context.tcorewallets.Where(id => id.user_id == user.id.ToString() && id.active == 1 && id.is_deleted == 0).FirstOrDefault();
+                            if(wallet != null)
+                            {
+                                response.point = wallet.point;
+                                response.current_balance = wallet.current_balance.Value;
+                            }
+
+                            var events = _context.tcoreevents.Where(id => id.id == mappedCode.event_id && id.active == 1).FirstOrDefault();
+                            if(events != null)
+                            {
+                                response.event_id = events.id;
+                                response.event_name = events.name;
+                            }
+
+                            response.Status = 1;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = -1;
+                response.Message = ex.ToString();
+                //response.Message = "An internal exception occured";
             }
 
             return response;

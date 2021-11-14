@@ -10,9 +10,11 @@ namespace Eventhings.DbEntities
     {
         public int id { get; set; }
 
+        public int? item_id { get; set; }
+
         [Required]
         [StringLength(128)]
-        public string item_id { get; set; }
+        public string item_name { get; set; }
 
         public int unit_id { get; set; }
 
@@ -37,7 +39,5 @@ namespace Eventhings.DbEntities
 
         [Column(TypeName = "datetime2")]
         public DateTime? updated_at { get; set; }
-
-        public virtual tcoreunitmeasurement tcoreunitmeasurement { get; set; }
     }
 }

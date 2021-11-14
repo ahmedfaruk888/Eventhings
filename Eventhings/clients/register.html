@@ -31,7 +31,7 @@
                                 <div class="alert alert-info alert-dismissible" id="divAlert">
                                     <button type="button" class="close" data-dismiss="alert">&times;</button>
                                     <p id="lblErrorText">
-                                        <strong>Error!</strong> Indicates a successful or positive action.
+                                        
                                     </p>
                                 </div>
 
@@ -42,7 +42,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="confirmPassword">Phone number <sup>*</sup></label>
-                                        <input type="text" class="form-control" required id="txtPhone" name="txtPhone" placeholder="+2348144488577">
+                                        <input type="text" class="form-control" required id="txtPhone" name="txtPhone" placeholder="Phone number">
                                     </div>
                                     <div class="form-group">
                                         <label for="password">Password <sup>*</sup></label>
@@ -54,13 +54,17 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="confirmPassword">First name <sup>*</sup></label>
-                                        <input type="text" class="form-control" required id="txtFirstName" name="txtFirstName" placeholder="Farouq">
+                                        <input type="text" class="form-control" required id="txtFirstName" name="txtFirstName" placeholder="First name">
                                     </div>
                                     <div class="form-group">
                                         <label for="confirmPassword">Last name <sup>*</sup></label>
                                         <input type="text" class="form-control" required id="txtLastName" name="txtLastName" placeholder="Ahmed">
                                     </div>
-                                    <button class="btn btn-primary btn-auth-submit" type="submit" id="btnSubmit">Create Account</button>
+                                    <button class="btn btn-primary btn-auth-submit" type="submit" id="btnSubmit">
+                                        Create Account
+                                        <span class="fas fa-spinner fa-spin spinner"> </span>
+                                    </button>
+                                    <button style="display:none" type="button" class="btn btn-primary btn-auth-submit" onclick="payWithPaystack()"> Pay With Paystack</button>
                                 </form>
                                 <p class="mb-0">
                                     <a href="login.html" class="text-dark font-weight-bold">Already have an acocunt? Sign in</a>
@@ -84,8 +88,10 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
 
     <script src="assets/js/app.js"></script>
+    <script src="https://js.paystack.co/v1/inline.js"></script>
 
     <script type="text/javascript">
+
         $(document).ready(function () {
 
             $('label sup').css('color', 'red');
@@ -98,29 +104,25 @@
 
             $("#footer").load("layouts/footer.html");
 
+            $(".spinner").hide();
+
 
             //validate form
             $("#frmRegister").validate();
             $("#frmRegister").on('submit', function (e) {
 
-                e.preventDefault();
-
+                
+                $("#divAlert").show().addClass("alert alert-warning alert-dismissible fade show").attr('display', false).slideUp("slow");
                 var register = {
-                    user_type: 1,
+                    user_type: 4,
                     email: $("#txtEmail").val(),
                     phone_number: $("#txtPhone").val(),
                     password_hash: $("#txtPassword").val(),
                     first_name: $("#txtFirstName").val(),
                     last_name: $("#txtLastName").val(),
                     other_name: $("#password").val(),
-                    password_hash: $("#password").val(),
+                    retry_password_hash: $("#txtConfirmPassword").val(),
                     direction: 0
-
-
-                    //require_password_change: 0,
-                    //phone_number_confirmed: 1,
-                    //email_confirmed: 0,
-                    //active: 1
                 };
 
                 var data = {
@@ -139,16 +141,18 @@
 
                             var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
 
-                            //parse the response as json data;
-                            responseData = JSON.parse(responseData);
+                            console.log(responseData.Status);
                             var status = responseData.Status;
                             if (status >= '1') {
 
-                                /*window.location.href = window.location.host + "/admin/qrcodegen.aspx";*/
+                                //if the request is successfull
+                                /*payWithPaystack();*/
 
-                                sessionStorage.setItem('email', $("#email").val());
-                                $("#divAlert").addClass("alert alert-success alert-dismissible fade show").attr('display', true).slideDown("slow");
-                                $("#lblErrorText").html(responseData.Message);
+                                sessionStorage.setItem('regemail', $('#txtEmail').val());
+                                var referLink = document.createElement("a");
+                                referLink.href = "registration-success.html";
+                                document.body.appendChild(referLink);
+                                referLink.click();
 
                             }
                             else if (status == '0') {
@@ -157,12 +161,12 @@
                             }
                         },
                         beforeSend: function () {
-                            $("#spinner").show();
-                            $("#btnSubmit").attr('disabled', true);
+                            $(".spinner").show();
+                            $("#btnSubmit").html("Submitting request").attr('disabled', true);
                         },
                         complete: function () {
-                            $("#spinner").hide();
-                            $("#btnSubmit").attr('disabled', false);
+                            $(".spinner").hide();
+                            $("#btnSubmit").html("Create Account").attr('disabled', false);
                         },
                         error: function (data) {
                             console.log(data);
@@ -178,13 +182,10 @@
                     $("#lblErrorText").html("Please fill out the required field(s)");
                     return;
                 }
+
+                e.preventDefault();
             });
         });
     </script>
-
-
-
-
 </body>
-
 </html>

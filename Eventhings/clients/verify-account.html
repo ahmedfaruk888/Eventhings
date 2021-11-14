@@ -38,9 +38,9 @@
                                 <form action="verify-account.html" method="POST" id="frmVerifyAccount">
                                     <div class="form-group">
                                         <label for="email">Verification Code <sup>*</sup></label>
-                                        <input type="text" class="form-control" id="txtEmail" required name="txtVerificationCode" placeholder="1234567">
+                                        <input type="text" class="form-control" id="txtVerificationCode" required name="txtVerificationCode" placeholder="1234567">
                                     </div>
-                                    <button class="btn btn-primary btn-auth-submit" type="submit" id="btnSubmit">Verify Account</button>
+                                    <button class="btn btn-primary btn-auth-submit" type="submit" id="btnVerify">Verify Account</button>
                                 </form>
                                 <p class="mb-0">
                                     <a href="#" class="text-dark font-weight-bold">Didn't get the code? Resend code</a>
@@ -80,84 +80,61 @@
 
 
             //validate form
-            $("#frmRegister").validate();
-            $("#frmRegister").on('submit', function (e) {
-
+            //$("#frmRegister").validate();
+            $("#btnVerify").on('click', function (e) {
+                //"?code=cc7aa34a-4743-4cbb-af47-5c9927020862"
                 e.preventDefault();
-
-                var register = {
-                    user_type: 1,
-                    email: $("#txtEmail").val(),
-                    phone_number: $("#txtPhone").val(),
-                    password_hash: $("#txtPassword").val(),
-                    first_name: $("#txtFirstName").val(),
-                    last_name: $("#txtLastName").val(),
-                    other_name: $("#password").val(),
-                    password_hash: $("#password").val(),
-                    direction: 0
-
-
-                    //require_password_change: 0,
-                    //phone_number_confirmed: 1,
-                    //email_confirmed: 0,
-                    //active: 1
+                var verifydto = {
+                    verification_code: $("#txtVerificationCode").val(),
+                    verification_token: window.location.search.split('=')[1]
                 };
 
                 var data = {
-                    register: register
+                    verifydto: verifydto
                 };
 
-                if ($("#frmRegister").valid()) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Services/authenticate.asmx/VerifyEmail",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(data),
+                    success: function (response) {
 
-                    $.ajax({
-                        type: "POST",
-                        url: "/Services/authenticate.asmx/Register",
-                        dataType: "json",
-                        contentType: "application/json; charset=utf-8",
-                        data: JSON.stringify(data),
-                        success: function (response) {
+                        var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
 
-                            var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
+                        var status = responseData.Status;
+                        if (status == '1') {
 
-                            //parse the response as json data;
-                            responseData = JSON.parse(responseData);
-                            var status = responseData.Status;
-                            if (status >= '1') {
+                            /*window.location.href = window.location.host + "/admin/qrcodegen.aspx";*/
 
-                                /*window.location.href = window.location.host + "/admin/qrcodegen.aspx";*/
+                            var referLink = document.createElement("a");
+                            referLink.href = "login.html";
+                            document.body.appendChild(referLink);
+                            referLink.click();
 
-                                sessionStorage.setItem('email', $("#email").val());
-                                $("#divAlert").addClass("alert alert-success alert-dismissible fade show").attr('display', true).slideDown("slow");
-                                $("#lblErrorText").html(responseData.Message);
-
-                            }
-                            else if (status == '0') {
-                                $("#divAlert").addClass("alert alert-info alert-dismissible fade show").attr('display', false).slideDown("slow");
-                                $("#lblErrorText").html(responseData.Message);
-                            }
-                        },
-                        beforeSend: function () {
-                            $("#spinner").show();
-                            $("#btnSubmit").attr('disabled', true);
-                        },
-                        complete: function () {
-                            $("#spinner").hide();
-                            $("#btnSubmit").attr('disabled', false);
-                        },
-                        error: function (data) {
-                            console.log(data);
-                            $("#divAlert").addClass("alert alert-info alert-dismissible fade show").attr('display', false).slideDown("slow");
-                            $("#lblErrorText").html("Error occured while submiting form");
-                            /*console.error(data);*/
                         }
-                    });
-
-
-                } else {
-                    $("#divAlert").show().addClass("alert alert-warning alert-dismissible fade show").attr('display', false).slideDown("slow");
-                    $("#lblErrorText").html("Please fill out the required field(s)");
-                    return;
-                }
+                        else if (status == '2') {
+                            $("#divAlert").addClass("alert alert-info alert-dismissible fade show").attr('display', false).slideDown("slow");
+                            $("#lblErrorText").html(responseData.Message);
+                        } else {
+                            $("#divAlert").addClass("alert alert-info alert-dismissible fade show").attr('display', false).slideDown("slow");
+                            $("#lblErrorText").html(responseData.Message);
+                        }
+                    },
+                    beforeSend: function () {
+                        $("#btnVerify").attr('disabled', true);
+                    },
+                    complete: function () {
+                        $("#btnVerify").attr('disabled', false);
+                    },
+                    error: function (data) {
+                        console.log(data);
+                        $("#divAlert").addClass("alert alert-info alert-dismissible fade show").attr('display', false).slideDown("slow");
+                        $("#lblErrorText").html("Error occured while submiting form");
+                        /*console.error(data);*/
+                    }
+                });
             });
         });
     </script>

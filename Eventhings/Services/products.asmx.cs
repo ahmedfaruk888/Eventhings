@@ -21,41 +21,39 @@ namespace Eventhings.Services
     {
 
         [WebMethod]
-        public List<HostResponse> Get()
+        public List<ProductResponse> Get()
         {
-            var response = new List<HostResponse>();
+            var response = new List<ProductResponse>();
 
             try
             {
                 using (var _context = new EventhingsDbContext())
                 {
-                    var query = _context.tmstrcategories
-                        .Where(e => e.active == 1 && e.is_deleted == 0)
-                        .Select(n => new HostResponse()
-                        {
-                            id = n.id,
-                            //full_name = n.full_name,
-                            //description = n.description,
-                            //phone = n.phone,
-                            //email = n.email,
-                            //address = n.address,
-                            //active = n.active,
-                            //deleted = n.deleted,
-                            created_at = n.created_at,
-                            created_by = n.created_by,
-                            updated_at = n.updated_at,
-                            updated_by = n.updated_by
-                        }).ToList();
+                    var queryItems = _context.tcoreitems.Where(e => e.active == 1 && e.is_deleted == 0).ToList();
 
-                    foreach (var ss in query)
+                    if(queryItems != null)
                     {
-                        response.Add(ss);
+                        foreach(var item in queryItems)
+                        {
+                            response.Add(new ProductResponse
+                            {
+                                name = item.name,
+                                description = item.description,
+                                cost = item.cost,
+                                price = item.price,
+                                quantity = item.quantity,
+                                category = item.category,
+                                created_at = item.created_at,
+                                active = item.active,
+                                Status = 1
+                            });
+                        }
                     }
                 }
             }
             catch (Exception ex)
             {
-                response.Add(new HostResponse()
+                response.Add(new ProductResponse()
                 {
                     Status = 0,
                     Message = ex.ToString()
@@ -95,6 +93,7 @@ namespace Eventhings.Services
                             price = productdto.price,
                             category = productdto.category,
                             quantity = productdto.quantity,
+                            point = productdto.point,
 
                             is_deleted = 0,
                             active = productdto.active,

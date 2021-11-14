@@ -2,7 +2,6 @@
 
 
 <asp:Content ID="headContentContent" ContentPlaceHolderID="headContentPlaceHolder" runat="server">
-
 </asp:Content>
 
 <asp:Content ID="pageHeaderContent" ContentPlaceHolderID="pageHeaderContentPlaceHolder" runat="server">
@@ -10,7 +9,6 @@
         <div class="alert alert-info alert-dismissible" id="divAlert">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <p id="lblErrorText">
-
             </p>
         </div>
     </div>
@@ -23,33 +21,33 @@
             <div class="row">
                 <ul class="nav nav-tabs mb-3" id="myTab0" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="newcategory-tab" data-mdb-toggle="tab" data-mdb-target="#newcategorycontent" type="button"
+                        <button class="nav-link active" id="newcategory-tab" data-bs-toggle="tab" data-bs-target="#newcategorycontent" type="button"
                             role="tab" aria-controls="home" aria-selected="true">
                             Product Category
                         </button>
                     </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="newqrcode-tab" data-mdb-toggle="tab" data-mdb-target="#newqrcodecontent" type="button"
+                    <li class="nav-item" role="presentation" style="display: none">
+                        <button class="nav-link" id="newqrcode-tab" data-bs-toggle="tab" data-bs-target="#newqrcodecontent" type="button"
                             role="tab" aria-controls="home" aria-selected="true">
                             Product Unit - Measurement
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="mappedqrcode-tab" data-mdb-toggle="tab" data-mdb-target="#mappedqrcodecontent"
+                        <button class="nav-link" id="mappedqrcode-tab" data-bs-toggle="tab" data-bs-target="#mappedqrcodecontent"
                             type="button" role="tab" aria-controls="profile" aria-selected="false">
                             New Product Entry
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="unmappedqrcode-tab" data-mdb-toggle="tab" data-mdb-target="#unmappedqrcodecontent"
+                        <button class="nav-link" id="unmappedqrcode-tab" data-bs-toggle="tab" data-bs-target="#unmappedqrcodecontent"
                             type="button" role="tab" aria-controls="contact" aria-selected="false">
-                            Product Points Mapping
+                            Product - Vendor Mapping
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="printqrcode-tab" data-mdb-toggle="tab" data-mdb-target="#printqrcodecontent"
+                        <button class="nav-link" id="printqrcode-tab" data-bs-toggle="tab" data-bs-target="#printqrcodecontent"
                             type="button" role="tab" aria-controls="contact" aria-selected="false">
-                            Manage Product
+                            View All Products
                         </button>
                     </li>
                 </ul>
@@ -58,29 +56,28 @@
                     <div class="tab-pane fade show active" id="newcategorycontent" role="tabpanel" aria-labelledby="newcategory-tab">
                         <div class="row">
                             <section class="page-header" style="padding-top: 20px; padding-bottom: 10px">
-                                <p class="card-title">Category Setup</p>
+                                <h3 class="card-title">Category Setup</h3>
                             </section>
 
-                            <div class="form-group col-md-8">
+                            <div class="form-group col-md-4">
                                 <label for="txtCategoryName">Name <sup>*</sup></label>
                                 <input type="text" class="form-control" id="txtCategoryName" required="required" name="txtCategoryName" placeholder="Drinks">
                             </div>
 
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-4" style="display: none">
                                 <label for="cmbCategoryParent">Category Parent</label>
-                                <select required="required" class="form-control" id="cmbCategoryParent" name="cmbHost">
-                                    
+                                <select required="required" class="form-control multiple" id="cmbCategoryParent" name="cmbHost">
                                 </select>
                             </div>
-                            
-                            <div class="form-group col-md-12">
-                                <label for="txtCategoryDescription"> Description <sup>*</sup></label>
-                                <input type="tel" class="form-control" id="txtCategoryDescription" name="txtCategoryDescription" placeholder="A carbonated drinks">
+
+                            <div class="form-group col-md-8">
+                                <label for="txtCategoryDescription">Description <sup>*</sup></label>
+                                <input type="text" class="form-control" id="txtCategoryDescription" name="txtCategoryDescription" placeholder="A carbonated drinks">
                             </div>
 
-                             <div class="form-group col-md-3">
+                            <div class="form-group col-md-6">
                                 <input id="chkEnableCategory" checked="checked" name="chkEnableCategory" type="checkbox" value="" />
-                                <label for="chkEnableCategory"> &nbsp; Enable this category by default</label>
+                                <label for="chkEnableCategory">&nbsp; Enable this category by default</label>
                             </div>
 
                             <div class="text-right">
@@ -92,7 +89,7 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane fade" id="newqrcodecontent" role="tabpanel" aria-labelledby="newqrcode-tab">
+                    <div class="tab-pane fade" id="newqrcodecontent" role="tabpanel" aria-labelledby="newqrcode-tab" style="display: none">
                         <div class="row">
                             <section class="page-header" style="padding-top: 20px; padding-bottom: 10px">
                                 <p>Product unit of measurement</p>
@@ -103,9 +100,9 @@
                                 <input type="text" class="form-control" id="txtUnitName" required="required" name="txtUnitName" placeholder="Farouq Ahmed">
                             </div>
 
-                             <div class="form-group col-md-3">
+                            <div class="form-group col-md-3">
                                 <input id="chkEnableUnit" checked="checked" name="chkEnableUnit" type="checkbox" value="" />
-                                <label for="chkEnableUnit"> &nbsp; Enable this unit by default</label>
+                                <label for="chkEnableUnit">&nbsp; Enable this unit by default</label>
                             </div>
 
                             <div class="text-right">
@@ -119,44 +116,48 @@
 
                     <div class="tab-pane fade" id="mappedqrcodecontent" role="tabpanel" aria-labelledby="mappedqrcode-tab">
                         <p class="feature-title" style="margin-bottom: 10px">
-                           Add new product
+                            Add new product
                         </p>
                         <div class="row">
-                           <div class="form-group col-md-8">
+                            <div class="form-group col-md-3">
                                 <label for="txtProductName">Name <sup>*</sup></label>
                                 <input type="text" class="form-control" id="txtProductName" required="required" name="txtProductName" placeholder="Eva bottle water">
                             </div>
 
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-3">
                                 <label for="txtProductDescription">Description </label>
                                 <input type="text" class="form-control" id="txtProductDescription" required="required" name="txtProductDescription" placeholder="Eva distilled bottle water">
                             </div>
-                            
-                            <div class="form-group col-md-8">
-                                <label for="txtProductCost"> Cost <sup>*</sup></label>
-                                <input type="text" class="form-control" id="txtProductCost" required="required" name="txtProductCost" placeholder="150:00">
+
+                            <div class="form-group col-md-3">
+                                <label for="txtProductCost">Cost <sup>*</sup></label>
+                                <input type="number" class="form-control" id="txtProductCost" required="required" name="txtProductCost" placeholder="150:00">
                             </div>
 
-                            <div class="form-group col-md-4">
-                                <label for="txtProductPrice"> Price <sup>*</sup></label>
-                                <input type="text" class="form-control" id="txtProductPrice" required="required" name="txtProductPrice" placeholder="125:00">
+                            <div class="form-group col-md-3">
+                                <label for="txtProductPrice">Price <sup>*</sup></label>
+                                <input type="number" class="form-control" id="txtProductPrice" required="required" name="txtProductPrice" placeholder="125:00">
                             </div>
 
-                            <div class="form-group col-md-8">
+                            <div class="form-group col-md-3">
                                 <label for="cmbProductCategory">Category <sup>*</sup></label>
-                                <select required="required" class="form-control" id="cmbProductCategory" name="cmbProductCategory">
-                                    
+                                <select required="required" class="form-select form-select-lg" id="cmbProductCategory" name="cmbProductCategory">
                                 </select>
                             </div>
 
-                            <div class="form-group col-md-4">
-                                <label for="txtProductQuantity"> Quantity <sup>*</sup></label>
+                            <div class="form-group col-md-3">
+                                <label for="txtProductQuantity">Quantity <sup>*</sup></label>
                                 <input type="number" min="1" class="form-control" id="txtProductQuantity" required="required" name="txtProductQuantity" placeholder="1">
                             </div>
 
-                             <div class="form-group col-md-3">
+                            <div class="form-group col-md-6">
+                                <label for="txtMapPoints">Point <sup>*</sup></label>
+                                <input type="number" class="form-control" id="txtMapPoints" required="required" name="txtMapPoints" placeholder="1">
+                            </div>
+
+                            <div class="form-group col-md-3">
                                 <input id="chkEnableProduct" checked="checked" name="chkEnableProduct" type="checkbox" value="" />
-                                <label for="chkEnableProduct"> &nbsp; Enable this product by default</label>
+                                <label for="chkEnableProduct">&nbsp; Enable this product by default</label>
                             </div>
 
                             <div class="text-right">
@@ -170,25 +171,30 @@
 
                     <div class="tab-pane fade" id="unmappedqrcodecontent" role="tabpanel" aria-labelledby="unmappedqrcode-tab">
                         <p class="feature-title" style="margin-bottom: 10px">
-                            Product mapping
+                            Product Mapping
                         </p>
-                        
+
                         <div class="row">
-                           <div class="form-group col-md-8">
-                                <label for="cmbMapCategory">Product <sup>*</sup></label>
-                                <select required="required" class="form-control" id="cmbMapCategory" name="cmbMapCategory">
-                                    
+                            <div class="form-group col-md-8">
+                                <label for="cmbMapItem">Product Item<sup>*</sup></label>
+                                <select required="required" class="form-select form-select-lg" id="cmbMapItem" name="cmbMapItem">
                                 </select>
                             </div>
 
                             <div class="form-group col-md-4">
+                                <label for="cmbMapItem">Vendor<sup>*</sup></label>
+                                <select required="required" class="form-select form-select-lg" id="cmbVendor" name="cmbMapItem">
+                                </select>
+                            </div>
+
+                            <%--<div class="form-group col-md-4" style="display:none">
                                 <label for="cmbMapMeasurement">Product Measurement<sup>*</sup></label>
                                 <select required="required" class="form-control" id="cmbMapMeasurement" name="cmbMapMeasurement">
                                     
                                 </select>
                             </div>
 
-                            <div class="form-group col-md-8">
+                            <div class="form-group col-md-4">
                                 <label for="txtProductCost"> Cost <sup>*</sup></label>
                                 <input type="text" class="form-control" id="txtMapCost" required="required" name="txtMapCost" placeholder="150:00">
                             </div>
@@ -196,16 +202,11 @@
                             <div class="form-group col-md-4">
                                 <label for="txtMapPrice"> Price <sup>*</sup></label>
                                 <input type="text" class="form-control" id="txtMapPrice" required="required" name="txtMapPrice" placeholder="125:00">
-                            </div>
-
-                            <div class="form-group col-md-12">
-                                <label for="txtMapPoints"> Point <sup>*</sup></label>
-                                <input type="text" class="form-control" id="txtMapPoints" required="required" name="txtMapPoints" placeholder="1">
-                            </div>
+                            </div>--%>
 
                             <div class="form-group col-md-3">
                                 <input id="chkEnableMap" checked="checked" name="chkEnableMap" type="checkbox" value="" />
-                                <label for="chkEnableMap"> &nbsp; Enable this maping by default</label>
+                                <label for="chkEnableMap">&nbsp; Enable this maping by default</label>
                             </div>
 
                             <div class="text-right">
@@ -221,38 +222,34 @@
                         <section class="page-header" style="padding-top: 20px; padding-bottom: 10px">
                             <p>Manage Product</p>
                         </section>
-                        <div class="form-group col-md-12">
+                        <%--<div class="form-group col-md-12">
                                 <input type="text" class="form-control col-md-12" id="txtSearch2" name="txtSearch" placeholder="Search... by phone or email">
-                            </div>
-                        <div style="max-height: 300px; overflow-y:scroll">
-                            <table class="table table-striped table-bordered"  style="width:100%; font-size: .7rem;" id="hostTable">
-                            <thead>
-                                <tr>
-                                    <th scope="col">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="mstrRoleChecked" />
-                                        </div>
-                                    </th>
-                                    <th scope="col">S/N</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Description</th>
-                                    <th scope="col">Category</th>
-                                    <th scope="col">Cost</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Quantity</th>
-                                    <th scope="col">Active</th>
-                                    <th scope="col">Created Date</th>
-                                </tr>
-                            </thead>
-                            <tbody id="hostTBody">
-                                
-                            </tbody>
-                        </table>
-                        <div>
+                            </div>--%>
+                        <div style="max-height: 300px; overflow-y: scroll">
+                            <table class="table table-striped table-bordered" id="productTable">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="mstrRoleChecked" />
+                                            </div>
+                                        </th>
+                                        <th scope="col">S/N</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Description</th>
+                                        <th scope="col">Category</th>
+                                        <th scope="col">Cost</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Created Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="productTBody">
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
-                <</div>
             </div>
         </form>
     </section>
@@ -273,51 +270,19 @@
 
                     var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
 
-                    $('#cmbCategoryParent').empty();
-                    $('#cmbCategoryParent').append($("<option></option>").val('0').html('Parent Category'))
-                    $.each(responseData, function (i, data) {
-
-                        if (data.parent === 0) {
-                            $('#cmbCategoryParent').append($("<option></option>").val(data.id).html(data.name));
-                        }
-
-                    });
-                },
-                beforeSend: function () {
-                    $('#cmbCategoryParent').append($("<option>Loading categories...</option>"));
-                },
-                error: function (data) {
-                    $("#lblErrorText").html("Error occured while submiting form");
-                }
-            });
-        }
-
-        function GetCategory() {
-
-            $.ajax({
-                type: "POST",
-                url: "/Services/category.asmx/GetCategory",
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                cache: false,
-                success: function (response) {
-
-                    var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
+                    //cmbProductCategory
 
                     $('#cmbProductCategory').empty();
-                    $('#cmbMapCategory').empty();
-
-                    //$('#cmbProductCategory').append($("<option></option>").val('0').html('Parent Category'))
+                    $('#cmbProductCategory').append($("<option></option>").val('0').html('-- Choose a category --'))
                     $.each(responseData, function (i, data) {
-                        
-                        $('#cmbProductCategory').append($("<option></option>").val(data.id).html(data.name));
-                        $('#cmbMapCategory').append($("<option></option>").val(data.id).html(data.name));
 
+                        //if (data.parent === 0) {
+                        $('#cmbProductCategory').append($("<option></option>").val(data.id).html(data.name));
+                        //}
                     });
                 },
                 beforeSend: function () {
-                    $('#cmbProductCategory').append($("<option>Loading categories...</option>"));
-                    $('#cmbMapCategory').append($("<option>Loading categories...</option>"));
+                    $('#cmbProductCategory').append($("<option>Loading product categories...</option>"));
                 },
                 error: function (data) {
                     $("#lblErrorText").html("Error occured while submiting form");
@@ -325,11 +290,11 @@
             });
         }
 
-        function GetUnit() {
+        function GetItems() {
 
             $.ajax({
                 type: "POST",
-                url: "/Services/unit.asmx/Get",
+                url: "/Services/items.asmx/Get",
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 cache: false,
@@ -337,20 +302,103 @@
 
                     var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
 
-                    $('#cmbMapMeasurement').empty();
+                    $('#cmbMapItem').empty();
+                    $('#cmbMapItem').append($("<option></option>").val('0').html('-- Choose a product'));
                     $.each(responseData, function (i, data) {
-
-                        $('#cmbMapMeasurement').append($("<option></option>").val(data.id).html(data.name));
+                        $('#cmbMapItem').append($("<option></option>").val(data.id).html(data.name));
 
                     });
                 },
                 beforeSend: function () {
-                    $('#cmbMapMeasurement').append($("<option>Loading unit...</option>"));
+                    $('#cmbMapItem').append($("<option>Loading categories...</option>"));
                 },
                 error: function (data) {
                     $("#lblErrorText").html("Error occured while submiting form");
                 }
             });
+        }
+
+        function GetVendors() {
+
+            $.ajax({
+                type: "POST",
+                url: "/Services/vendors.asmx/Get",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                cache: false,
+                success: function (response) {
+
+                    var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
+
+                    $('#cmbVendor').empty();
+                    $('#cmbVendor').append($("<option></option>").val('0').html('-- Choose a vendor --'));
+                    $.each(responseData, function (i, data) {
+                        $('#cmbVendor').append($("<option></option>").val(data.id).html(data.first_name + ' ' + data.last_name));
+
+                    });
+                },
+                beforeSend: function () {
+                    $('#cmbVendor').append($("<option>Loading vendors...</option>"));
+                },
+                error: function (data) {
+                    $("#lblErrorText").html("Error occured while submiting form");
+                }
+            });
+        }
+
+        function GetProducts() {
+
+            $.ajax({
+                type: "POST",
+                url: "/Services/products.asmx/Get",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                //data: JSON.stringify(data),
+                cache: false,
+                success: function (response) {
+
+                    var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
+                    console.log(responseData[0].Status);
+                    var status = responseData.Status;
+                    if (responseData[0].Status >= '1') {
+
+                        $('#productTBody').empty();
+
+                        $.each(responseData, function (i, row) {
+                            let rows = `<tr>
+                                            <td><div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" />
+                                                </div>
+                                            </td>
+                                            <td>${row.id}</td> 
+                                            <td>${row.name}</td> 
+                                            <td>${row.description}</td>
+                                            <td>${row.cost}</td><td>${row.price}</td><td>${row.category}</td>
+                                            <td>${(row.active == '1') ? 'Active' : 'In-active'}</td>
+                                            <td>${(row.created_at != undefined) ? $.formattedDate(row.created_at) : " - "}</td >
+                                        </tr>`;
+
+                            $('#productTBody').append(rows);
+                        });
+
+                        //$('#productTable').DataTable();
+
+                        $("#divAlert").addClass("alert alert-success alert-dismissible fade show").show().slideDown("slow");
+                        $("#lblErrorText").html(responseData.Message);
+
+                    }
+                    else if (status == '0') {
+
+                        $("#lblErrorText").html(responseData.Message);
+
+                    }
+                },
+                error: function (data) {
+                    /*$("#divAlert").addClass("alert alert-info alert-dismissible fade show").slideDown("slow");*/
+                    $("#lblErrorText").html("Error occured while fetching data - Un-mapped code");
+                }
+            });
+
         }
 
         $(document).ready(function () {
@@ -358,8 +406,9 @@
             $('label sup').css('color', 'red');
 
             GetParentCategory();
-            GetCategory();
-            GetUnit();
+            GetItems();
+            GetVendors();
+            GetProducts();
 
             //Save new role information
             $("#btnSaveCategory").on('click', function (e) {
@@ -373,9 +422,9 @@
                 if (name == '' || name.length < 1) {
                     $("#lblErrorText").html("Product category name is required"); return;
                 }
-                if (categoryParent == '' || categoryParent.length < 1) {
-                    $("#lblErrorText").html("Product category parent is required"); return;
-                }
+                //if (categoryParent == '' || categoryParent.length < 1) {
+                //    $("#lblErrorText").html("Product category parent is required"); return;
+                //}
                 if (description == '' || description.length < 1) {
                     $("#lblErrorText").html("Product category description is required"); return;
                 }
@@ -383,8 +432,8 @@
                 var catdto = {
 
                     name: name,
-                    parent: categoryParent,
-                    description: description,                    
+                    parent: 1,
+                    description: description,
                     created_by: sessionStorage.getItem('email'),
                     active: ($('#chkEnableCategory').prop('checked') == true) ? 1 : 0
                 };
@@ -411,7 +460,7 @@
                             document.getElementById('frmItem').reset();
 
                             GetParentCategory();
-                            GetCategory();
+                            GetItems();
 
                         }
                         else if (status == '0') {
@@ -500,6 +549,7 @@
                 var price = $("#txtProductPrice").val();
                 var category = $("#cmbProductCategory option:selected").text();
                 var quantity = $("#txtProductQuantity").val();
+                var point = $("#txtMapPoints").val();
 
                 if (name == '' || name.length < 1) {
                     $("#lblErrorText").html("Product name is required"); return;
@@ -509,6 +559,9 @@
                 }
                 if (price == '' || price.length < 1) {
                     $("#lblErrorText").html("Product price is required"); return;
+                }
+                if (point == '' || point.length < 1) {
+                    $("#lblErrorText").html("Product point is required"); return;
                 }
                 if (category == '' || category.length < 1) {
                     $("#lblErrorText").html("Product category is required"); return;
@@ -534,6 +587,7 @@
                     price: price,
                     category: category,
                     quantity: quantity,
+                    point: point,
 
                     created_by: sessionStorage.getItem('email'),
                     active: ($('#chkEnableProduct').prop('checked') == true) ? 1 : 0
@@ -582,46 +636,20 @@
 
                 e.preventDefault();
 
-                var itemtext = $("#cmbMapCategory option:selected").text();
-                var unitid = $("#cmbMapMeasurement option:selected").val();
-                var cost = $("#txtMapCost").val();
-                var price = $("#txtMapPrice").val();
-                var point = $("#txtMapPoints").val();
+                var itemid = $("#cmbMapItem option:selected").val();
+                var vendorid = $("#cmbVendor option:selected").val();
 
-                if (itemtext == '' || itemtext.length < 1) {
+                if (itemid == '' || itemid.length < 1) {
                     $("#lblErrorText").html("Product name is required"); return;
                 }
-                if (unitid == '' || unitid.length < 1) {
-                    $("#lblErrorText").html("Product unit measurement is required"); return;
-                }
-                if (cost == '' || cost.length < 1) {
-                    $("#lblErrorText").html("Product mapping cost is required"); return;
-                }
-                if (price == '' || price.length < 1) {
-                    $("#lblErrorText").html("Product mapping price is required"); return;
-                }
-                if (point == '' || point.length < 1) {
-                    $("#lblErrorText").html("Product mapping point is required"); return;
-                }
-
-                if (point < 1) {
-                    $("#lblErrorText").html("Product mapping point must be greater than zero");
-                    return;
-                }
-                if (cost < 1) {
-                    $("#lblErrorText").html("Product mapping cost must be greater than zero"); return;
-                }
-                if (price < 1) {
-                    $("#lblErrorText").html("Product mapping price must be greater than zero"); return;
+                if (vendorid == '' || vendorid.length < 1) {
+                    $("#lblErrorText").html("Vendor name is required"); return;
                 }
 
                 var mapdto = {
 
-                    item_id: itemtext,
-                    unit_id: unitid,
-                    cost: cost,
-                    price: price,
-                    point: point,
+                    item_id: itemid,
+                    vendor_id: vendorid,
 
                     created_by: sessionStorage.getItem('email'),
                     active: ($('#chkEnableMap').prop('checked') == true) ? 1 : 0
@@ -643,10 +671,7 @@
                         var status = responseData.Status;
                         if (status >= '1') {
 
-                            //$("#divAlert").addClass("alert alert-success alert-dismissible").attr('display', true).slideDown("slow");
                             $("#lblErrorText").html(responseData.Message);
-
-                            document.getElementById('frmItem').reset();
 
                         }
                         else if (status == '0') {

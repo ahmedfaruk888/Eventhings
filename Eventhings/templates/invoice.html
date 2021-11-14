@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+    <style type="text/css">
+        @import url('https://fonts.googleapis.com/css2?family=Maven+Pro&display=swap');
+
+        body {
+            font-family: 'Maven Pro', sans-serif;
+            background-color: #eee
+        }
+
+        .card {
+            background-color: #fff;
+            border: none
+        }
+
+            .card .upper {
+                padding: 13px
+            }
+
+        .fa-check-circle-o {
+            color: blue
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5 mb-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="upper p-4">
+                        <div class="d-flex justify-content-between">
+                            <!--<p>
+                                <img src="../clients/assets/images/logo.png" />
+                            </p>-->
+                            <div class="d-flex flex-row align-items-center">
+                                <div class="add">
+                                    <span class="font-weight-bold d-block">8556 W Purdue Ave</span>
+                                    <span class="font-weight-bold d-block">Peoria, AZ 98984</span>
+                                    <small>3 bed2.5 both,2.343 ft'</small>
+                                </div>
+                                <img src="https://res.cloudinary.com/imtechnetronics/image/upload/v1633383459/eventi/sterling_spyue8.png" width="60" class="rounded-circle">
+                            </div>
+
+                            <div class="amount">
+
+                                <span class="text-primary font-weight-bold">Buy directly from a vendor at the event</span>
+                                <h4>N 5,000</h4>
+                                <small>Thursday,September 24th</small>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="delivery">
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex flex-row align-items-center"> <i class="fa fa-check-circle-o"></i> <span class="ml-2">
+                                    Event name</span> </div> <span class="font-weight-bold">Lagos Cocktail Week</span>
+                            </div>
+                        </div>
+                        <div class="transaction mt-2">
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex flex-row align-items-center"> <i class="fa fa-check-circle-o"></i> <span class="ml-2">
+                                    Venue</span> </div> <span class="font-weight-bold"> 11 Folarin Street, Isheri Magodo, Lagos, Nigeria</span>
+                            </div>
+                        </div>
+                        <div class="transaction mt-2">
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex flex-row align-items-center"> <i class="fa fa-check-circle-o"></i> <span class="ml-2">
+                                    Date</span> </div> <span class="font-weight-bold">Thursday,September 24th</span>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="transaction mt-2">
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex flex-row align-items-center"> <i class="fa fa-check-circle-o"></i> 
+                                <span class="ml-2">
+                                    Lagos Cocktail Week
+                                </span> 
+                                    </div> <span class="font-weight-bold">$200,00</span>
+                            </div>
+                        </div>
+
+                        <!--<div class="transaction mt-2">
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex flex-row align-items-center"> <i class="fa fa-check-circle-o"></i> <span class="ml-2">Opendoor service charge</span> </div> <span class="font-weight-bold">8% - $16000</span>
+                            </div>
+                        </div>
+                        <div class="transaction mt-2">
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex flex-row align-items-center"> <i class="fa fa-check-circle-o"></i> <span class="ml-2">Closing costs </span> </div> <span class="font-weight-bold">0.8% - $15,00</span>
+                            </div>
+                        </div>-->
+
+                        <div class="text-center">
+                            <canvas id="qrcode"></canvas>
+                        </div>
+
+                    </div>
+                    <div class="lower bg-primary p-4 py-5 text-white d-flex justify-content-between">
+                        <div class="d-flex flex-column"> <span>Cost already includes VAT </span> 
+                        <small>Please remember to present a copy of your payment receipt at the venue.</small> </div>
+                        <h3>N5,000</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            //var html = $('html').re;
+            //var found = false;
+            //html.find
+
+            qr = new QRious({
+                element: document.getElementById('qrcode'),
+                size: 206,
+                value: 'https://localhost:44329/clients/auth/codelink.aspx?code=64e3c57e-d7e1-4d7c-a01e-2fa25c9f0155',
+                foreground: 'black'
+            });
+
+        });
+    </script>
+
+</body>
+</html>

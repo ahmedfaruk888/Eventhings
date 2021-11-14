@@ -14,6 +14,11 @@ namespace Eventhings.DbEntities
         [StringLength(256)]
         public string user_id { get; set; }
 
+        public decimal point { get; set; }
+
+        [StringLength(256)]
+        public string payment_channel { get; set; }
+
         public decimal? prev_balance { get; set; }
 
         public decimal? amount_paid { get; set; }

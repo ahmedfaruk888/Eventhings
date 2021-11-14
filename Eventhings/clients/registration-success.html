@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Eventi.ng - successful registration</title>
+    <link rel="stylesheet" href="assets/vendors/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script type="text/javascript">
+
+        
+
+    </script>
+</head>
+
+<body>
+    <header class="foi-header" style="padding-top:2px">
+        <div class="container">
+            <div id="nav"></div>
+        </div>
+    </header>
+
+    <main class="page-auth">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 offset-lg-1">
+                    <section class="auth-wrapper">
+                        <!--style="padding-top:10px"-->
+                        <div class="row">
+                            <div class="col-md-8 mb-4 mb-md-0">
+                                <h2 class="auth-section-title">Account Registration Successful</h2>
+                                <p class="about-section-one-content">Your account has been created successfuly, a confirmation mail has been sent to the provided email.</p>
+
+                                <form action="registration-success.html" method="POST" id="frmRegistrationSuccess">
+                                    <div class="alert alert-info alert-dismissible" id="divAlert">
+                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                        <p id="lblErrorText">
+                                            <strong>Error!</strong> Indicates a successful or positive action.
+                                        </p>
+                                    </div>
+
+                                    <table class="table">
+                                        <!--<caption> <span> Eventi Name Here </span> </caption>-->
+                                        <thead>
+                                            <tr>
+                                                <td class="font-weight-normal"></td>
+                                                <td class="font-weight-normal">Registration Status</td>
+                                                <td class="font-weight-normal">Payment Status</td>
+                                                <td class="font-weight-normal">Event Name</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td> 1. </td>
+                                                <td> Account - Active </td>
+                                                <td> Payment - Not Paid </td>
+                                                <td> Eventi - Lagos Cocktail Night </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <button class="btn btn-primary btn-auth-submit" type="button" id="btnMakePayment">Make Payment</button>
+                                </form>
+                            </div>
+                            <div class="col-md-4 d-flex align-items-center">
+                                <img src="assets/images/Register.png" alt="login" class="img-fluid">
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="assets/vendors/jquery/jquery.min.js"></script>
+    <script src="assets/vendors/popper.js/popper.min.js"></script>
+    <script src="assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+
+    <script src="assets/js/app.js"></script>
+
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var regemail = sessionStorage.getItem('regemail');
+            if (regemail == undefined || regemail == null) {
+
+                window.location.replace("index.html");
+
+            }
+
+            $('label sup').css('color', 'red');
+
+            console.log("Jquery is ready to shoot!!");
+
+            $("#divAlert").hide();
+
+            //$("#nav").load("layouts/nav.html");
+
+            $("#footer").load("layouts/footer.html");
+
+
+            $("#btnMakePayment").on('click', function (e) {
+
+                payWithPaystack();
+
+                e.preventDefault();
+            });
+
+
+
+        });
+    </script>
+
+
+
+
+</body>
+
+</html>

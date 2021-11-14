@@ -1,7 +1,43 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/clients/auth/auth.Master" AutoEventWireup="true" CodeBehind="codelink.aspx.cs" Inherits="Eventhings.clients.auth.codelink" %>
 
 <asp:Content ID="headContent" ContentPlaceHolderID="headContentPlaceHolder" runat="server">
+    <script type="text/javascript">
+        var user = JSON.parse(sessionStorage.getItem('user'));
+        
+        //if (user.role_name !== 'vendor' || user.role_name !== 'administrator') {
+        //    alert(user.role_name);
+        //    var currentPathName = window.location.href;
+        //    window.location.replace("../login.html?redirect=" + currentPathName);
+        //}
 
+        if (user == null) {
+            //alert(user.role_name);
+            var currentPathName = window.location.href;
+            window.location.replace("../login.html?redirect=" + currentPathName);
+        }
+
+        var codeText = new URLSearchParams(window.location.search).get('code');
+        var roleName = user.role_name;
+
+        if (roleName === 'vendor') {
+
+            /*window.location.replace("../clients/auth/vendor-sales.aspx?code=" + codeText);*/
+            window.location.replace("../auth/vendor-sales.aspx?code=" + codeText);
+        }
+
+        //if (roleName === 'administrator') {
+
+        //    /*window.location.replace("../clients/auth/vendor-sales.aspx?code=" + codeText);*/
+        //    window.location.replace("../auth/vendor-sales.aspx?code=" + codeText);
+        //    return;
+        //}
+
+        if (roleName === 'customer') {
+
+            /*window.location.replace("../clients/auth/vendor-sales.aspx?code=" + codeText);*/
+            window.location.replace("../auth/vendor-sales.aspx?code=" + codeText);
+        }
+    </script>
 </asp:Content>
 
 <asp:Content ID="pageHeaderContent" ContentPlaceHolderID="pageHeaderContentPlaceHolder" runat="server">
@@ -26,12 +62,14 @@
         </div>
     </section>--%>
     <div class="row">
-        <div class="alert alert-info alert-dismissible" id="divAlert">
+        <%--<div class="alert alert-info alert-dismissible" id="divAlert">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <p id="lblErrorText">
-
-            </p>
-        </div>
+            <p id="lblErrorText"> </p>
+        </div>--%>
+        <div class="alert alert-info alert-dismissible" id="divAlert" style="display:none">
+                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                    <p id="lblErrorText"></p>
+                                </div>
     </div>
 </asp:Content>
 
@@ -42,24 +80,24 @@
             <div class="row">
                 <ul class="nav nav-tabs mb-3" id="myTab0" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="newqrcode-tab" data-mdb-toggle="tab" data-mdb-target="#newqrcodecontent" type="button"
+                        <button class="nav-link active" id="newqrcode-tab" data-bs-toggle="tab" data-bs-target="#newqrcodecontent" type="button"
                             role="tab" aria-controls="home" aria-selected="true">
                             Map Code Text - Customer
                         </button>
                     </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="mappedqrcode-tab" data-mdb-toggle="tab" data-mdb-target="#mappedqrcodecontent"
+                    <li class="nav-item" role="presentation" style="display:none">
+                        <button class="nav-link" id="mappedqrcode-tab" data-bs-toggle="tab" data-bs-target="#mappedqrcodecontent"
                             type="button" role="tab" aria-controls="profile" aria-selected="false">
                             Un-Map Code Text - Customer</button>
                     </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="unmappedqrcode-tab" data-mdb-toggle="tab" data-mdb-target="#unmappedqrcodecontent"
+                    <li class="nav-item" role="presentation" style="display:none">
+                        <button class="nav-link" id="unmappedqrcode-tab" data-bs-toggle="tab" data-bs-target="#unmappedqrcodecontent"
                             type="button" role="tab" aria-controls="contact" aria-selected="false">
                             Transaction History
                         </button>
                     </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="printqrcode-tab" data-mdb-toggle="tab" data-mdb-target="#printqrcodecontent"
+                    <li class="nav-item" role="presentation" style="display:none">
+                        <button class="nav-link" id="printqrcode-tab" data-bs-toggle="tab" data-bs-target="#printqrcodecontent"
                             type="button" role="tab" aria-controls="contact" aria-selected="false">
                             E-Wallet
                         </button>
@@ -75,33 +113,40 @@
                             <div class="text-center">
                                 <canvas id="customerQR"></canvas>
                             </div>
-                            <div class="text-center">
+                            <div class="text-center mb-4">
                                 <p class="form-footer-text" id="infotext"></p>
-                                <span id="codeStatus"></span>
+                                <span id="codeStatus" class="mb-4"></span>
                             </div>
 
                             <div class="form-group col-md-3" id="insert-batch-name">
                                 <label for="txtBatchName">Customer - Phone <sup>*</sup></label>
-                                <input type="text" class="form-control" id="txtCustomerPhone" name="txtCustomerPhone" placeholder="+2348144488577">
+                                <input type="text" class="form-control" id="txtCustomerPhone" name="txtCustomerPhone" placeholder="">
                             </div>
 
                             <div class="form-group col-md-3" id="insert-batch-number">
                                 <label for="txtCustomerFullName"> Customer Fullname <sup>*</sup></label>
-                                <a href="#" class="batch-edit" onclick="javascript:void(0)"><span class="fa fa-user-edit"></span></a>
-                                <input type="text" class="form-control" readonly="readonly" id="txtCustomerFullName" required="required" name="txtCustomerFullName" placeholder="Faruk Ahmed Monkwo">
+                                <a href="account.aspx" class="batch-edit" onclick="javascript:void(0)"><span class="fa fa-user-edit"></span></a>
+                                <input type="text" class="form-control" readonly="readonly" id="txtCustomerFullName" required="required" name="txtCustomerFullName" placeholder="">
                             </div>
 
                             <div class="form-group col-md-3">
-                                <label for="txtBatchName"> Event (Select default - eventi.ng) <sup>*</sup></label>
-                                <select class="form-control" id="cmbEvents" name="cmbEvents">
+                                <label for="txtBatchName"> Event <sup>*</sup></label>
+                                <select class="form-select form-select-lg" id="cmbEvents" name="cmbEvents">
                                     
                                 </select>
                             </div>
 
                             
                             <div class="form-group col-md-3">
-                                <label for="txtCodeCount">Wallet - Top-up Amount <sup>*</sup></label>
-                                <input type="number" min="1" max="50" class="form-control" id="txtTopUpAmount" name="txtTopUpAmount" placeholder="Between 1000 - nth thousand">
+                                <label for="txtCodeCount">Point <sup>*</sup></label>
+                                <a href="#" class="edit-point"><span class="fa fa-edit"></span></a>
+                                <input type="number" min="1" max="50" class="form-control" id="txtTopUpAmount" value="0.00" name="txtTopUpAmount" placeholder="Base Point">
+                            </div>
+
+                             <div class="form-group col-md-12">
+                                <label for="txtTopUpMoney">Current Balance <sup>*</sup></label>
+                                <a href="#" class="edit-point disabled"><span class="fa fa-edit"></span></a>
+                                <input type="number" min="1" max="50" class="form-control" id="txtTopUpMoney" value="0.00" name="txtTopUpMoney">
                             </div>
 
                             <div class="form-group col-md-4">
@@ -109,8 +154,16 @@
                                 <label for="chkActive">Disable this user</label>
                             </div>
 
+                            <div class="row">
+                                <div class="text-right">
+                                <button type="button" id="btnMapCustomerToCode" class="btn btn-lg btn-primary mb-4">Map Customer to code</button>
+                            </div>
                             <div class="text-right">
-                                <button type="submit" id="btnSubmit" class="btn btn-lg btn-primary mb-4">Link Code</button>
+                                <button type="button" id="btnTopUpWalet" class="btn btn-lg btn-primary mb-4">Proceed - Wallet Top Up</button>
+                            </div>
+                            <div class="text-right">
+                                <button type="button" id="btnSales" class="btn btn-lg btn-primary mb-4">Proceed - Sales</button>
+                            </div>
                             </div>
                             <div class="text-center">
                                 <p class="form-footer-text codetext">You can only map a single QR code text to a single user at a time.</p>
@@ -122,7 +175,7 @@
                         <p class="feature-title" style="margin-bottom: 10px">
                            Mapped QR code text are QR code text that has been mapped to any customer, choose default event if for eventi.ng.
                         </p>
-                        <table class="table table-striped"  style="width:100%; max-height: 500px; font-size: .7rem;" id="mappedQrcodeTable">
+                        <table class="table table-striped"  style="width:100%; max-height: 500px; " id="mappedQrcodeTable">
                             <thead>
                                 <tr>
                                     <th scope="col">
@@ -150,7 +203,7 @@
                             Un-mapped QR code text are QR code text that has not been mapped to any customer. Mapping can be done directly from within 
                             this tab or from the customer profile page.
                         </p>
-                        <table class="table table-striped table-bordered"  style="width:100%; font-size: .7rem;" id="unmappedTable">
+                        <table class="table table-striped table-bordered"  style="width:100%; " id="unmappedTable">
                             <thead>
                                 <tr>
                                     <th scope="col">
@@ -188,7 +241,7 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-mdb-toggle="dropdown"
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
                                     aria-expanded="false"> Choose an action
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -216,6 +269,7 @@
 <asp:Content ID="scriptContent" ContentPlaceHolderID="scriptContentPlaceHolder" runat="server">
     <script type="text/javascript">
 
+        var user_id = '';
         function GetEvents() {
 
             $.ajax({
@@ -230,9 +284,16 @@
                     var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
                     $('#cmbEvents').empty();
 
+                    if (responseData.length < 1) {
+
+                        $('#cmbEvents').append($("<option></option>").val(0).html('No event available'));
+                        $("#lblErrorText").html("No event is available, please add a new event");
+                        return;
+                    }
+
                     $.each(responseData, function (i, data) {
 
-                        $('#cmbEvents').append($("<option></option>").val(data.id).html(data.name + ' | ' + 'Duratioin = ' + data.duration));
+                        $('#cmbEvents').append($("<option></option>").val(data.id).html(data.name)); //+ ' | ' + 'Duratioin = ' + data.duration));
 
                     });
                 },
@@ -262,32 +323,167 @@
 
                     var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
 
-                    console.log(responseData);
+                    if (responseData == null || responseData.undefined) {
+
+                        $("#divAlert").addClass("alert alert-danger alert-dismissible fade show").attr('display', false).slideDown("slow");
+                        return;
+                    }
+
+                    //console.log(responseData);
                     $("#lblErrorText").html(responseData.Message);
-                    //alert(responseData.Status);
-                    /*
-                        <span id="codeStatus"></span>
-                                    <span id="dateUsed"></span>
-                                    <span id="EventName"></span>
-                     */
+
                     console.log(responseData.event_name);
-                    $('#codeStatus').html("<b>Code Text Status:</b> " + ((responseData.Status == '1') ? "Mapped." : "Not Mapped") + "<b> Date Mapped:</b> " + responseData.date_mapped + ". <b> Event Name:</b> " + responseData.event_name);
+                    if (responseData.Status == '1') {
 
-                    //if (responseData.date_mapped != undefined || responseData.date_mapped != null) {
+                        $('#codeStatus').html("<b>Status:</b> " + ((responseData.Status == '1') ? "Mapped." : "Not Mapped") + "<b> Date Mapped:</b> " + $.formattedDate(responseData.date_mapped) + ". <b> Event Name:</b> " + responseData.event_name);
 
-                        
+                        //If code has been mapped
+                        $('#txtCustomerFullName').val(responseData.full_name);
+                        $('#txtCustomerFullName').attr('disabled', true);
 
-                    //}
+                        $('#txtCustomerPhone').val(responseData.phone_number);
+                        $('#txtCustomerPhone').attr('disabled', true);
 
-                    //$('.infotext').append("Code Status : " + (responseData.Status));
+                        $('#txtTopUpAmount').val(responseData.point);
+                        $('#txtTopUpAmount').attr('disabled', true);
+
+                        $('#txtTopUpMoney').val(responseData.current_balance);
+                        $('#txtTopUpMoney').attr('disabled', true);
+
+                        $('#chkActive').attr('disabled', true);
+                        $('#btnMapCustomerToCode').hide();
+
+                        $('#btnTopUpWalet').show();
+                        $('#btnSales').show();
+                        //$('#btnMapCustomerToCode').show();
+                        //$('#btnMapCustomerToCode').attr('disabled', true);
+
+                        //$("#divAlert").addClass("alert alert-success alert-dismissible fade show").attr('display', false).slideDown("slow");
+                        return;
+
+                    }
+
+                    //if code has not been mapped
+                    if (responseData.Status >= '2') {
+
+                        $('#codeStatus').html("<b>Status:</b> " + ((responseData.Status == '1') ? "Mapped." : "Not Mapped") +
+                            "<b> Date Mapped:</b> " + (responseData.date_mapped == undefined || responseData.date_mapped == null) ? " - " : $.formattedDate(responseData.date_mapped) + ". <b> Event Name:</b> " + responseData.event_name);
+
+
+                        $('#txtCustomerFullName').attr('disabled', false);
+                        $('#txtCustomerPhone').attr('disabled', false);
+                        $('#txtTopUpAmount').attr('disabled', false);
+
+                        $('#btnTopUpWalet').hide();
+                        $('#btnSales').hide();
+                        $('#btnMapCustomerToCode').attr('disabled', true);
+
+                    }
+
+                    if (responseData.Status == '0') {
+
+                        $('#btnTopUpWalet').hide();
+                        $('#btnSales').hide();
+                        $('#btnMapCustomerToCode').hide();
+
+                        $("#divAlert").addClass("alert alert-danger alert-dismissible fade show").attr('display', false).slideDown("slow");
+                        return;
+                    }
+
+                },
+                beforeSend: function () {
+                    //$('#txtCustomerFullName').val("Loading customer names");
+                    //$('#txtCustomerPhone').val("Loading customer phone");
+                    //$('#txtTopUpAmount').val("Loading customer points");
                 },
                 error: function (data) {
+                    $("#btnTopUpWalet").html("Error occured while submiting form");
+                }
+            });
+        }
+
+        function GetCustomer(phone) {
+            $.ajax({
+                type: "POST",
+                url: "/Services/qrcode.asmx/GetCustomer",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ "phone_number": phone }),
+                success: function (response) {
+                    var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
+                    var status = responseData.Status;
+                    if (status >= '1') {
+
+                        //txtCurrentBalance
+                        user_id = responseData.id;
+                        $('#txtCustomerFullName').val(responseData.last_name + " " + responseData.first_name);
+                        $('#btnMapCustomerToCode').attr('disabled', false);
+                    }
+                    else if (status == '0') {
+                        $("#divAlert").addClass("alert alert-danger alert-dismissible fade show").attr('display', false).slideDown("slow");
+                        $("#lblErrorText").html(responseData.Message);
+                        return;
+                    }
+                },
+                error: function (data) {
+                    $("#divAlert").addClass("alert alert-info alert-dismissible fade show").attr('display', false).slideDown("slow");
+                    $("#lblErrorText").html("Error occured while submiting form");
+                }
+            });
+        }
+
+        function MapCodeToCustomer(map) {
+
+            $.ajax({
+                type: "POST",
+                url: "/Services/qrcode.asmx/MapCodeToCustomer",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(map),
+                success: function (response) {
+                    var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
+                    var status = responseData.Status;
+                    if (status >= '1') {
+
+                        //txtCurrentBalance
+                        user_id = responseData.id;
+                        $("#divAlert").addClass("alert alert-success alert-dismissible fade show").attr('display', false).slideDown("slow");
+                        $("#lblErrorText").html(responseData.Message);
+                    }
+                    else if (status == '0') {
+                        $("#divAlert").addClass("alert alert-danger alert-dismissible fade show").attr('display', false).slideDown("slow");
+                        $("#lblErrorText").html(responseData.Message);
+                        //$('#btnMapCustomerToCode').attr('disabled', true);
+                        return;
+                    }
+                },
+                error: function (data) {
+                    $("#divAlert").addClass("alert alert-info alert-dismissible fade show").attr('display', false).slideDown("slow");
                     $("#lblErrorText").html("Error occured while submiting form");
                 }
             });
         }
 
         $(document).ready(function () {
+
+            //redirectbyRole();
+
+            //Hide the sales button
+            $('#btnSales').hide();
+
+            //toggle point edit onlick
+            $('.edit-point').on('click', function (e) {
+
+                if ($('#txtTopUpAmount').prop('disabled') == true) {
+
+                    $('#txtTopUpAmount').attr('disabled', false).focus();
+
+                } else {
+
+                    $('#txtTopUpAmount').attr('disabled', true);
+                }
+
+            });
 
             $('label sup').css('color', 'red');
 
@@ -328,9 +524,58 @@
             qr = new QRious({
                 element: document.getElementById('customerQR'),
                 size: 206,
-                value: 'https://localhost:44329/clients/auth/codelink.aspx?code=' + codeValue,
+                value: 'https://www.eventiix.com/clients/auth/codelink.aspx?code=' + codeValue,
                 foreground: 'black'
             });
+
+
+            $('#btnTopUpWalet').on('click', function () {
+
+                window.location.replace("../auth/ewallet.aspx?phone=" + $("#txtCustomerPhone").val());
+
+            });
+
+            $('#btnSales').on('click', function () {
+
+                window.location.replace("../auth/sales.aspx?phone=" + $("#txtCustomerPhone").val());
+                sessionStorage.setItem('point', $("#txtTopUpAmount").val());
+            });
+
+            $('#btnMapCustomerToCode').on('click', function () {
+
+                var map = {
+                    user_id: user_id,
+                    code: $("#infotext").text(),
+                    event_id: $('#cmbEvents option:selected').val(),
+                    payment_channel: "Initial Base Point",
+                    base_point: $('#txtTopUpAmount').val(),
+                    base_amount: $('#txtTopUpMoney').val(),
+                }
+                var data = {
+                    map: map
+                };
+
+                MapCodeToCustomer(data);
+
+            });
+
+            $('#txtCustomerPhone').on('keypress', function (e) {
+
+                if (e.which == 13) {
+                    var code = window.location.search.split('=')[1];
+                    var phone = $("#txtCustomerPhone").val();
+                    if (phone.length < 1) {
+
+                        $("#divAlert").addClass("alert alert-info alert-dismissible fade show").attr('display', false).slideDown("slow");
+                        $("#lblErrorText").html("The customer phone number can be found");
+                        return;
+
+                    }
+
+                    GetCustomer(phone);
+
+                }
+            })
 
         });
 

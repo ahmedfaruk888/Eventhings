@@ -8,6 +8,7 @@ namespace Eventhings.Dto
 {
     public partial class RegisterDto
     {
+        public decimal? topup_amount { get; set; }
         public int direction { get; set; }
         public int user_type { get; set; } = 1;
         public int active { get; set; }
@@ -17,6 +18,7 @@ namespace Eventhings.Dto
         public DateTime? email_confirmed { get; set; }
         public DateTime? phone_number_confirmed { get; set; }
         public string password_hash { get; set; }
+        public string retry_password_hash { get; set; }
         public string phone_number { get; set; }
         public string first_name { get; set; }
         public string last_name { get; set; }

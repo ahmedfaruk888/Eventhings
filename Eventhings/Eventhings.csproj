@@ -13,9 +13,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Eventhings</RootNamespace>
     <AssemblyName>Eventhings</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress />
+    <Use64BitIISExpress>
+    </Use64BitIISExpress>
     <IISExpressSSLPort>44329</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -23,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -58,15 +60,23 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="SendGrid, Version=9.24.3.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
+      <HintPath>..\packages\SendGrid.9.24.3\lib\net452\SendGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="StarkbankEcdsa, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b2e6337a5d77bfbc, processorArchitecture=MSIL">
+      <HintPath>..\packages\starkbank-ecdsa.1.3.1\lib\net452\StarkbankEcdsa.dll</HintPath>
+    </Reference>
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel" />
     <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Management" />
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
     </Reference>
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
@@ -83,16 +93,14 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
@@ -101,6 +109,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="admin\codelink.aspx" />
     <Content Include="clients\404.html" />
     <Content Include="clients\about.html" />
     <Content Include="clients\assets\css\jquery.dataTables.min.css" />
@@ -179,14 +188,6 @@
     <Content Include="clients\assets\images\Register.png" />
     <Content Include="clients\assets\images\twitter %283%29.png" />
     <Content Include="clients\assets\images\twitter.svg" />
-    <Content Include="clients\assets\images\user\user_1.png" />
-    <Content Include="clients\assets\images\user\user_2.png" />
-    <Content Include="clients\assets\images\user\user_3.png" />
-    <Content Include="clients\assets\images\user\user_4.png" />
-    <Content Include="clients\assets\images\user\user_5.png" />
-    <Content Include="clients\assets\images\user\user_6.png" />
-    <Content Include="clients\assets\images\user\user_7.png" />
-    <Content Include="clients\assets\images\user\user_8.png" />
     <Content Include="clients\assets\images\youtube.png" />
     <Content Include="clients\assets\images\youtube.svg" />
     <Content Include="clients\assets\js\app.js" />
@@ -1878,6 +1879,8 @@
     <Content Include="clients\auth\events.aspx" />
     <Content Include="clients\auth\item.aspx" />
     <Content Include="clients\auth\qrcode.aspx" />
+    <Content Include="clients\auth\vendor-dashboard.aspx" />
+    <Content Include="clients\auth\vendor-sales.aspx" />
     <Content Include="clients\blog-single.html" />
     <Content Include="clients\blog.html" />
     <Content Include="clients\careers.html" />
@@ -1888,6 +1891,9 @@
     <Content Include="clients\forgot-password.html" />
     <Content Include="clients\random.html" />
     <Content Include="clients\create-password.html" />
+    <Content Include="clients\transaction-success.html" />
+    <Content Include="clients\registration-success.html" />
+    <Content Include="clients\payment.html" />
     <Content Include="clients\verify-account.html" />
     <Content Include="clients\service.html" />
     <Content Include="clients\gulpfile.js" />
@@ -1910,10 +1916,17 @@
     <Content Include="DbScript\eventhings-mssql-ddl-script.sql" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />
+    <Content Include="Services\mail.asmx" />
+    <Content Include="Services\transaction.asmx" />
+    <Content Include="Services\vendors.asmx" />
+    <Content Include="templates\form-wizard.html" />
+    <Content Include="templates\invoice.html" />
     <Content Include="Services\authenticate.asmx" />
     <Content Include="Services\category.asmx" />
+    <Content Include="Services\e-wallet.asmx" />
     <Content Include="Services\events.asmx" />
     <Content Include="Services\hosts.asmx" />
+    <Content Include="Services\items.asmx" />
     <Content Include="Services\mapping.asmx" />
     <Content Include="Services\products.asmx" />
     <Content Include="Services\qrcode.asmx" />
@@ -1921,9 +1934,17 @@
     <Content Include="Services\sales.asmx" />
     <Content Include="Services\unit.asmx" />
     <Content Include="Services\user.asmx" />
+    <Content Include="templates\wizrd-js.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="admin\codelink.aspx.cs">
+      <DependentUpon>codelink.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\codelink.aspx.designer.cs">
+      <DependentUpon>codelink.aspx</DependentUpon>
+    </Compile>
     <Compile Include="clients\auth\account.aspx.cs">
       <DependentUpon>account.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2001,9 +2022,25 @@
     <Compile Include="clients\auth\qrcode.aspx.designer.cs">
       <DependentUpon>qrcode.aspx</DependentUpon>
     </Compile>
+    <Compile Include="clients\auth\vendor-dashboard.aspx.cs">
+      <DependentUpon>vendor-dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="clients\auth\vendor-dashboard.aspx.designer.cs">
+      <DependentUpon>vendor-dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="clients\auth\vendor-sales.aspx.cs">
+      <DependentUpon>vendor-sales.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="clients\auth\vendor-sales.aspx.designer.cs">
+      <DependentUpon>vendor-sales.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Common\CommonConstants.cs" />
     <Compile Include="Common\CommonHelper.cs" />
     <Compile Include="Common\CommonRandomNumber.cs" />
+    <Compile Include="Common\ConfigurationHelper.cs" />
+    <Compile Include="Common\EmailHelper.cs" />
     <Compile Include="Common\EncryptionHelper.cs" />
     <Compile Include="contest.aspx.cs">
       <DependentUpon>contest.aspx</DependentUpon>
@@ -2017,7 +2054,10 @@
     <Compile Include="DbEntities\tcoreapplication.cs" />
     <Compile Include="DbEntities\tcorecodestore.cs" />
     <Compile Include="DbEntities\tcoreevent.cs" />
+    <Compile Include="DbEntities\tcoreeventpayment.cs" />
     <Compile Include="DbEntities\tcorehost.cs" />
+    <Compile Include="DbEntities\tcoresale.cs" />
+    <Compile Include="DbEntities\tcoresales.cs" />
     <Compile Include="DbEntities\tcoreitem.cs" />
     <Compile Include="DbEntities\tcoreitempoint.cs" />
     <Compile Include="DbEntities\tcorejob.cs" />
@@ -2027,10 +2067,20 @@
     <Compile Include="DbEntities\tcoreunitmeasurement.cs" />
     <Compile Include="DbEntities\tcoreuser.cs" />
     <Compile Include="DbEntities\tcoreuserrole.cs" />
+    <Compile Include="DbEntities\tcorevendoritem.cs" />
+    <Compile Include="DbEntities\tcoreverification.cs" />
     <Compile Include="DbEntities\tcorewallet.cs" />
     <Compile Include="DbEntities\tmstrcategory.cs" />
     <Compile Include="DbEntities\tmstrtranxchannel.cs" />
+    <Compile Include="Dto\EventPaymentDto.cs" />
+    <Compile Include="Dto\eWalletDto.cs" />
+    <Compile Include="Dto\ItemDto.cs" />
+    <Compile Include="Dto\MailDto.cs" />
+    <Compile Include="Dto\MappedQrCodeDto.cs" />
     <Compile Include="Dto\MappingDto.cs" />
+    <Compile Include="Dto\PasswordResetDto.cs" />
+    <Compile Include="Dto\SalesDto.cs" />
+    <Compile Include="Dto\TransactionDto.cs" />
     <Compile Include="Dto\UnitDto.cs" />
     <Compile Include="Dto\CategoryDto.cs" />
     <Compile Include="Dto\EventDto.cs" />
@@ -2047,6 +2097,7 @@
     <Compile Include="Dto\TCoreUserRole.cs" />
     <Compile Include="Dto\TmstrCodeStoreRequest.cs" />
     <Compile Include="Dto\UserDto.cs" />
+    <Compile Include="Dto\VerificationDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2063,18 +2114,27 @@
     <Compile Include="Repository\GenericRepository.cs" />
     <Compile Include="Response\BaseResponse.cs" />
     <Compile Include="Response\CetegoryResponse.cs" />
+    <Compile Include="Response\EventPaymentResponse.cs" />
     <Compile Include="Response\EventResponse.cs" />
+    <Compile Include="Response\eWalletResponse.cs" />
     <Compile Include="Response\HostResponse.cs" />
+    <Compile Include="Response\ItemResponse.cs" />
     <Compile Include="Response\LoginResponse.cs" />
+    <Compile Include="Response\MailResponse.cs" />
     <Compile Include="Response\MappedQrCodeRespose.cs" />
     <Compile Include="Response\MappingResponse.cs" />
+    <Compile Include="Response\PasswordResetResponse.cs" />
     <Compile Include="Response\ProductResponse.cs" />
     <Compile Include="Response\ProductUnitResponse.cs" />
     <Compile Include="Response\QrCodeRespose.cs" />
     <Compile Include="Response\RegisterResponse.cs" />
     <Compile Include="Response\RoleResponse.cs" />
+    <Compile Include="Response\SalesReportResponse.cs" />
+    <Compile Include="Response\SalesResponse.cs" />
+    <Compile Include="Response\TransactionResponse.cs" />
     <Compile Include="Response\UnitResponse.cs" />
     <Compile Include="Response\UserResponse.cs" />
+    <Compile Include="Response\VendorItemsResponse.cs" />
     <Compile Include="Services\authenticate.asmx.cs">
       <DependentUpon>authenticate.asmx</DependentUpon>
       <SubType>Component</SubType>
@@ -2083,12 +2143,24 @@
       <DependentUpon>category.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Services\e-wallet.asmx.cs">
+      <DependentUpon>e-wallet.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Services\events.asmx.cs">
       <DependentUpon>events.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Services\hosts.asmx.cs">
       <DependentUpon>hosts.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Services\items.asmx.cs">
+      <DependentUpon>items.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Services\mail.asmx.cs">
+      <DependentUpon>mail.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Services\mapping.asmx.cs">
@@ -2111,12 +2183,20 @@
       <DependentUpon>sales.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Services\transaction.asmx.cs">
+      <DependentUpon>transaction.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Services\unit.asmx.cs">
       <DependentUpon>unit.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Services\user.asmx.cs">
       <DependentUpon>user.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Services\vendors.asmx.cs">
+      <DependentUpon>vendors.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
@@ -2330,6 +2410,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="CodeFile\" />
     <Folder Include="Models\" />
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -2344,9 +2425,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>56921</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44329/</IISUrl>
+          <DevelopmentServerPort>56922</DevelopmentServerPort>
+          <DevelopmentServerVPath>https://localhost:56922/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:16442/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

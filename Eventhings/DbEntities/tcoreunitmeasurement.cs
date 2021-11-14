@@ -8,12 +8,6 @@ namespace Eventhings.DbEntities
 
     public partial class tcoreunitmeasurement
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tcoreunitmeasurement()
-        {
-            tcoreitempoints = new HashSet<tcoreitempoint>();
-        }
-
         public int id { get; set; }
 
         [Required]
@@ -35,8 +29,5 @@ namespace Eventhings.DbEntities
 
         [Column(TypeName = "datetime2")]
         public DateTime? updated_at { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tcoreitempoint> tcoreitempoints { get; set; }
     }
 }

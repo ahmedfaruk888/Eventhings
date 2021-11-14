@@ -21,9 +21,13 @@ namespace Eventhings.DbEntities
 
         public decimal? price { get; set; }
 
+        [Required]
+        [StringLength(128)]
         public string category { get; set; }
 
         public int quantity { get; set; }
+
+        public decimal? point { get; set; }
 
         public int active { get; set; }
 

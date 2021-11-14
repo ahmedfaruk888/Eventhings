@@ -24,5 +24,9 @@ namespace Eventhings.Dto
         public int active { get; set; } = 1;
 
         public int deleted { get; set; } = 0;
+        public string created_by { get; set; }
+        public DateTime? created_at { get; set; }
+        public string updated_by { get; set; }
+        public DateTime? updated_at { get; set; }
     }
 }

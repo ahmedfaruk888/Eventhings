@@ -22,6 +22,7 @@ namespace Eventhings.DbEntities
         [StringLength(128)]
         public string code { get; set; }
 
+        [StringLength(128)]
         public string encrypted_code { get; set; }
 
         public int active { get; set; }

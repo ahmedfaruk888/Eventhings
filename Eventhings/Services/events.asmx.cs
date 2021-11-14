@@ -21,7 +21,6 @@ namespace Eventhings.Services
     [ScriptService]
     public class events : System.Web.Services.WebService
     {
-
         [WebMethod]
         public List<EventResponse> Get()
         {
@@ -69,34 +68,83 @@ namespace Eventhings.Services
         }
 
         [WebMethod]
-        public HostResponse Save(HostDto hostdto)
+        public List<EventResponse> GetEventPayment()
         {
-            var response = new HostResponse();
+            var response = new List<EventResponse>();
+
+            try
+            {
+                using (var _context = new EventhingsDbContext())
+                {
+                    var query = _context.tcoreevents
+                        .Where(e => e.active == 1 && e.deleted == 0)
+                        .Select(n => new EventResponse()
+                        {
+                            id = n.id,
+                            name = n.name,
+                            description = n.description,
+                            location = n.location,
+                            active = n.active,
+                            deleted = n.deleted,
+                            Status = 1,
+                            duration = n.duration,
+                            start_date = n.start_date,
+                            host_id = n.host_id,
+                            end_date = n.end_date,
+                            created_at = n.created_at,
+                            created_by = n.created_by
+                        }).ToList();
+
+                    foreach (var ss in query)
+                    {
+                        response.Add(ss);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Add(new EventResponse()
+                {
+                    Status = 0,
+                    Message = ex.ToString()
+                });
+            }
+
+            return response;
+        }
+
+        [WebMethod]
+        public EventResponse Save(EventDto eventdto)
+        {
+            var response = new EventResponse();
 
             try
             {
                 using (var _context = new EventhingsDbContext())
                 {
 
-                    var query = _context.tcorehosts.Where(name => name.full_name == hostdto.full_name || name.phone == hostdto.phone).FirstOrDefault();
+                    var query = _context.tcoreevents.Where(name => name.name == eventdto.name).FirstOrDefault();
                     if (query != null)
                     {
                         response.Status = 0;
-                        response.Message = "The host specified already exists";
+                        response.Message = "Event name is required";
                         return response;
                     }
                     else
                     {
-                        _context.tcorehosts.Add(new tcorehost
+                        _context.tcoreevents.Add(new tcoreevent
                         {
-                            full_name = hostdto.full_name,
-                            description = hostdto.description,
-                            phone = hostdto.phone,
-                            email = hostdto.email,
-                            address = hostdto.address,
-                            deleted = hostdto.deleted,
-                            active = hostdto.active,
-                            created_by = hostdto.created_by,
+                            name = eventdto.name,
+                            description = eventdto.description,
+                            host_id = eventdto.host_id,
+
+                            location = eventdto.location,
+                            start_date = eventdto.start_date,
+                            end_date = eventdto.end_date,
+                            duration = eventdto.duration,
+
+                            active = eventdto.active,
+                            created_by = eventdto.created_by,
                             created_at = DateTime.Now,
                         });
 
@@ -113,7 +161,8 @@ namespace Eventhings.Services
             catch (Exception ex)
             {
                 response.Status = 0;
-                response.Message = ex.ToString();
+                response.Message = "An internal server error occured";
+                //response.Message = ex.ToString();
             }
 
             return response;

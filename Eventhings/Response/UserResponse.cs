@@ -23,5 +23,6 @@ namespace Eventhings.Response
         public int active { get; set; }
         public int is_deleted { get; set; }
         public string role_name { get; set; }
+        public string current_balance { get; set; }
     }
 }

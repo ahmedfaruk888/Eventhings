@@ -11,6 +11,7 @@ namespace Eventhings.Dto
         public string description { get; set; }
         public decimal cost { get; set; }
         public decimal? price { get; set; }
+        public decimal? point { get; set; }
         public string category { get; set; }
         public int quantity { get; set; }
         public int active { get; set; }
