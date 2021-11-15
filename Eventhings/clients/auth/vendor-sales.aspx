@@ -89,6 +89,13 @@
                                 <option>--choose three--</option>
                             </select>
                         </div>
+                        <div class="form-group col-md-12">
+                            <input type="number" class="form-control form-control-lg" name="txtQuantity" id="txtQuantity" min="1" max="100" value="1" />
+                        </div>
+                        <div class="form-group col-md-12 align-content-md-end">
+                            <input type="button" name="btnAdd" id="btnAdd" value="Add" class="btn btn-primary" />
+                        </div>
+                        <hr />
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
