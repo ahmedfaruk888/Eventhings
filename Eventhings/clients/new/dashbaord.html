@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from creativelayers.net/themes/sassio-html/pricing.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 06 Sep 2022 21:27:45 GMT -->
+<head>
+  <!-- Required meta tags -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Google fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com/">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" rel="stylesheet">
+
+
+  <link rel="stylesheet" href="../../../unpkg.com/leaflet%401.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/vendors.css">
+  <link rel="stylesheet" href="css/main.css">
+
+  <style>
+
+
+  </style>
+
+  <title>Sassio</title>
+</head>
+
+
+<body class="" data-barba="wrapper">
+
+    <!-- preloader start -->
+    <div class="preloader js-preloader"></div>
+    <!-- preloader end -->
+    <!-- cursor start -->
+    <div class="cursor js-cursor">
+        <div class="cursor__wrapper">
+            <div class="cursor__follower js-follower"></div>
+            <div class="cursor__label js-label"></div>
+            <div class="cursor__icon js-icon"></div>
+            <div class="cursor__slider_icon js-slider-icon">
+                <svg width="52" height="24" viewBox="0 0 52 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M37 18L43 12L37 6" stroke="white" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M15 18L9 12L15 6" stroke="white" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </div>
+        </div>
+    </div>
+    <!-- cursor end -->
+    <!-- barba container start -->
+    <div class="barba-container" data-barba="container">
+
+
+        <main class="main-content  ">
+
+
+            <!-- header start -->
+            <header class="header js-header">
+                <div class="header__bar js-header-bar">
+                    <div class="row justify-between items-center">
+                        <div class="col-2">
+                            <div class="header__logo">
+                                <a class="base-logo" data-barba href="index.html">
+                                    <img class="base-logo-first" src="img/general/logo.svg" alt="logo">
+                                    <img class="base-logo-second" src="img/general/logo-dark.svg" alt="logo">
+                                </a>
+
+                                <a class="menu-logo" data-barba href="index.html">
+                                    <img src="img/general/logo-dark.svg" alt="logo">
+                                </a>
+                            </div>
+                        </div>
+
+
+                        <div class="menu js-menu">
+                            <div class="mobile__background js-mobile-bg"></div>
+
+                            <div class="menu__container">
+                                <div class="mobile__back js-nav-list-back pointer-events-none">
+                                    <a data-barba href="#">Home</a>
+                                </div>
+
+                                <ul class="nav js-navList">
+
+
+                                    <li class="">
+                                        <a data-barba href="contact-1.html">Dashboard</a>
+                                    </li>
+
+                                    <li class="">
+                                        <a data-barba href="contact-1.html">QR Codes</a>
+                                    </li>
+
+                                    <li class="">
+                                        <a data-barba href="contact-1.html">Accounts</a>
+                                    </li>
+
+                                    <li class="">
+                                        <a data-barba href="contact-1.html">Sales</a>
+                                    </li>
+
+                                    <li class="">
+                                        <a data-barba href="contact-1.html">e-wallet</a>
+                                    </li>
+
+                                    <li class="">
+                                        <a data-barba href="contact-1.html">Events</a>
+                                    </li>
+
+                                    <li class="">
+                                        <a data-barba href="contact-1.html">Settings</a>
+                                    </li>
+
+                                    <!--<li class="">
+                                        <a data-barba href="contact-1.html">Contact</a>
+                                    </li>-->
+                                </ul>
+                            </div>
+
+                            <div class="mobile__footer js-mobile-footer">
+                                <div class="mobile__copyright">
+                                    <p>© Copyright 2021. Sassio</p>
+                                </div>
+
+                                <div class="mobile__socials">
+                                    <a data-barba href="#">
+                                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                                    </a>
+                                    <a data-barba href="#">
+                                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                                    </a>
+                                    <a data-barba href="#">
+                                        <i class="fa fa-instagram" aria-hidden="true"></i>
+                                    </a>
+                                    <a data-barba href="#">
+                                        <i class="fa fa-linkedin" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-auto">
+                            <div class="header__right">
+                                <div class="md:d-none">
+                                    <!--<a href="login.html" class="button -sm -outline-light-dark sm:d-none">Join</a>-->
+                                    <a href="login.html" class="button -sm -dark text-white ml-12" onclick="LogOut()">Sign Out</a>
+                                </div>
+
+                                <div class="header__menu justify-center items-center relative d-none md:d-flex">
+                                    <button type="button" class="d-flex items-center justify-center js-nav-open">
+                                        <i class="text-black size-32 str-width-1" data-feather="menu"></i>
+                                    </button>
+
+                                    <button type="button" class="d-flex items-center justify-center absolute-y-center right-0 pointer-events-none opac-0 js-nav-close">
+                                        Close
+                                        <i class="text-black size-32 str-width-1 ml-4" data-feather="x"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- header end -->
+
+
+            <div class="content-wrapper  js-content-wrapper">
+
+
+                <section class="page-header -base -">
+                    <div data-anim="slide-up" class="page-header__bg">
+
+                        <img class="initial-img" src="img/page-header/bg-light.png" alt="Page header">
+
+                    </div>
+
+                    <div class="page-header__content">
+                        <div class="row justify-center text-center">
+                            <div class="col-lg-9 col-md-10">
+                                <div data-anim="slide-up delay-1">
+
+                                    <h1 class="page-header__title lh-14">Dashbaord</h1>
+                                    <h5 class="auth-section-title welcome-text">Welcome</h5>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-4 col-lg-9 col-md-10">
+                                <div data-anim="slide-up delay-2" class="px-20">
+
+                                    <p class="page-header__text">Peform administrative task, generate QR code, register an event, vendor and new customers at your fingertips.</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="layout-pt-sm layout-pb-lg" style="padding-bottom: 0rem">
+                    <div class="container">
+                        <div data-anim="slide-up delay-2" class="row y-gap-48 is-in-view">
+
+                            <div class="col-lg-3 col-6">
+                                <div class="numCounter" data-anim="counter" data-counter="773">
+                                    <div class="numCounter__number text-3xl text-dark-1 fw-700 js-counter-num">773</div>
+                                    <h5 class="numCounter__title text-dark text-lg">Vendors</h5>
+                                    <div class="numCounter__line mt-20"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-6">
+                                <div class="numCounter" data-anim="counter" data-counter="1254">
+                                    <div class="numCounter__number text-3xl text-dark-1 fw-700 js-counter-num">1254</div>
+                                    <h5 class="numCounter__title text-dark text-lg">Users</h5>
+                                    <div class="numCounter__line mt-20"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-6">
+                                <div class="numCounter" data-anim="counter" data-counter="14941">
+                                    <div class="numCounter__number text-3xl text-dark-1 fw-700 js-counter-num">14941</div>
+                                    <h5 class="numCounter__title text-dark text-lg">Sales</h5>
+                                    <div class="numCounter__line mt-20"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-6">
+                                <div class="numCounter" data-anim="counter" data-counter="1254">
+                                    <div class="numCounter__number text-3xl text-dark-1 fw-700 js-counter-num">1254</div>
+                                    <h5 class="numCounter__title text-dark text-lg">Upcoming Events</h5>
+                                    <div class="numCounter__line mt-20"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                <section class="layout-pt-sm layout-pb-sm" style="padding-top: 0rem">
+                    <div class="container">
+                        <div class="row y-gap-48">
+
+                            <div class="col-lg-12">
+                                <h4 class="text-2xl fw-600">Vendor Sales Information</h4>
+
+                                <div class="col-12 mt-20">
+                                    <select id="cmbVendors" name="cmbVendors" class="form-select form-select-md">
+                                    </select>
+                                </div>
+
+                                <table class="table table-hover mt-3" id="vendorSalesTable">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">
+                                                <div class="form-check">
+                                                    <input class="checkbox" type="checkbox" value="" id="mstrRoleChecked" />
+                                                </div>
+                                            </th>
+                                            <th scope="col">S/N</th>
+                                            <th scope="col">Vendor Name</th>
+                                            <th scope="col">Last Tranx. Date</th>
+                                            <th scope="col">Total Sales Amount</th>
+                                            <th scope="col">ToTal Sales Point</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="vendorSalesTBody">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+
+                <section class="layout-pt-sm layout-pb-sm">
+                    <div data-anim-wrap="" class="container animated">
+                        <div class="row justify-center">
+                            <div class="col text-center">
+
+                                <div class="sectionHeading ">
+
+                                    <div class="sectionHeading__subtitle">
+                                        <span>Upcoming events @ eventiix.com</span>
+                                    </div>
+
+                                    <h4 class="sectionHeading__title">All upcoming events  by date</h4>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="sectionSlider overflow-hidden pt-60 js-sectionSlider swiper-container-initialized swiper-container-horizontal swiper-container-autoheight" data-cursor-slider="slider" data-gap="30" data-slider-col="base-4 lg-3 md-2 sm-1" data-pagination="">
+                            <div class="swiper-wrapper" style="height: 402px;">
+
+                                <div class="swiper-slide swiper-slide-visible swiper-slide-active" style="width: 270px; margin-right: 30px;">
+                                    <div data-anim-child="slide-up delay-1" class="is-in-view">
+                                        <div class="ratio ratio-27:33">
+                                            <img class="absolute-full-center object-fit-cover rounded-8" src="img/team/1.jpg" alt="Image">
+                                        </div>
+                                        <div class="mt-20">
+                                            <h4 class="text-xl fw-600">Albert Flores</h4>
+                                            <p class="mt-4">President of Sales</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="swiper-slide swiper-slide-visible swiper-slide-next" style="width: 270px; margin-right: 30px;">
+                                    <div data-anim-child="slide-up delay-2" class="is-in-view">
+                                        <div class="ratio ratio-27:33">
+                                            <img class="absolute-full-center object-fit-cover rounded-8" src="img/team/2.jpg" alt="Image">
+                                        </div>
+                                        <div class="mt-20">
+                                            <h4 class="text-xl fw-600">Jerome Bell</h4>
+                                            <p class="mt-4">Marketing Coordinator</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="swiper-slide swiper-slide-visible" style="width: 270px; margin-right: 30px;">
+                                    <div data-anim-child="slide-up delay-3" class="is-in-view">
+                                        <div class="ratio ratio-27:33">
+                                            <img class="absolute-full-center object-fit-cover rounded-8" src="img/team/3.jpg" alt="Image">
+                                        </div>
+                                        <div class="mt-20">
+                                            <h4 class="text-xl fw-600">Darlene Robertson</h4>
+                                            <p class="mt-4">Dog Trainer</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="swiper-slide swiper-slide-visible" style="width: 270px; margin-right: 30px;">
+                                    <div data-anim-child="slide-up delay-4" class="is-in-view">
+                                        <div class="ratio ratio-27:33">
+                                            <img class="absolute-full-center object-fit-cover rounded-8" src="img/team/4.jpg" alt="Image">
+                                        </div>
+                                        <div class="mt-20">
+                                            <h4 class="text-xl fw-600">Theresa Webb</h4>
+                                            <p class="mt-4">Theresa Webb</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="swiper-slide" style="width: 270px; margin-right: 30px;">
+                                    <div data-anim-child="slide-up delay-5" class="is-in-view">
+                                        <div class="ratio ratio-27:33">
+                                            <img class="absolute-full-center object-fit-cover rounded-8" src="img/team/5.jpg" alt="Image">
+                                        </div>
+                                        <div class="mt-20">
+                                            <h4 class="text-xl fw-600">Albert Flores</h4>
+                                            <p class="mt-4">President of Sales</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="swiper-slide" style="width: 270px; margin-right: 30px;">
+                                    <div data-anim-child="slide-up delay-6" class="is-in-view">
+                                        <div class="ratio ratio-27:33">
+                                            <img class="absolute-full-center object-fit-cover rounded-8" src="img/team/6.jpg" alt="Image">
+                                        </div>
+                                        <div class="mt-20">
+                                            <h4 class="text-xl fw-600">Jerome Bell</h4>
+                                            <p class="mt-4">Marketing Coordinator</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="pagination -slider mt-60 js-pagination swiper-pagination-clickable swiper-pagination-bullets"><div class="pagination__item is-active" tabindex="0" role="button" aria-label="Go to slide 1"></div><div class="pagination__item" tabindex="0" role="button" aria-label="Go to slide 2"></div><div class="pagination__item" tabindex="0" role="button" aria-label="Go to slide 3"></div></div>
+                            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+                        </div>
+                    </div>
+                </section>
+
+
+                <footer class="footer -type-3 bg-dark-1">
+                    <div class="footer__top">
+                        <div class="container">
+                            <div class="row y-gap-48 justify-content-between">
+
+                                <div class="col-lg-4 col-sm-6">
+                                    <div class="footer__item">
+                                        <div class="footer__logo  text-white">
+                                            <img src="img/general/logo-flat.svg" alt="logo">
+                                        </div>
+
+                                        <div class="y-gap-32 pt-30">
+                                            <div class="">
+                                                <div class="text-lg text-white opac-50">Toll Free Customer Care</div>
+                                                <div class="text-xl fw-600 text-white">+234 803 880 4264</div>
+                                            </div>
+
+                                            <div class="">
+                                                <div class="text-lg text-white opac-50">Need live support?</div>
+                                                <div class="text-xl fw-600 text-white">lararawa@yahoo.co.uk</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-2 col-sm-6">
+                                    <div class="footer__item">
+                                        <h3 class="text-xl lh-1 fw-600 text-white">Links</h3>
+
+                                        <div class="footer__content y-gap-10 mt-40">
+
+                                            <div class="footer__content__item text-white">
+                                                <a class="decoration-none" data-barba href="index.html">Home</a>
+                                            </div>
+
+                                            <div class="footer__content__item text-white">
+                                                <a class="decoration-none" data-barba href="about-1.html">About</a>
+                                            </div>
+
+                                            <div class="footer__content__item text-white">
+                                                <a class="decoration-none" data-barba href="faq.html">Events</a>
+                                            </div>
+
+                                            <div class="footer__content__item text-white">
+                                                <a class="decoration-none" data-barba href="contact-1.html">Contact</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-3 col-sm-6">
+                                    <div class="footer__item">
+                                        <h3 class="footer__title text-xl lh-1 fw-600 text-white">Legal</h3>
+
+                                        <div class="footer__content y-gap-10 mt-40">
+
+                                            <div class="footer__content__item text-white">
+                                                <a class="decoration-none" data-barba href="terms.html">Terms of use</a>
+                                            </div>
+
+                                            <div class="footer__content__item text-white">
+                                                <a class="decoration-none" data-barba href="terms.html">Terms &amp; conditions</a>
+                                            </div>
+
+                                            <div class="footer__content__item text-white">
+                                                <a class="decoration-none" data-barba href="terms.html">Privacy policy</a>
+                                            </div>
+
+                                            <div class="footer__content__item text-white">
+                                                <a class="decoration-none" data-barba href="terms.html">Cookies policy</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-3 col-sm-6">
+                                    <div class="y-gap-48">
+                                        <div class="footer__socials">
+                                            <h3 class="text-xl lh-1 fw-600 text-white">Follow Us</h3>
+
+                                            <div class="socials mt-40">
+                                                <div>
+                                                    <a data-barba href="#" class="text-white">
+                                                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                                                    </a>
+                                                </div>
+                                                <div>
+                                                    <a data-barba href="#" class="text-white">
+                                                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                                                    </a>
+                                                </div>
+                                                <div>
+                                                    <a data-barba href="#" class="text-white">
+                                                        <i class="fa fa-instagram" aria-hidden="true"></i>
+                                                    </a>
+                                                </div>
+                                                <div>
+                                                    <a data-barba href="#" class="text-white">
+                                                        <i class="fa fa-linkedin" aria-hidden="true"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <h3 class="footer__title text-xl lh-1 fw-600 text-white">Subscribe</h3>
+
+                                            <div class="footer__content mt-24">
+                                                <div class="footer__newsletter form-newsletter -simple">
+                                                    <form action="https://creativelayers.net/themes/sassio-html/POST">
+                                                        <div class="form-group">
+                                                            <input class="rounded-200" placeholder="Your Email" type="email">
+                                                            <button class="button -accent ml-10" type="submit">
+                                                                <i class="icon text-white size-20" data-feather="arrow-right"></i>
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row justify-center py-30 border-top-light mt-120 md:mt-60">
+                                <div class="col-auto">
+                                    <div class="footer__bottom_text text-white">© Copyright 2021. Sassio</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </footer>
+
+
+            </div>
+        </main>
+    </div>
+    <!-- barba container end -->
+    <!-- JavaScript -->
+    <script src="vendors/jquery/jquery.min.js"></script>
+    <script src="vendors/popper.js/popper.min.js"></script>
+    <script src="js/app.js"></script>
+    <!--<script src="js/main.js"></script>-->
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+
+    <script src="cdn.jsdelivr.net/npm/atropos%401.0.1/atropos.js"></script>
+    <script src="unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    <script src="js/vendors.js"></script>
+    <script src="js/main.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            console.log('Jquery is ready to shoot');
+
+            $('#divAlert').hide();
+            $.getVendors();
+            $.getVendorSalesReport();
+
+            var user = sessionStorage.getItem('user');
+            user = JSON.parse(user);
+
+            $('.welcome-text').html('Welcome ' + user.full_name);
+
+            $("#btnSerices").on('click', function () {
+
+                window.location.replace("../auth/vendor-sales.aspx");
+
+            });
+
+            $('#cmbVendors').on('change', function (e) {
+
+                //if ($(this).val() == '0')
+                //    return;
+
+                $.getVendorSalesReport();
+
+                e.preventDefault();
+            });
+
+
+
+            var data = {
+
+                email: sessionStorage.getItem('email')
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/Services/sales.asmx/TotalSales",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(data),
+                cache: false,
+                success: function (response) {
+
+                    var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
+                    $('tbody tr td').eq(4).text(responseData.Message);
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>

@@ -513,7 +513,8 @@ namespace Eventhings.Services
                                 x.Message = "../clients/auth/vendor-dashboard.aspx";
                                 break;
                             case "administrator":
-                                x.Message = "../clients/auth/dashboard.aspx";
+                                //x.Message = "../clients/auth/dashboard.aspx";
+                                x.Message = "dashbaord.html";
                                 break;
                             case "customer":
                                 x.Message = "../clients/auth/customer-dashboard.aspx";

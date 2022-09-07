@@ -9,7 +9,7 @@ namespace Eventhings.DbContexts
     public partial class EventhingsDbContext : DbContext
     {
         public EventhingsDbContext()
-            : base("name=MochaConnEventhingsDbContext")
+            : base("name=LocalConnEventhingsDbContext")
         {
         }
 
