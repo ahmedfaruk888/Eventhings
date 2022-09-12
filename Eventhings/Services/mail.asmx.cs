@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Services;
@@ -21,31 +24,110 @@ namespace Eventhings.Services
     [System.Web.Script.Services.ScriptService]
     public class mail : System.Web.Services.WebService
     {
-
-        [WebMethod]
-        public async Task<string> SendInvoiceAsync(MailDto mail)
+        public enum EmailBodyType
         {
-            var response = new MailResponse();
+            IsHtmlBody = 0,
+            IsPlainTextBody = 1
+        };
+
+        public void SendEmailWithGmail(string SendMailFrom, string SendMailTo, string SendMailSubject, string SendMailBody)
+        {
+            //String  = "Sender Email";
+            //String  = "Reciever Email";
+            //String  = "Email Subject";
+            //String  = "Email Body";
+
             try
             {
-
-                var apiKey = "SG.uTctO3DRSXS0QE2Hjt187g.kGktuYQL3vuB8SRYqlvLESv6cLF2Z30YfcGuX8r6udA";//Environment.GetEnvironmentVariable("NAME_OF_THE_ENVIRONMENT_VARIABLE_FOR_YOUR_SENDGRID_KEY");
-                var client = new SendGridClient(apiKey);
-                var from = new EmailAddress(mail.from, mail.from_display_name);
-                var subject = mail.subject;
-                var to = new EmailAddress(mail.to, mail.to_display_name);
-                var plainTextContent = mail.body;
-                var htmlContent = mail.html_body;
-                var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
-                response.Message = await client.SendEmailAsync(msg);
-
+                SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com", 587);
+                SmtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
+                MailMessage email = new MailMessage();
+                // START
+                email.From = new MailAddress(SendMailFrom);
+                email.To.Add(SendMailTo);
+                email.CC.Add(SendMailFrom);
+                email.Subject = SendMailSubject;
+                email.Body = SendMailBody;
+                //END
+                SmtpServer.Timeout = 5000;
+                SmtpServer.EnableSsl = true;
+                SmtpServer.UseDefaultCredentials = false;
+                SmtpServer.Credentials = new NetworkCredential(SendMailFrom, ConfigurationManager.AppSettings["apppassword"]);
+                SmtpServer.Send(email);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                response.Status = 0;
-                response.Message = "Internal server error";
+                Console.WriteLine(ex.ToString());
+                Console.ReadKey();
             }
-            return "Hello World";
+        }
+
+        public static void Send(EmailBodyType emailtype, string from, string to, string subject, string body, string host, bool enablessl, string password, int? port = null)
+        {
+            //Base class for sending email  
+            MailMessage _mailmsg = new MailMessage();
+
+            var deliveryNotif = _mailmsg.DeliveryNotificationOptions;
+
+            //Make TRUE because our body text is html  
+            if (emailtype == EmailBodyType.IsHtmlBody)
+                _mailmsg.IsBodyHtml = true;
+            else
+                _mailmsg.IsBodyHtml = false;
+
+            //Set From Email ID  
+            _mailmsg.From = new MailAddress(from);
+
+            //Set To Email ID  
+            _mailmsg.To.Add(to);
+
+            //Set Subject  
+            _mailmsg.Subject = subject;
+
+            //Set Body Text of Email   
+            _mailmsg.Body = body;
+
+
+            //Now set your SMTP   
+            SmtpClient _smtp = new SmtpClient();
+
+            //Set HOST server SMTP detail  
+            _smtp.Host = host;
+
+            //Set PORT number of SMTP  
+            _smtp.Port = port.Value;
+
+            //Set SSL --> True / False  
+            _smtp.EnableSsl = enablessl;
+
+            _smtp.UseDefaultCredentials = false;
+
+            //Set Sender UserEmailID, Password  
+            NetworkCredential _network = new NetworkCredential(from, password);
+            _smtp.Credentials = _network;
+
+            //Send Method will send your MailMessage create above.  
+            _smtp.Send(_mailmsg);
+        }
+
+        public void SendEmail(string address, string subject, string message, string to = "localhost@localhost.com")
+        {
+            try
+            {
+                MailMessage mailMessage = new MailMessage();
+                MailAddress fromAddress = new MailAddress(address, "Eventiix Management");
+                mailMessage.From = fromAddress;
+                mailMessage.To.Add(to);
+                mailMessage.Body = message;
+                mailMessage.IsBodyHtml = true;
+                mailMessage.Subject = subject;
+                SmtpClient smtpClient = new SmtpClient();
+                smtpClient.Host = "localhost";
+                smtpClient.Send(mailMessage);
+            }
+            catch (Exception)
+            {
+            }
         }
     }
 }

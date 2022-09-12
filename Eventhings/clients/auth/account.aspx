@@ -424,6 +424,7 @@
 
                 var register = {
                     user_type: $("#cmbUserType option:selected").val(),
+                    user_type_txt: $("#cmbUserType option:selected").text(),
                     email: $("#txtEmail").val(),
                     phone_number: $("#txtPhone").val(),
                     password_hash: $("#txtPassword").val(),

@@ -411,10 +411,45 @@ namespace Eventhings.Services
                     if (string.IsNullOrWhiteSpace(phone_number))
                     {
                         response.Status = 0;
-                        response.Message = "Phone number is required";
+                        response.Message = "Phone number or email address is required";
                     }
 
-                    var query = _context.tcoreusers
+                    if (phone_number.Contains("@"))
+                    {
+                        var query = _context.tcoreusers
+                        .Where(e => (e.email == phone_number) && e.active == 1 && e.is_deleted == 0)
+                        .Select(n => new UserResponse()
+                        {
+                            id = n.id,
+                            user_code = n.user_code,
+                            first_name = n.first_name,
+                            last_name = n.last_name,
+                            other_name = n.other_name,
+                            email = n.email,
+                            email_confirmed = n.email_confirmed,
+                            phone_number = n.phone_number,
+                            phone_number_confirmed = n.phone_number_confirmed,
+                            password_hash = n.password_hash,
+                            require_password_change = n.require_password_change,
+                            active = n.active,
+                            created_at = n.created_at,
+                            created_by = n.created_by,
+                            updated_at = n.updated_at,
+                            updated_by = n.updated_by,
+                            Status = 1,
+                            Message = "Success"
+                        }).FirstOrDefault();
+                        if (query == null)
+                        {
+                            response.Status = 0;
+                            response.Message = "The specified email does not exists..";
+                            return response;
+                        }
+                        response = query;
+                    }
+                    else
+                    {
+                        var query = _context.tcoreusers
                         .Where(e => e.phone_number == phone_number && e.active == 1 && e.is_deleted == 0)
                         .Select(n => new UserResponse()
                         {
@@ -437,23 +472,88 @@ namespace Eventhings.Services
                             Status = 1,
                             Message = "Success"
                         }).FirstOrDefault();
-
-                    //var wallet = _context.tcorewallets.Where(p => p.user_id == query.id.ToString()).FirstOrDefault();
-                    //query.current_balance = wallet.current_balance.ToString();
-                    if(query == null)
-                    {
-                        response.Status = 0;
-                        response.Message = "The specified phone number does not exists..";
-                        return response;
+                        if (query == null)
+                        {
+                            response.Status = 0;
+                            response.Message = "The specified phone number does not exists..";
+                            return response;
+                        }
+                        response = query;
                     }
-                    response = query;
-
                 }
             }
             catch (Exception ex)
             {
                 response.Status = 0;
                 response.Message = ex.ToString();
+            }
+
+            return response;
+        }
+
+        [WebMethod]
+        public List<VUserCodeMapped> GetCustomerByName(string fullname)
+        {
+            var response = new List<VUserCodeMapped>();
+
+            try
+            {
+                using (var _context = new EventhingsDbContext())
+                {
+                    if (string.IsNullOrWhiteSpace(fullname))
+                    {
+                        response.Add(new VUserCodeMapped()
+                        {
+                            Status = 0,
+                            Message = "Customer fullname is required"
+                        });
+                        //response.Status = 0;
+                        //response.Message = "Customer fullname is required";
+                    }
+
+                    var _fname = (fullname.Contains(" ")) ? fullname.Split(' ')[0] : fullname;
+                    var _lname = (fullname.Contains(" ")) ? fullname.Split(' ')[1] : fullname;
+
+                    var query = _context.v_event_user_mapped
+                        .Where(e => (e.first_name == _fname || e.last_name == _lname) && e.code == null)
+                        .Select(n => new VUserCodeMapped()
+                        {
+                            id = n.id,
+                            event_name = n.name,
+                            full_name = n.first_name + " " + n.last_name,
+                            first_name = n.first_name,
+                            last_name = n.last_name,
+                            phone_number = n.phone_number,
+                            batch_name = n.batch_name,
+                            email = n.email,
+                            qr_code_text = n.code,
+                            code_id = n.code_id,
+                            Status = 1,
+                            Message = "Success"
+                        }).OrderBy(x => x.email).ToList();
+
+                    if (query == null)
+                    {
+                        response.Add(new VUserCodeMapped()
+                        {
+                            Status = 0,
+                            Message = "The specified customer names does not exists.."
+                        });
+                        //response.Status = 0;
+                        //response.Message = "";
+                        return response;
+                    }
+
+                    response = query;
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Add(new VUserCodeMapped()
+                {
+                    Status = 0,
+                    Message = ex.ToString()
+                });
             }
 
             return response;
@@ -626,7 +726,7 @@ namespace Eventhings.Services
                     {
                         //Open the floor for insertion
                         response.Status = 2;
-                        response.Message = "The QR code text has not been mapped";
+                        response.Message = "This QR code text has not been mapped";
                         return response;
                     }
                     else

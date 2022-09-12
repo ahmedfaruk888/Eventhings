@@ -20,6 +20,7 @@ namespace Eventhings.Dto
         public int? duration { get; set; } = 1;
 
         public int host_id { get; set; }
+        public int gate_fee { get; set; }
 
         public int active { get; set; } = 1;
 

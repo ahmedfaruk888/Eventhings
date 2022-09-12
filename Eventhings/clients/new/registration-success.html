@@ -21,7 +21,7 @@
     <style>
     </style>
 
-    <title>Sassio</title>
+    <title>Registration Success</title>
 </head>
 
 
@@ -82,7 +82,7 @@
 
                                             <ul class="nav__submenu">
                                                 <li class="nav__submenu_item">
-                                                    <a data-barba href="home-9.html">Home 1</a>
+                                                    <a data-barba href="index.html">Home 1</a>
                                                 </li>
 
                                                 <li class="nav__submenu_item">
@@ -572,7 +572,7 @@
                             <div class="bg-image absolute-full-center md:bg-pos-top js-lazy" data-bg="img/forms/bg.jpg"
                                  style="opacity:1"></div>z
 
-                            <div class="pl-60 md:pl-0 absolute-full-center z-2">
+                            <!--<div class="pl-60 md:pl-0 absolute-full-center z-2">
                                 <div class="pl-120 lg:pl-48 md:pl-0 pt-120 md:pt-100">
                                     <div class="pt-120 md:pt-0">
                                         <div class="md:container sm:w-screen">
@@ -580,15 +580,15 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
 
                         <div data-anim-child="fade delay-3" class="col-lg-5">
                             <div class="md:container py-48">
-                                <h3 class="text-3xl md:text-3xl">Create account</h3>
-                                <p class="mt-16">Already have an account with us? <a data-barba class="decoration-none text-accent fw-600" href="../new/login.html">Login here</a></p>
+                                <h3 class="text-3xl md:text-3xl">Account creation success</h3>
+                                <p class="mt-16">Don't have an account yet? <a data-barba class="decoration-none text-accent fw-600" href="register.html">Create it here</a></p>
 
-                                <form class="contact-form row y-gap-32 pt-48" action="register.html" method="POST" id="frmRegister">
+                                <form class="contact-form row y-gap-32 pt-48" action="registration-success.html" method="POST" id="frmVerifyAccount">
 
                                     <div class="col-12">
                                         <div class="alert -success" id="divAlert" style="display:none">
@@ -598,68 +598,30 @@
                                                     <p id="lblErrorText"></p>
                                                 </div>
                                                 <!--<div class="alert__icon">
-                    <i class="icon" data-feather="x"></i>
-                </div>-->
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-6">
-                                        <!--<input type="text" name="name" placeholder="User Name">-->
-                                        <input type="text" class="form-control" id="txtFirstName" name="txtFirstName" required placeholder="Firstname">
-                                    </div>
-                                    <div class="col-6">
-                                        <!--<input type="password" name="password" placeholder="Password">-->
-                                        <input type="text" class="form-control" id="txtLastName" name="txtLastName" required placeholder="Lastname">
-                                    </div>
-
-                                    <div class="col-6">
-                                        <!--<input type="text" name="name" placeholder="User Name">-->
-                                        <input type="email" class="form-control" id="txtEmail" required name="txtEmail" placeholder="email">
-                                    </div>
-                                    <div class="col-6">
-                                        <!--<input type="text" name="name" placeholder="User Name">-->
-                                        <input type="text" class="form-control" required id="txtPhone" name="txtPhone" placeholder="Phone number">
-                                    </div>
-
-                                    <div class="col-6">
-                                        <!--<input type="password" name="password" placeholder="Password">-->
-                                        <input type="password" class="form-control" required id="txtPassword" name="txtPassword" placeholder="password">
-                                    </div>
-
-                                    <div class="col-6">
-                                        <!--<input type="password" name="password" placeholder="Password">-->
-                                        <input type="password" class="form-control" required id="txtConfirmPassword" name="txtConfirmPassword" placeholder="confirm password">
-                                    </div>
-
-                                    <div class="col-12">
-                                        <div class="row justify-between">
-                                            <!--<div class="col-auto">
-                                                <div class="form-checkbox">
-                                                    <div class="checkbox">
-                                                        <input type="checkbox">
-                                                        <div class="checkbox__mark">
-                                                            <div class="checkbox__icon" data-feather="check"></div>
-                                                        </div>
-                                                    </div>
-                                                    <label for="items">
-                                                        Remember me
-                                                    </label>
-                                                </div>
-                                            </div>-->
-
-                                            <div class="col-auto">
-                                                <a class="decoration-none text-accent" href="#">Forgot your password?</a>
+                                                    <i class="icon" data-feather="x"></i>
+                                                </div>-->
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-12">
-                                        <button type="submit" name="btnSubmit" id="btnSubmit" class="button -md -accent -uppercase text-white">
-                                            Create my account
-                                            <span class="fas fa-spinner fa-spin spinner"> </span>
+                                        <!--<input type="text" name="name" placeholder="User Name">-->
+                                        <input type="text" class="form-control" id="txtVerificationCode" required name="txtVerificationCode" placeholder="OTP Passcode">
+                                    </div>
+
+                                    <div class="col-12">
+                                        <button type="submit" name="btnVerify" id="btnVerify" class="button -md -accent -uppercase text-white">
+                                            Verify Account
+                                            <!--<span class="fas fa-spinner fa-spin spinner"> </span>-->
                                         </button>
                                     </div>
+
+                                    <!--<div class="col-12">
+                                        <button type="submit" name="btnLogin" id="btnLogin" class="button -md -accent -uppercase text-white">
+                                            Proceed to Login-->
+                                    <!--<span class="fas fa-spinner fa-spin spinner"> </span>-->
+                                    <!--</button>
+                                    </div>-->
                                 </form>
                             </div>
                         </div>
@@ -675,6 +637,7 @@
     <script src="vendors/jquery/jquery.min.js"></script>
     <script src="vendors/popper.js/popper.min.js"></script>
     <script src="js/app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
     <!--<script src="js/main.js"></script>-->
 
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
@@ -686,8 +649,12 @@
     <script src="js/main.js"></script>
 
     <script type="text/javascript">
-
         $(document).ready(function () {
+
+            var regemail = sessionStorage.getItem('regemail');
+            if (regemail == undefined || regemail == null) {
+                window.location.replace("login.html");
+            }
 
             $('label sup').css('color', 'red');
 
@@ -695,94 +662,72 @@
 
             $("#divAlert").hide();
 
-            $("#nav").load("layouts/nav.html");
-
             $("#footer").load("layouts/footer.html");
 
-            $(".spinner").hide();
+            $("#frmVerifyAccount").validate();
 
-
-            //validate form
-            $("#frmRegister").validate();
-            $("#frmRegister").on('submit', function (e) {
-
-
-                $("#divAlert").show().addClass("alert alert-warning alert-dismissible fade show").attr('display', false).slideUp("slow");
-                var register = {
-                    user_type: 4,
-                    user_type_txt: "customer",
-                    email: $("#txtEmail").val(),
-                    phone_number: $("#txtPhone").val(),
-                    password_hash: $("#txtPassword").val(),
-                    first_name: $("#txtFirstName").val(),
-                    last_name: $("#txtLastName").val(),
-                    other_name: $("#password").val(),
-                    retry_password_hash: $("#txtConfirmPassword").val(),
-                    direction: 0
-                };
-
-                var data = {
-                    register: register
-                };
-
-                if ($("#frmRegister").valid()) {
-
-                    $.ajax({
-                        type: "POST",
-                        url: "/Services/authenticate.asmx/Register",
-                        dataType: "json",
-                        contentType: "application/json; charset=utf-8",
-                        data: JSON.stringify(data),
-                        success: function (response) {
-
-                            var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
-
-                            console.log(responseData.Status);
-                            var status = responseData.Status;
-                            if (status >= '1') {
-
-                                //if the request is successfull
-                                /*payWithPaystack();*/
-
-                                //send an email here and redirect user to login page
-
-                                sessionStorage.setItem('regemail', $('#txtEmail').val());
-                                var referLink = document.createElement("a");
-                                referLink.href = "registration-success.html?verificatioin_token=" + response.Message;
-                                document.body.appendChild(referLink);
-                                referLink.click();
-
-                            }
-                            else if (status == '0') {
-                                $("#divAlert").addClass("alert alert-info alert-dismissible fade show").attr('display', false).slideDown("slow");
-                                $("#lblErrorText").html(responseData.Message);
-                            }
-                        },
-                        beforeSend: function () {
-                            $(".spinner").show();
-                            $("#btnSubmit").html("Submitting request").attr('disabled', true);
-                        },
-                        complete: function () {
-                            $(".spinner").hide();
-                            $("#btnSubmit").html("Create Account").attr('disabled', false);
-                        },
-                        error: function (data) {
-                            console.log(data);
-                            $("#divAlert").addClass("alert alert-info alert-dismissible fade show").attr('display', false).slideDown("slow");
-                            $("#lblErrorText").html("Error occured while submiting form");
-                            /*console.error(data);*/
-                        }
-                    });
-
-
-                } else {
-                    $("#divAlert").show().addClass("alert alert-warning alert-dismissible fade show").attr('display', false).slideDown("slow");
-                    $("#lblErrorText").html("Please fill out the required field(s)");
-                    return;
+            $("#btnVerify").on('click', function (e) {
+                //"?code=cc7aa34a-4743-4cbb-af47-5c9927020862"
+                var verification_value = window.location.search.split('=')[1];
+                if (verification_value == undefined) {
+                    $("#divAlert").addClass("alert -success").attr('display', false).slideDown("slow");
+                    $("#lblErrorText").html("No verfication token in request");
                 }
 
                 e.preventDefault();
+                var verifydto = {
+                    verification_code: $("#txtVerificationCode").val(),
+                    verification_token: verification_value
+                };
+
+                var data = {
+                    verifydto: verifydto
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Services/authenticate.asmx/VerifyEmail",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(data),
+                    success: function (response) {
+
+                        var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
+
+                        var status = responseData.Status;
+                        if (status == '1') {
+
+                            /*window.location.href = window.location.host + "/admin/qrcodegen.aspx";*/
+
+                            var referLink = document.createElement("a");
+                            referLink.href = "login.html";
+                            document.body.appendChild(referLink);
+                            referLink.click();
+
+                        }
+                        else if (status == '2') {
+                            $("#divAlert").addClass("alert alert-info alert-dismissible fade show").attr('display', false).slideDown("slow");
+                            $("#lblErrorText").html(responseData.Message);
+                        } else {
+                            $("#divAlert").addClass("alert alert-info alert-dismissible fade show").attr('display', false).slideDown("slow");
+                            $("#lblErrorText").html(responseData.Message);
+                        }
+                    },
+                    beforeSend: function () {
+                        $("#btnVerify").attr('disabled', true);
+                    },
+                    complete: function () {
+                        $("#btnVerify").attr('disabled', false);
+                    },
+                    error: function (data) {
+                        console.log(data);
+                        $("#divAlert").addClass("alert alert-info alert-dismissible fade show").attr('display', false).slideDown("slow");
+                        $("#lblErrorText").html("Error occured while submiting form");
+                        /*console.error(data);*/
+                    }
+                });
             });
+
         });
     </script>
 </body>

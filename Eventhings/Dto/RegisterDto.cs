@@ -11,6 +11,7 @@ namespace Eventhings.Dto
         public decimal? topup_amount { get; set; }
         public int direction { get; set; }
         public int user_type { get; set; } = 1;
+        public string user_type_txt { get; set; }
         public int active { get; set; }
         public int require_password_change { get; set; }
         public string user_code { get; set; }

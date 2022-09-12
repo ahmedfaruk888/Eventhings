@@ -120,9 +120,14 @@
                                 <input type="text" class="form-control" id="txtEventDescription" required="required" name="txtEventDescription" placeholder="Description">
                             </div>
 
-                            <div class="form-group col-md-8">
+                            <div class="form-group col-md-4">
                                 <label for="txtEventLocation">Location</label>
                                 <input type="text" class="form-control" id="txtEventLocation" name="txtEventLocation" placeholder="Muson Centre, Ikoyi Lagos">
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label for="txtEventGateFee">Gate Fee</label>
+                                <input type="text" class="form-control" id="txtEventGateFee" name="txtEventGateFee" placeholder="12,000.00">
                             </div>
 
                             <div class="form-group col-md-4">
@@ -363,10 +368,11 @@
                 var name = $("#txtEventName").val();
                 var description = $("#txtEventDescription").val();
                 var location = $("#txtEventLocation").val();
-                var startdate = $("#txtEventStartDate").val();
-                var enddate = $("#txtEventEndtDate").val();
+                var start_date = $("#txtEventStartDate").val();
+                var end_date = $("#txtEventEndtDate").val();
                 var duration = $("#txtEventDuration").val();
                 var host = $("#cmbHost option:selected").val();
+                var gate_fee = $("#txtEventGateFee").val();
 
                 /*var active = $("#chkEnableEvent").prop('checked');*/
 
@@ -379,14 +385,14 @@
                 }
 
                 var eventdto = {
-
                     name: name,
                     description: description,
                     location: location,
-                    startdate: startdate,
-                    enddate: enddate,
+                    start_date: start_date,
+                    end_date: end_date,
                     duration: duration,
                     active: ($('#chkEnableEvent').prop('checked') == true) ? 1 : 0,
+                    gate_fee: gate_fee
                 };
 
                 var data = {

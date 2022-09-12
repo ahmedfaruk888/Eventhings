@@ -38,6 +38,7 @@ namespace Eventhings.Services
                         .Where(e => e.active == 1 && e.is_deleted == 0)
                         .Select(n => new UserResponse()
                         {
+                            id = n.id,
                             user_code = n.user_code,
                             first_name = n.first_name,
                             last_name = n.last_name,
@@ -132,7 +133,7 @@ namespace Eventhings.Services
         public RegisterResponse Register(RegisterDto register)
         {
             var response = new RegisterResponse();
-
+            var changes = 0;
             try
             {
                 using (var _context = new EventhingsDbContext())
@@ -140,7 +141,9 @@ namespace Eventhings.Services
                     var existingUser = _context.tcoreusers
                         .Where(phone => phone.phone_number == register.phone_number).FirstOrDefault();
 
-                    var existingRole = _context.tcoreroles.Where(role => role.id == register.user_type).FirstOrDefault();
+                    //var existingRole = _context.tcoreroles.Where(role => role.id == register.user_type).FirstOrDefault();
+                    //Customer
+                    var existingRole = _context.tcoreroles.Where(role => role.name.ToLower() == register.user_type_txt).FirstOrDefault();
 
                     if (existingRole == null)
                     {
@@ -235,13 +238,13 @@ namespace Eventhings.Services
                                 require_password_change = 0,
                                 two_factor_enabled = 0,
                                 phone_number_confirmed = DateTime.Now,
-                                email_confirmed = DateTime.Now,
+                                //email_confirmed = DateTime.Now,
 
 
                                 created_at = DateTime.Now,
                                 created_by = "Public",
                                 active = 1,
-                                verification_code = $"Evt-VRC-{new Random().Next().ToString()}",
+                                verification_code = $"Evt-{new Random().Next().ToString()}",
                                 verification_token = Guid.NewGuid().ToString()
                             });
 
@@ -268,6 +271,8 @@ namespace Eventhings.Services
                                 verification_code = $"Evt-VRC-{new Random().Next().ToString()}",
                                 verification_token = Guid.NewGuid().ToString()
                             });
+                            
+                            changes = _context.SaveChanges();
                             _userid = userregister.id;
                         }
                         else
@@ -298,7 +303,7 @@ namespace Eventhings.Services
                             created_at = register.created_at
                         });
 
-                        var changes = _context.SaveChanges();
+                        changes = _context.SaveChanges();
 
                         //Send an email here or send an SMS to the user here
 
@@ -307,7 +312,6 @@ namespace Eventhings.Services
 
                         if (currentUser == null)
                         {
-
                             var currentWallet = _context.tcorewallets.Where(p => p.user_id == currentUser.id.ToString()).FirstOrDefault();
                             if(currentWallet != null)
                             {
@@ -330,11 +334,37 @@ namespace Eventhings.Services
                         if (changes >= 1)
                         {
                             response.Status = 1;
+                            response.Message = currentUser.verification_code;
+                            response.verification_token = currentUser.verification_token;
 
                             if (register.email == null)
                                 response.Message = "Account created successfully";
                             else
+                            {
+                                string emailTemlatePath = Server.MapPath("~/clients/new/template/signupconfirm.html");
+                                var streamReader = new System.IO.StreamReader(emailTemlatePath);
+                                var mailText = streamReader.ReadToEnd();
+
+                                //close the stream reader
+                                streamReader.Close();
+
+                                mailText = mailText.Replace("[username]", register.first_name + " " + register.last_name);
+                                mailText = mailText.Replace("[email]", register.email);
+                                mailText = mailText.Replace("[verificationcode]", currentUser.verification_code);
+
+                                //var xx = new MailDto();
+                                //xx.from = "ahmedfaruk888@gmail.com";
+                                //xx.to = register.email;
+                                //xx.body = mailText;
+                                //xx.to_display_name = register.first_name + " " + register.last_name;
+                                //xx.from_display_name = "Eventiix Managent";
+
+                                //new mail().SendEmail(register.email, "Email Registration Success", mailText);
+                                new mail().SendEmail("ahmedfaruk888@gmail.com", "Account Creation Success", mailText, register.email);
+                                //new mail().SendEmailWithGmail("payment.eventiix@gmail.com", "ahmedfaruk888@gmail.com", "Account Creation Success", mailText);
+
                                 response.Message = "Account created successfully, a confirmation message has been sent to the email specified";
+                            }
 
                             response.verification_token = Guid.NewGuid().ToString();
                         }
@@ -370,7 +400,7 @@ namespace Eventhings.Services
                 if (string.IsNullOrWhiteSpace(verifydto.verification_code))
                 {
                     response.Status = 0;
-                    response.Message = "Verification is required";
+                    response.Message = "Verification OTP code is required";
                     return response;
                 }
 
@@ -457,10 +487,12 @@ namespace Eventhings.Services
                             return response;
                         }
 
-                        if (userLogin.email_confirmed == null)
+                        if (userLogin.email_confirmed == null )
                         {
                             response.Status = 3;
-                            response.Message = userLogin.verification_token; 
+                            response.Message = userLogin.verification_token;
+                            response.phone_number = userLogin.phone_number;
+                            response.verification_token = userLogin.verification_token;
                             //Server.MapPath("~/clients/verify-account.html#");
                             return response;
                         }
@@ -517,7 +549,7 @@ namespace Eventhings.Services
                                 x.Message = "dashbaord.html";
                                 break;
                             case "customer":
-                                x.Message = "../clients/auth/customer-dashboard.aspx";
+                                x.Message = "customer-dashbaord.html";
                                 break;
                             default:
                                 break;

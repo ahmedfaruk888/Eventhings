@@ -18,5 +18,7 @@ namespace Eventhings.Response
         public int host_id { get; set; }
         public int active { get; set; }
         public int deleted { get; set; }
+        public int status { get; set; } = 0;
+        public decimal gate_fee { get; set; }
     }
 }

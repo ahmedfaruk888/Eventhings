@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from creativelayers.net/themes/sassio-html/pricing.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 06 Sep 2022 21:27:45 GMT -->
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="unpkg.com/leaflet%401.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/vendors.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <style>
+    </style>
+
+    <title>Eventiix - qrcode</title>
+</head>
+
+
+<body class="" data-barba="wrapper">
+
+    <!-- preloader start -->
+    <div class="preloader js-preloader"></div>
+    <!-- preloader end -->
+    <!-- cursor start -->
+    <div class="cursor js-cursor">
+        <div class="cursor__wrapper">
+            <div class="cursor__follower js-follower"></div>
+            <div class="cursor__label js-label"></div>
+            <div class="cursor__icon js-icon"></div>
+            <div class="cursor__slider_icon js-slider-icon">
+                <svg width="52" height="24" viewBox="0 0 52 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M37 18L43 12L37 6" stroke="white" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M15 18L9 12L15 6" stroke="white" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </div>
+        </div>
+    </div>
+    <!-- cursor end -->
+    <!-- barba container start -->
+    <div class="barba-container" data-barba="container">
+
+
+        <main class="main-content  ">
+
+
+            <!-- header start -->
+            <header class="header js-header">
+                <div class="header__bar js-header-bar">
+                    <div class="row justify-between items-center">
+                        <div class="col-2">
+                            <div class="header__logo">
+                                <a class="base-logo" data-barba href="index.html">
+                                    <img class="base-logo-first" src="img/general/logo.svg" alt="logo">
+                                    <img class="base-logo-second" src="img/general/logo-dark.svg" alt="logo">
+                                </a>
+
+                                <a class="menu-logo" data-barba href="index.html">
+                                    <img src="img/general/logo-dark.svg" alt="logo">
+                                </a>
+                            </div>
+                        </div>
+
+
+                        <div class="menu js-menu">
+                            <div class="mobile__background js-mobile-bg"></div>
+
+                            <div class="menu__container" id="menu">
+
+                            </div>
+
+                            <div class="mobile__footer js-mobile-footer">
+                                <div class="mobile__copyright">
+                                    <p>© Copyright 2021. Sassio</p>
+                                </div>
+
+                                <div class="mobile__socials">
+                                    <a data-barba href="#">
+                                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                                    </a>
+                                    <a data-barba href="#">
+                                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                                    </a>
+                                    <a data-barba href="#">
+                                        <i class="fa fa-instagram" aria-hidden="true"></i>
+                                    </a>
+                                    <a data-barba href="#">
+                                        <i class="fa fa-linkedin" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-auto">
+                            <div class="header__right">
+                                <div class="md:d-none">
+                                    <!--<a href="login.html" class="button -sm -outline-light-dark sm:d-none">Join</a>-->
+                                    <a href="login.html" class="button -sm -dark text-white ml-12" onclick="LogOut()">Sign Out</a>
+                                </div>
+
+                                <div class="header__menu justify-center items-center relative d-none md:d-flex">
+                                    <button type="button" class="d-flex items-center justify-center js-nav-open">
+                                        <i class="text-black size-32 str-width-1" data-feather="menu"></i>
+                                    </button>
+
+                                    <button type="button" class="d-flex items-center justify-center absolute-y-center right-0 pointer-events-none opac-0 js-nav-close">
+                                        Close
+                                        <i class="text-black size-32 str-width-1 ml-4" data-feather="x"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- header end -->
+
+
+            <div class="content-wrapper  js-content-wrapper">
+
+
+                <section class="page-header -base -">
+                    <div data-anim="slide-up" class="page-header__bg">
+
+                        <img class="initial-img" src="img/page-header/bg-light.png" alt="Page header">
+
+                    </div>
+
+                    <div class="page-header__content">
+                        <div class="row justify-center text-center">
+                            <div class="col-lg-9 col-md-10">
+                                <div data-anim="slide-up delay-1">
+
+                                    <h1 class="page-header__title lh-14">Generate QR Code</h1>
+                                    <h5 class="auth-section-title welcome-text">Welcome</h5>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-4 col-lg-9 col-md-10">
+                                <div data-anim="slide-up delay-2" class="px-20">
+
+                                    <p class="page-header__text">Peform administrative task, generate QR code, register an event, vendor and new customers at your fingertips.</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+
+                <section class="layout-pt-lg layout-pb-sm" style="margin-bottom:20%">
+                    <div class="container">
+                        <div class="row">
+                                <div class="col-lg-12">
+                                    <p class="text-2xl fw-600">Qr Code Management</p>
+
+                                    <div class="col-12">
+                                        <div class="alert -success" id="divAlert" name="divAlert" style="display:none">
+                                            <div class="alert__content">
+                                                <div class="alert__title text-sm">
+                                                    <!--<button type="button" class="close" data-dismiss="alert">&times;</button>-->
+                                                    <p id="lblErrorText"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tabs -lines-small mt-48 js-tabs">
+                                        <div class="tabs__controls x-gap-12 js-tabs-controls">
+                                            <button class="tabs__button js-tabs-button is-active" data-tab-target=".-tab-item-1" type="button">
+                                                New QR Code Text
+                                            </button>
+                                            <button class="tabs__button js-tabs-button" data-tab-target=".-tab-item-2" type="button">
+                                                Mapped QR Code
+                                            </button>
+                                            <button class="tabs__button js-tabs-button" data-tab-target=".-tab-item-3" type="button">
+                                                Un-mapper Qr Code
+                                            </button>
+                                            <button class="tabs__button js-tabs-button" data-tab-target=".-tab-item-4" type="button">
+                                                Print Qr Code
+                                            </button>
+                                        </div>
+
+                                        <form action="qrcode.aspx" method="post" id="frmQrcode" class="contact-form row y-gap-32 pt-48">
+                                            <div class="tabs__content mt-16 js-tabs-content">
+                                                <div class="tabs__pane -tab-item-1 is-active">
+
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mt-16">
+
+                                                                    <div class="col-lg-12">
+                                                                        <a href="#" class="batch-edit" onclick="javascript:void(0)">
+                                                                            <span class="fa fa-edit"></span>
+                                                                        </a>
+                                                                    </div>
+
+                                                                    <div class="col-lg-6" id="insert-batch-number">
+                                                                        <div class="form-group">
+                                                                            <input type="text" class="form-control" id="txtBatchNumber" required="required" name="txtBatchNumber" placeholder="batch number" readonly="readonly">
+                                                                            <select class="form-select form-select-lg" id="cmbBatchNumber" name="cmbBatchNumber"> </select>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-lg-6" id="insert-batch-name">
+                                                                        <div class="form-group">
+                                                                            <input type="text" class="form-control" id="txtBatchName" name="txtBatchName" placeholder="Evening batch">
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="row mt-16">
+                                                                        <div class="col-lg-6" id="insert-batch-name">
+                                                                            <div class="form-group">
+                                                                                <input type="text" min="1" max="50" id="txtCodeCount" name="txtCodeCount" placeholder="Between 1-50">
+                                                                            </div>
+                                                                        </div>
+                                                                        <!--<div class="text-center">
+                                    <p class="form-footer-text">Switch to the active QR Code tab to view active QR codes.</p>
+                                </div>-->
+                                                                    </div>
+
+                                                                    <div class="row mt-16">
+                                                                        <div class="col-sm-6">
+                                                                            <div class="form-group">
+                                                                                <div class="col-lg-12">
+                                                                                    <div class="form-group">
+                                                                                        <input id="chkActive" name="chkActive" checked="checked" required="required" type="checkbox" value="" />
+                                                                                        <label for="chkActive">Set generated code to active</label>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="row mt-16">
+                                                                        <div class="col-lg-6">
+                                                                            <div class="col-lg-6">
+                                                                                <button type="submit" style="margin-top:15%" id="btnSubmit" class="button -md -accent -uppercase text-white">Generate New Code</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="tabs__pane -tab-item-2">
+                                                    <p class="feature-title" style="margin-bottom: 10px">
+                                                        Mapped QR code text are QR code text that has been mapped to any customer.
+                                                    </p>
+                                                    <div class="row mt-4">
+                                                        <div class="col-md-12">
+                                                            <input type="text" class="form-control col-md-12" id="txtSearch" name="txtSearch" placeholder="Search... by phone or email">
+                                                        </div>
+                                                    </div>
+                                                    <!--<div class="form-group col-md-12">
+
+    </div>-->
+                                                    <div class="row mt-4">
+                                                        <div class="col-md-12">
+                                                            <div style="max-height: 500px; overflow-y: scroll">
+                                                                <table class="table" style="width: 100%;" id="mappedQrcodeTable">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th scope="col">
+                                                                                <div class="form-check">
+                                                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                                                </div>
+                                                                            </th>
+                                                                            <th scope="col">S/N</th>
+                                                                            <th scope="col">User ID</th>
+                                                                            <th scope="col">Code Text</th>
+                                                                            <th scope="col">Date Mapped</th>
+                                                                            <th scope="col">Event</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody id="mappedtbody">
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="tabs__pane -tab-item-3">
+                                                    <p class="feature-title" style="margin-bottom: 10px">
+                                                        Un-mapped QR code text are QR code text that has not been mapped to any customer. Mapping can be done directly from within
+                                                        this tab or from the customer profile page.
+                                                    </p>
+
+                                                    <p>
+                                                        <div class="form-group col-md-12">
+                                                            <input type="text" class="form-control col-md-12" id="txtSearch" name="txtSearch" placeholder="Search... by phone or email">
+                                                        </div>
+                                                        <div style="max-height: 500px; overflow-y: scroll;">
+                                                            <table class="table" style="width: 100%;" id="unmappedTable">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th scope="col">
+                                                                            <div class="form-check">
+                                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" />
+                                                                            </div>
+                                                                        </th>
+                                                                        <th scope="col">S/N</th>
+                                                                        <th scope="col">Number</th>
+                                                                        <th scope="col">Name</th>
+                                                                        <th scope="col">Code Text</th>
+                                                                        <th scope="col">Status</th>
+                                                                        <th scope="col">Date</th>
+                                                                        <th scope="col">Mapped</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody id="unmappedtbody">
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </p>
+                                                </div>
+
+                                                <div class="tabs__pane -tab-item-4">
+                                                    <p class="text-sm">Print QR Code Images From Store QR Code Text</p>
+
+                                                    <div class="row">
+                                                        <div class="form-group col-md-9">
+                                                            <select class="nice-select wide" name="cmbGenBatchNames" id="cmbGenBatchNames" runat="server">
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group col-md-3">
+                                                            <div class="dropdown">
+                                                                <button class="button text-black" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+                                                                        aria-expanded="false">
+                                                                    Choose an action
+                                                                </button>
+                                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                                    <li>
+                                                                        <a class="dropdown-item" id="btnGenerateQrCodeImages" href="#">Generate QR Code Image</a>
+                                                                    </li>
+                                                                    <li><a class="dropdown-item" id="btnPrintSection" href="print.aspx">Print</a></li>
+                                                                    <li><a class="dropdown-item" href="#">Extras</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row" id="divQrCardBody" style="max-height: 400px; overflow-y: scroll;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                     </div> 
+                                </div>
+                        </div>
+                    </div>
+                </section>
+
+
+                <footer class="footer -type-3 bg-dark-1" id="footers"> </footer>
+
+
+            </div>
+        </main>
+    </div>
+    <!-- barba container end -->
+    <!-- JavaScript -->
+    <script src="vendors/jquery/jquery.min.js"></script>
+    <script src="vendors/popper.js/popper.min.js"></script>
+    <script src="js/app.js"></script>
+    <!--<script src="js/main.js"></script>-->
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+
+    <script src="cdn.jsdelivr.net/npm/atropos%401.0.1/atropos.js"></script>
+    <script src="unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    <script src="js/vendors.js"></script>
+    <script src="js/main.js"></script>
+
+    <script type="text/javascript">
+        var pageSize = 10;
+        var codeText = "";
+        var hasCode = false;
+        var isMapped = false;
+
+        function getUnMappedQRCodeText() {
+
+            $.ajax({
+                type: "POST",
+                url: "/Services/qrcode.asmx/GetUnMappedQrCode",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                //data: JSON.stringify(data),
+                cache: false,
+                success: function (response) {
+
+                    var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
+                    //console.log(responseData[0].Status);
+                    var status = responseData.Status;
+                    if (responseData[0].Status >= '1') {
+
+                        $('#unmappedtbody').empty();
+
+                        $.each(responseData, function (i, row) {
+                            let rows = `<tr>
+                                                    <td><div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" />
+                                                        </div>
+                                                    </td>
+                                                    <td>${row.id}</td>
+                                                    <td>${row.batch_number}</td>
+                                                    <td>${row.batch_name}</td>
+                                                    <td>${row.code}</td>
+
+                                                    <td>${(row.active == '1') ? 'Active' : 'In-active'}</td>
+                                                    <td>${(row.created_at != undefined) ? $.formattedDate(row.created_at) : " - "}</td >
+                                                    <td>${(row.date_used == undefined) ? 'Not Mapped' : 'Mapped'}</td>
+                                                </tr>`;
+
+                            $('#unmappedtbody').append(rows);
+                        });
+
+                        //$('#unmappedTable').DataTable();
+
+                        //$("#divAlert").addClass("alert alert-success alert-dismissible fade show").show().slideDown("slow");
+                        $("#lblErrorText").html(responseData.Message);
+
+                    }
+                    else if (status == '0') {
+
+                        $("#lblErrorText").html(responseData.Message);
+
+                    }
+                },
+                error: function (data) {
+                    /*$("#divAlert").addClass("alert alert-info alert-dismissible fade show").slideDown("slow");*/
+                    $("#lblErrorText").html("Error occured while fetching data - Un-mapped code");
+                }
+            });
+
+        }
+
+        function getMappedQRCodeText() {
+
+            $.ajax({
+                type: "POST",
+                url: "/Services/qrcode.asmx/GetMappedQrCode",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                //data: JSON.stringify(data),
+                cache: false,
+                success: function (response) {
+
+                    var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
+                    /*console.log(responseData);*/
+                    var status = responseData[0].Status;
+                    if (status >= '1') {
+
+                        $('#mappedtbody').empty();
+
+                        $.each(responseData, function (i, row) {
+                            let rows = `<tr>
+                                                    <td><div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" />
+                                                        </div>
+                                                    </td>
+                                                    <td>${row.id}</td>
+                                                    <td>${row.user_id}</td>
+                                                    <td>${row.code_id}</td>
+                                                    <td>${(row.date_mapped != undefined) ? $.formattedDate(row.date_mapped) : " - "}</td>
+                                                    <td>${row.event_id}</td>
+                                                </tr>`;
+
+                            $('#mappedtbody').append(rows);
+                        });
+
+                        //$('#mappedQrcodeTable').DataTable();
+
+                        $("#divAlert").addClass("alert alert-success alert-dismissible fade show").show().slideDown("slow");
+                        $("#lblErrorText").html(responseData.Message);
+
+                    }
+                    else if (status == '0') {
+
+                        $("#lblErrorText").html(responseData.Message);
+
+                    }
+                },
+                error: function (data) {
+                    /*$("#divAlert").addClass("alert alert-info alert-dismissible fade show").slideDown("slow");*/
+                    $("#lblErrorText").html("Error occured while fetching data - mapped codes");
+                }
+            });
+
+        }
+
+        function getBatchName() {
+
+            $("#cmbBatchNumber").empty();
+            $.ajax({
+                type: "POST",
+                url: "/Services/qrcode.asmx/DistinctBatchNameNumber",
+                dataType: "json",
+                contentType: "application/json",
+                cache: false,
+                success: function (res) {
+                    $.each(res.d, function (i, data) {
+
+                        $("#cmbBatchNumber").append($("<option></option>").val(data.batch_number).html(data.batch_number + ' | ' + data.batch_name));
+                        //$("#cmbBatchName").append($("<option></option>").val(data.id).html(data.batch_name));
+
+                        $("#cmbGenBatchNames").append($("<option></option>").val(data.batch_number).html(data.batch_name));
+                    })
+                }
+            });
+
+            var code = {};
+            $("select[id='cmbBatchNumber'] > option").each(function () {
+                if (code[this.text]) {
+                    $(this).remove();
+                } else {
+                    code[this.text] = this.value;
+                }
+            });
+        }
+
+        $(document).ready(function () {
+
+            $("#menu").load("layouts/menu.html");
+            $("#footers").load("layouts/footer.html");
+
+            var user = sessionStorage.getItem('user');
+            user = JSON.parse(user);
+
+            $('.welcome-text').html('Welcome ' + user.full_name);
+
+            //Fetch active records from the database
+            getUnMappedQRCodeText();
+            getMappedQRCodeText();
+            getBatchName();
+
+            codeText = window.location.search.split('=')[1];
+            if (codeText) {
+                hasCode = true;
+            }
+
+            //$('#divAlert').css('display', 'none');
+
+            $('#cmbBatchName').css('display', 'none');
+            $('#cmbBatchNumber').css('display', 'none');
+
+            //Edit existing QR Code batch and code
+            $(".batch-edit").on('click', function () {
+
+                if ($(".batch-edit span").hasClass('fa fa-edit')) {
+
+                    $('#txtBatchNumber').css('display', 'none');
+                    $('#txtBatchName').attr('readonly', true);
+
+                    //$('#cmbBatchName').css('display', 'block');
+                    $('#cmbBatchNumber').css('display', 'block');
+
+                    $(".batch-edit span").removeClass('fa fa-edit').addClass('fa fa-directions');
+
+                    getBatchName();
+
+                } else if ($(".batch-edit span").hasClass('fa fa-directions')) {
+
+                    $('#txtBatchNumber').css('display', 'block');
+                    $('#txtBatchName').attr('readonly', false);
+
+                    //$('#cmbBatchName').css('display', 'block');
+                    $('#cmbBatchNumber').css('display', 'none');
+
+                    $(".batch-edit span").removeClass('fa fa-directions').addClass('fa fa-edit');
+
+                } else { return; }
+
+            });
+
+            //Get QR Code bact name from number
+            $('#cmbBatchNumber').on('change', function () {
+
+                $('#txtBatchName').val($("#cmbBatchNumber option:selected").text().split('|')[1].trim());
+
+            })
+
+            console.log("Jquery is ready to shoot!!");
+
+            //Set new batch number
+            $("#txtBatchNumber").val("BTCH-" + Math.floor(Math.random() * 1000000) + 1);
+
+            //validate form
+            //$("#frmQrcode").validate();
+            $("#btnSubmit").on('click', function (e) {
+
+                //alert('clicked');
+                e.preventDefault();
+
+                var _bnumber = $('#txtBatchNumber').val();
+                var _bname = $('#txtBatchName').val();
+                var _codecount = $('#txtCodeCount').val();
+                var _active = $('#chkActive').prop('checked');
+
+                if (_bnumber.length < 1) {
+                    $("#lblErrorText").html("Batch number is required");
+                    return;
+                }
+
+                if (_bname.length < 1) {
+                    $("#lblErrorText").html("Batch name is required");
+                    return;
+                }
+
+                if (_codecount.length < 1 || _codecount == '0') {
+                    $("#lblErrorText").html("Total number of generated code is required or should be greater than zero");
+                    return;
+                }
+
+                var qrcode = {
+                    batch_number: ($("#cmbBatchNumber").css('display') == 'none') ? $("#txtBatchNumber").val() : $("#cmbBatchNumber option:selected").text().split('|')[0].trim(),
+                    batch_name: $("#txtBatchName").val(),
+                    code_count: $("#txtCodeCount").val(),
+                    active: ($("#chkActive").prop('checked')) ? 1 : 0,
+                    created_by: sessionStorage.getItem('email')
+                };
+
+                var data = {
+                    qrcode: qrcode
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Services/qrcode.asmx/SaveNewQrCode",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(data),
+                    cache: false,
+                    success: function (response) {
+
+                        var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
+                        var status = responseData.Status;
+
+                        $("#lblErrorText").html(responseData.Message);
+                        //$("#frmQrcode").val(0); $("#txtBatchName").val();
+                        document.getElementById('frmQrcode').reset();
+                        $("#txtBatchNumber").val("BTCH - " + Math.floor(Math.random() * 1000000) + 1);
+
+
+                        //Generate the QR Code images
+
+                        //Fetch active records from the database
+                        getUnMappedQRCodeText();
+                    },
+                    error: function (data) {
+                        /*$("#divAlert").addClass("alert alert-info alert-dismissible fade show").slideDown("slow");*/
+                        $("#lblErrorText").html("Error occured while submiting form");
+                    }
+                });
+            });
+
+            $("#btnGenerateQrCodeImages").on('click', function (e) {
+
+                e.preventDefault();
+
+                $('#divQrCardBody').empty();
+
+                var data = {
+
+                    batchname: $("#cmbGenBatchNames option:selected").text()
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Services/qrcode.asmx/GenerteQRCodeImage",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(data),
+                    cache: false,
+                    success: function (response) {
+
+                        //response data is an array or collection
+                        var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
+
+                        if (responseData.length > 0) {
+                            //console.log('Response status = ' + responseData[0].Status);
+
+                            if (responseData[0].Status == '0') {
+
+                                $("#lblErrorText").html(responseData[0].Message);
+                                return;
+                            }
+
+                            if (responseData[0].Status == '-1') {
+
+                                $("#lblErrorText").html(responseData[0].Message);
+                                return;
+                            }
+
+                            const messages = [];
+
+                            $.each(responseData, function (i, row) {
+
+                                let rows = $("<div class='card shadow-0 border-0 col-md-2 p-0 m-0'>" +
+                                    "<canvas id='" + row.id + '|' + row.code + "'></canvas></div > ");
+
+                                //let rows = $("<div class='card border border-primary shadow-0 col-md-2'>" +
+                                //    "<div class='card - body'><canvas id='" + row.id + '|' + row.code + "'></canvas></div><div class='card - footer'></div></div>");
+
+                                //let rows = $("<div class='card border border-primary shadow-0 col-md-2'>" +
+                                //    "<div class='card - body'><canvas id='" + row.id + "|" + row.code +"'></canvas></div><div class='card - footer'></div></div>");
+
+                                $('#divQrCardBody').append(rows);
+
+                                //messages.push(responseData[i].Message);
+                            });
+                        }
+
+                        //console.log(responseData[i].Message);
+
+                        var can = document.getElementsByTagName('canvas');
+
+                        /*console.log("canvas onscree count = " + can.length);*/
+
+                        var idx = '';
+                        var splitid = '';
+
+                        for (x = 0; x <= can.length; x++) {
+
+                            idx = can[x].id;
+                            splitid = idx.split('|')[1];
+
+                            qr = new QRious({
+                                element: can[x],
+                                size: 106,
+                                value: 'https://www.eventiix.com/clients/auth/codelink.aspx?code=' + splitid,
+                                foreground: 'black'
+                            });
+                        }
+
+                        /*$("#lblErrorText").html(responseData[i].Message);*/
+                    },
+                    beforeSend: function () {
+                        //alert('generating qrcode image...');
+                    },
+                    error: function (data) {
+                        $("#lblErrorText").html("Error occured while submiting form");
+                    }
+                });
+
+            });
+
+            $("#btnPrintSection").on('click', function () {
+                //alert('printing...');
+
+                /*printdiv('divQrCardBody');*/
+                //alert($('#divQrCardBody').html());
+                sessionStorage.setItem('cc', $('#divQrCardBody').html());
+                //window.location.href = "/clients/auth/print.aspx?batch=" + $("#cmbGenBatchNames option:selected").text();
+            });
+        });
+
+        function printdiv(printdivname) {
+            var headstr = "<html><head><title>Booking Details</title></head><body>";
+            var footstr = "</body>";
+            var newstr = document.getElementById(printdivname).innerHTML;
+            var oldstr = document.body.innerHTML;
+            document.body.innerHTML = headstr + newstr + footstr;
+            window.print();
+            document.body.innerHTML = oldstr;
+            return false;
+        }
+
+        function printContent(el) {
+            var restorepage = $('body').html();
+            var printcontent = $('#' + el).clone();
+            $('body').empty().html(printcontent);
+            window.print();
+            $('body').html(restorepage);
+        }
+    </script>
+</body>
+</html>

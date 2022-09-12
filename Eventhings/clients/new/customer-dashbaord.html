@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from creativelayers.net/themes/sassio-html/pricing.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 06 Sep 2022 21:27:45 GMT -->
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="unpkg.com/leaflet%401.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/vendors.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <style>
+    </style>
+
+    <title>Eventiix - Dashboard</title>
+</head>
+
+
+<body class="" data-barba="wrapper">
+
+    <!-- preloader start -->
+    <div class="preloader js-preloader"></div>
+    <!-- preloader end -->
+    <!-- cursor start -->
+    <div class="cursor js-cursor">
+        <div class="cursor__wrapper">
+            <div class="cursor__follower js-follower"></div>
+            <div class="cursor__label js-label"></div>
+            <div class="cursor__icon js-icon"></div>
+            <div class="cursor__slider_icon js-slider-icon">
+                <svg width="52" height="24" viewBox="0 0 52 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M37 18L43 12L37 6" stroke="white" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M15 18L9 12L15 6" stroke="white" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </div>
+        </div>
+    </div>
+    <!-- cursor end -->
+    <!-- barba container start -->
+    <div class="barba-container" data-barba="container">
+
+
+        <main class="main-content  ">
+
+
+            <!-- header start -->
+            <header class="header js-header">
+                <div class="header__bar js-header-bar">
+                    <div class="row justify-between items-center">
+                        <div class="col-2">
+                            <div class="header__logo">
+                                <a class="base-logo" data-barba href="index.html">
+                                    <img class="base-logo-first" src="img/general/logo.svg" alt="logo">
+                                    <img class="base-logo-second" src="img/general/logo-dark.svg" alt="logo">
+                                </a>
+
+                                <a class="menu-logo" data-barba href="index.html">
+                                    <img src="img/general/logo-dark.svg" alt="logo">
+                                </a>
+                            </div>
+                        </div>
+
+
+                        <div class="menu js-menu">
+                            <div class="mobile__background js-mobile-bg"></div>
+
+                            <div class="menu__container" id="menu">
+
+                            </div>
+
+                            <div class="mobile__footer js-mobile-footer">
+                                <div class="mobile__copyright">
+                                    <p>© Copyright 2021. Sassio</p>
+                                </div>
+
+                                <div class="mobile__socials">
+                                    <a data-barba href="#">
+                                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                                    </a>
+                                    <a data-barba href="#">
+                                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                                    </a>
+                                    <a data-barba href="#">
+                                        <i class="fa fa-instagram" aria-hidden="true"></i>
+                                    </a>
+                                    <a data-barba href="#">
+                                        <i class="fa fa-linkedin" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-auto">
+                            <div class="header__right">
+                                <div class="md:d-none">
+                                    <!--<a href="login.html" class="button -sm -outline-light-dark sm:d-none">Join</a>-->
+                                    <a href="login.html" class="button -sm -dark text-white ml-12" onclick="LogOut()">Sign Out</a>
+                                </div>
+
+                                <div class="header__menu justify-center items-center relative d-none md:d-flex">
+                                    <button type="button" class="d-flex items-center justify-center js-nav-open">
+                                        <i class="text-black size-32 str-width-1" data-feather="menu"></i>
+                                    </button>
+
+                                    <button type="button" class="d-flex items-center justify-center absolute-y-center right-0 pointer-events-none opac-0 js-nav-close">
+                                        Close
+                                        <i class="text-black size-32 str-width-1 ml-4" data-feather="x"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- header end -->
+
+
+            <div class="content-wrapper  js-content-wrapper">
+
+
+                <section class="page-header -base -">
+                    <div data-anim="slide-up" class="page-header__bg">
+
+                        <img class="initial-img" src="img/page-header/bg-light.png" alt="Page header">
+
+                    </div>
+
+                    <div class="page-header__content">
+                        <div class="row justify-center text-center">
+                            <div class="col-lg-9 col-md-10">
+                                <div data-anim="slide-up delay-1">
+
+                                    <h1 class="page-header__title lh-14">Dashbaord</h1>
+                                    <h5 class="auth-section-title welcome-text">Welcome</h5>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-4 col-lg-9 col-md-10">
+                                <div data-anim="slide-up delay-2" class="px-20">
+
+                                    <p class="page-header__text">Peform administrative task, generate QR code, register an event, vendor and new customers at your fingertips.</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="layout-pt-sm layout-pb-lg" style="padding-bottom: 0rem">
+                    <div class="container">
+                        <div data-anim="slide-up delay-2" class="row y-gap-48 is-in-view">
+
+                            <div class="col-lg-3 col-6">
+                                <div class="numCounter" data-anim="counter" data-counter="773">
+                                    <div class="numCounter__number text-3xl text-dark-1 fw-700 js-counter-num">773</div>
+                                    <h5 class="numCounter__title text-dark text-lg">Current Balance</h5>
+                                    <div class="numCounter__line mt-20"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-6">
+                                <div class="numCounter" data-anim="counter" data-counter="1254">
+                                    <div class="numCounter__number text-3xl text-dark-1 fw-700 js-counter-num">1254</div>
+                                    <h5 class="numCounter__title text-dark text-lg">Users</h5>
+                                    <div class="numCounter__line mt-20"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-6">
+                                <div class="numCounter" data-anim="counter" data-counter="14941">
+                                    <div class="numCounter__number text-3xl text-dark-1 fw-700 js-counter-num">14941</div>
+                                    <h5 class="numCounter__title text-dark text-lg">Total Spent</h5>
+                                    <div class="numCounter__line mt-20"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-6">
+                                <div class="numCounter" data-anim="counter" data-counter="1254">
+                                    <div class="numCounter__number text-3xl text-dark-1 fw-700 js-counter-num">1254</div>
+                                    <h5 class="numCounter__title text-dark text-lg">Upcoming Events</h5>
+                                    <div class="numCounter__line mt-20"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                <div id="eventlist">
+                    <section class="layout-pt-lg layout-pb-lg">
+                        <div class="container">
+
+                            <section class="layout-pt-sm layout-pb-sm">
+                                <div data-anim-wrap="" class="container animated">
+                                    <div class="row justify-center">
+                                        <div class="col text-center">
+
+                                            <div class="sectionHeading ">
+
+                                                <div class="sectionHeading__subtitle">
+                                                    <span>Upcoming events @ eventiix.com</span>
+                                                </div>
+
+                                                <h4 class="sectionHeading__title">All upcoming events  by date</h4>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <div class="row y-gap-32" id="eventcard"></div>
+                            <!--<div id="example" style="height:100px">
+                            <table class="table table-striped table-bordered" style="width: 100%; " id="eventTable">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            <div class="form-check">-->
+                                            <!--<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" />-->
+                                            <!--ACTION
+                                            </div>
+                                        </th>
+                                        <th scope="col">ORGANIZER</th>
+                                        <th scope="col">DESCRIPTION</th>
+                                        <th scope="col">LOCATION</th>
+                                        <th scope="col">DURATION</th>
+                                        <th scope="col">DATE</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="eventTBody">
+                                </tbody>
+                            </table>
+                            </div>-->
+                            <div class="row justify-center pt-60 sm:pt-40">
+                                <div class="col-auto">
+                                    <button class="button -md -bg-title-dark -uppercase text-white" data-loadmore-trigger=".js-loadmore-content">Load More</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+
+                <footer class="footer -type-3 bg-dark-1" id="footers"> </footer>
+
+
+            </div>
+        </main>
+    </div>
+    <!-- barba container end -->
+    <!-- JavaScript -->
+    <script src="vendors/jquery/jquery.min.js"></script>
+    <script src="vendors/popper.js/popper.min.js"></script>
+    <script src="js/app.js"></script>
+    <!--<script src="js/main.js"></script>-->
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+
+    <script src="cdn.jsdelivr.net/npm/atropos%401.0.1/atropos.js"></script>
+    <script src="unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    <script src="js/vendors.js"></script>
+    <script src="js/main.js"></script>
+
+    <script type="text/javascript">
+
+        function gotInvoice(id) {
+            window.location.assign("invoice.html?event_id=" + id);
+        }
+
+        $(document).ready(function () {
+
+            GetEvents();
+            console.log('Jquery is ready to shoot');
+
+            $("#menu").load("layouts/customermenu.html");
+            $("#footers").load("layouts/footer.html");
+
+            $('#divAlert').hide();
+            //$.getVendors();
+            //$.getVendorSalesReport();
+
+            var user = sessionStorage.getItem('user');
+            user = JSON.parse(user);
+            if (user == undefined || user == null) {
+                window.location.replace("login.html");
+            }
+
+            $('.welcome-text').html('Welcome ' + user.full_name);
+        });
+
+    </script>
+</body>
+</html>

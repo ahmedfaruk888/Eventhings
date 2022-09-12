@@ -85,10 +85,10 @@
                             Map Code Text - Customer
                         </button>
                     </li>
-                    <li class="nav-item" role="presentation" style="display:none">
+                    <li class="nav-item" role="presentation">
                         <button class="nav-link" id="mappedqrcode-tab" data-bs-toggle="tab" data-bs-target="#mappedqrcodecontent"
                             type="button" role="tab" aria-controls="profile" aria-selected="false">
-                            Un-Map Code Text - Customer</button>
+                            Search - Customer</button>
                     </li>
                     <li class="nav-item" role="presentation" style="display:none">
                         <button class="nav-link" id="unmappedqrcode-tab" data-bs-toggle="tab" data-bs-target="#unmappedqrcodecontent"
@@ -118,13 +118,22 @@
                                 <span id="codeStatus" class="mb-4"></span>
                             </div>
 
+                            <div class="form-group col-md-3" id="insert-batch-namex">
+                                <label for="txtBatchNamex">Search By<sup>*</sup></label>
+                                <select class="form-select form-select-lg" id="cmbSearchCrit" name="cmbSearchCrit">
+                                    <option value="1">Phone</option>
+                                    <option value="2">Email</option>
+                                    <%--<option value="3">Name</option>--%>
+                                </select>
+                            </div>
+
                             <div class="form-group col-md-3" id="insert-batch-name">
-                                <label for="txtBatchName">Customer - Phone <sup>*</sup></label>
+                                <label for="txtBatchName">Phone or email<sup>*</sup></label>
                                 <input type="text" class="form-control" id="txtCustomerPhone" name="txtCustomerPhone" placeholder="">
                             </div>
 
                             <div class="form-group col-md-3" id="insert-batch-number">
-                                <label for="txtCustomerFullName"> Customer Fullname <sup>*</sup></label>
+                                <label for="txtCustomerFullName"> Fullname <sup>*</sup></label>
                                 <a href="account.aspx" class="batch-edit" onclick="javascript:void(0)"><span class="fa fa-user-edit"></span></a>
                                 <input type="text" class="form-control" readonly="readonly" id="txtCustomerFullName" required="required" name="txtCustomerFullName" placeholder="">
                             </div>
@@ -143,7 +152,7 @@
                                 <input type="number" min="1" max="50" class="form-control" id="txtTopUpAmount" value="0.00" name="txtTopUpAmount" placeholder="Base Point">
                             </div>
 
-                             <div class="form-group col-md-12">
+                             <div class="form-group col-md-8">
                                 <label for="txtTopUpMoney">Current Balance <sup>*</sup></label>
                                 <a href="#" class="edit-point disabled"><span class="fa fa-edit"></span></a>
                                 <input type="number" min="1" max="50" class="form-control" id="txtTopUpMoney" value="0.00" name="txtTopUpMoney">
@@ -176,6 +185,9 @@
                            Mapped QR code text are QR code text that has been mapped to any customer, choose default event if for eventi.ng.
                         </p>
                         <table class="table table-striped"  style="width:100%; max-height: 500px; " id="mappedQrcodeTable">
+                            <div class="form-group col-md-12">
+                                <input type="text" class="form-control col-md-12" id="txtSearch" name="txtSearch" placeholder="Search... by phone or email">
+                            </div>
                             <thead>
                                 <tr>
                                     <th scope="col">
@@ -184,12 +196,11 @@
                                         </div>
                                     </th>
                                     <th scope="col">S/N</th>
-                                    <th scope="col">User ID</th>
-                                    <th scope="col">Code Text</th>
-                                    <th scope="col">Date Mapped</th>
-                                    <th scope="col">Event</th>
-                                    <%--<th scope="col">Date</th>
-                                    <th scope="col">Mapped</th>--%>
+                                    <th scope="col">Fullname</th>
+                                    <th scope="col">Phone Number</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Event Name</th>
+                                    <th scope="col">Mapped Code</th>
                                 </tr>
                             </thead>
                             <tbody id="mappedtbody">
@@ -220,7 +231,7 @@
                                     <th scope="col">Mapped</th>
                                 </tr>
                             </thead>
-                            <tbody id="unmappedtbody">
+                            <tbody id="customerTBody">
                                 
                             </tbody>
                         </table>
@@ -261,7 +272,7 @@
                     </div>
                 </div>
             </div>
-
+            <asp:HiddenField runat="server" ID="hndPhone" />
         </form>
     </section>
 </asp:Content>
@@ -367,7 +378,7 @@
                     if (responseData.Status >= '2') {
 
                         $('#codeStatus').html("<b>Status:</b> " + ((responseData.Status == '1') ? "Mapped." : "Not Mapped") +
-                            "<b> Date Mapped:</b> " + (responseData.date_mapped == undefined || responseData.date_mapped == null) ? " - " : $.formattedDate(responseData.date_mapped) + ". <b> Event Name:</b> " + responseData.event_name);
+                            "<b> Date Mapped:</b> " + (responseData.date_mapped == undefined || responseData.date_mapped == null) ? " Not Mapped " : $.formattedDate(responseData.date_mapped) + ". <b> Event Name:</b> " + responseData.event_name);
 
 
                         $('#txtCustomerFullName').attr('disabled', false);
@@ -416,12 +427,78 @@
 
                         //txtCurrentBalance
                         user_id = responseData.id;
+                        //txtCustomerPhone
+                        $('#txtCustomerPhone').val(responseData.email);
                         $('#txtCustomerFullName').val(responseData.last_name + " " + responseData.first_name);
                         $('#btnMapCustomerToCode').attr('disabled', false);
                     }
                     else if (status == '0') {
                         $("#divAlert").addClass("alert alert-danger alert-dismissible fade show").attr('display', false).slideDown("slow");
                         $("#lblErrorText").html(responseData.Message);
+                        return;
+                    }
+                },
+                error: function (data) {
+                    $("#divAlert").addClass("alert alert-info alert-dismissible fade show").attr('display', false).slideDown("slow");
+                    $("#lblErrorText").html("Error occured while submiting form");
+                }
+            });
+        }
+
+        function CodeLink(phone) {
+            //var x = new URLSearchParams(window.location.search);
+            //if (x.has('phone')) {
+            //    x.delete('phone');
+            //}
+
+            sessionStorage.setItem('cus_phone', phone.toString());
+            window.location.replace(window.location.href);
+        }
+
+        function GetCustomerByName(fullname) {
+            $.ajax({
+                type: "POST",
+                url: "/Services/qrcode.asmx/GetCustomerByName",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ "fullname": fullname }),
+                success: function (response) {
+                    var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
+                    var status = responseData[0].Status;
+                    //console.log(status + "status");
+                    //if (responseData.length < 1) {
+                    //    $("#mappedtbody").empty();
+                    //    $('#mappedtbody').append("<tr><td> empty </td></tr>");
+                    //    return;
+                    //}
+
+                    if (status == '1') {
+
+                        $("#mappedtbody").empty();
+
+                        $.each(responseData, function (i, row) {
+                            console.log(row.phone_number + "----search");
+                            
+
+                            let rows = `<tr>
+                                            <td>
+                                                <a href="#" onclick="CodeLink(${"'"+row.phone_number+"'"})">Use</a>
+                                            </td>
+                                            <td>${row.id}</td>
+                                            <td>${row.full_name}</td>
+                                            <td>${"'" + row.phone_number +"'"}</td>
+                                            <td>${row.email}</td>
+                                            <td>${row.event_name}</td>
+                                            <td>${row.qr_code_text}</td>
+                                        </tr>`;
+
+                            $('#mappedtbody').append(rows);
+                        });
+                    }
+                    else if (status == '0') {
+                        $("#divAlert").addClass("alert alert-danger alert-dismissible fade show").attr('display', false).slideDown("slow");
+                        $("#lblErrorText").html(responseData.Message);
+                        alert(responseData.Message);
                         return;
                     }
                 },
@@ -449,6 +526,7 @@
                         user_id = responseData.id;
                         $("#divAlert").addClass("alert alert-success alert-dismissible fade show").attr('display', false).slideDown("slow");
                         $("#lblErrorText").html(responseData.Message);
+                        window.location.replace(window.location.href);
                     }
                     else if (status == '0') {
                         $("#divAlert").addClass("alert alert-danger alert-dismissible fade show").attr('display', false).slideDown("slow");
@@ -493,6 +571,18 @@
                 return;
             }
 
+            //var params = new URLSearchParams(window.location.search);
+            //if (params.has('phone')) {
+            //    var _paramPhone = params.get('phone');
+            //    GetCustomer(_paramPhone);
+            //}
+
+            var _paramPhone = sessionStorage.getItem('cus_phone');
+            if (_paramPhone != undefined) {
+                //GetCustomer(_paramPhone);
+                $('#txtCustomerPhone').val(_paramPhone.toString());
+            }
+
             //? code=cc7aa34a-4743-4cbb-af47-5c9927020862
             //check if the code is null or undefine
             //if null, disable the link code button
@@ -502,13 +592,14 @@
             //else retrieve all customer phone and autocomplete to phone control
 
             var codeAndValue = window.location.search.split('?')[1].trim();
-            var codeValue = codeAndValue.split('=')[1];
-            var codeText = codeAndValue.split('=')[0];
-            if ((codeText == null || codeText == undefined) || (codeText != 'code')) {
+            codeAndValue = new URLSearchParams(window.location.search);
+            var codeValue = codeAndValue.get('code'); //codeAndValue.split('=')[1];
+            var codeText = codeAndValue.has('code'); //codeAndValue.split('=')[0];
 
-                $('#myTabContent0').hide();
-                return;
-            }
+            //if ((codeText != 'code') || (codeText == null || codeText == undefined) || (codeText != 'code')) {
+            //    $('#myTabContent0').hide();
+            //    return;
+            //}
 
             //display the qrcode text
             $('#infotext').text(codeValue);
@@ -564,17 +655,36 @@
                 if (e.which == 13) {
                     var code = window.location.search.split('=')[1];
                     var phone = $("#txtCustomerPhone").val();
-                    if (phone.length < 1) {
 
-                        $("#divAlert").addClass("alert alert-info alert-dismissible fade show").attr('display', false).slideDown("slow");
-                        $("#lblErrorText").html("The customer phone number can be found");
-                        return;
+                    if ($('#cmbSearchCrit option:selected').val() == '1' || $('#cmbSearchCrit option:selected').val() == '2') { //phone and email addres
 
+                        if (phone.length < 1) {
+                            $("#divAlert").addClass("alert alert-info alert-dismissible fade show").attr('display', false).slideDown("slow");
+                            $("#lblErrorText").html("The customer phone number can be found");
+                            return;
+                        }
+
+                        GetCustomer(phone);
                     }
 
-                    GetCustomer(phone);
+                    if ($('#cmbSearchCrit option:selected').val() == '2') { //email address
 
+                    }
                 }
+            })
+
+            $('#txtSearch').on('keypress', function (e) {
+
+                if (e.which == 13) {
+                    var fullname = $('#txtSearch').val();
+                    GetCustomerByName(fullname);
+                }
+            })
+
+            $('#cmbSearchCrit').on('change', function (e) {
+                //alert($('#cmbSearchCrit option:selected').val());
+                $('#txtCustomerPhone').val("");
+                $('#txtCustomerFullName').val("");
             })
 
         });

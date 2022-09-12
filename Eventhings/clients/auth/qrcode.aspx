@@ -413,9 +413,7 @@
 
             //Get QR Code bact name from number
             $('#cmbBatchNumber').on('change', function () {
-
                 $('#txtBatchName').val($("#cmbBatchNumber option:selected").text().split('|')[1].trim());
-
             })
 
             console.log("Jquery is ready to shoot!!");

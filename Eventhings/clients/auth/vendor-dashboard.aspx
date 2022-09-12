@@ -37,7 +37,7 @@
                     <ul class="navbar-nav mt-2 mt-lg-0">
                         <li class="nav-item">
                             <%--<a class="btn btn-light" href="../login.html">Logout</a>--%>
-                            <a class="btn btn-light" id="btnLogout" onclick="LogOut()" href="../login.html">Logout</a>
+                            <a class="btn btn-light" id="btnLogout" onclick="LogOut()" href="../new/login.html">Logout</a>
                         </li>
                     </ul>
                 </div>

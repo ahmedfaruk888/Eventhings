@@ -54,13 +54,13 @@
                     <div class="row justify-between items-center">
                         <div class="col-2">
                             <div class="header__logo">
-                                <a class="base-logo" data-barba href="index.html">
+                                <a class="base-logo" data-barba href="home-9.html">
                                     <img class="base-logo-first md:d-none" src="img/general/logo-flat.svg" alt="logo">
                                     <img class="base-logo-first d-none md:d-block" src="img/general/logo-dark.svg" alt="logo">
                                     <img class="base-logo-second" src="img/general/logo-dark.svg" alt="logo">
                                 </a>
 
-                                <a class="menu-logo" data-barba href="index.html">
+                                <a class="menu-logo" data-barba href="home-9.html">
                                     <img src="img/general/logo-dark.svg" alt="logo">
                                 </a>
                             </div>
@@ -541,7 +541,7 @@
                         <div class="col-auto">
                             <div class="header__right">
                                 <div class="md:d-none">
-                                    <a href="login.html" class="button -sm -outline-light-dark">Join</a>
+                                    <!--<a href="login.html" class="button -sm -outline-light-dark">Join</a>-->
                                     <a href="contact-1.html" class="button -sm -dark text-white ml-12">Get the App</a>
                                 </div>
 
@@ -737,12 +737,14 @@
 
                             var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
                             var status = responseData.Status;
-                            if (status >= '1') {
-
-                                //alert(responseData.role_name);
+                            console.log(status);
+                            if (status == '1') {
 
                                 sessionStorage.setItem('email', $("#email").val());
                                 sessionStorage.setItem('user', JSON.stringify(responseData));
+
+                                //set cookies
+                                setCookie('user', JSON.stringify(responseData), { expires: new Date(Date.now() + 86400e3) })
 
                                 var rd = window.location.search;
                                 var redirect = new URLSearchParams(rd);
@@ -751,22 +753,24 @@
                                     window.location.replace(redirect.get('redirect'));
 
                                 } else {
-
                                     window.location.replace(responseData.Message);
-
                                 }
                             }
                             else if (status == '2') { //require password change
                                 var referLink = document.createElement("a");
-                                referLink.href = "create-password.html?email=" + responseData.Message;
+                                referLink.href = "create-password.html?email=" + responseData.verification_token;
                                 document.body.appendChild(referLink);
                                 referLink.click();
                             }
                             else if (status == '3') { //account not confirmed
-                                var referLink = document.createElement("a");
-                                referLink.href = "verify-account.html?code=" + responseData.verification_token;
-                                document.body.appendChild(referLink);
-                                referLink.click();
+                                //var referLink = document.createElement("a");
+                                //referLink.href = "verify-account.html?code=" + responseData.verification_token;
+                                //referLink.href = "registration-success.html?verificatioin_token=" + response.Message
+                                //document.body.appendChild(referLink);
+                                //referLink.click();
+                                console.log(responseData.verification_token + " token ");
+                                let redirectUrl = "registration-success.html?verificatioin_token=" + responseData.Message;
+                                window.location.replace(redirectUrl);
                             }
                             else if (status == '0') {
                                 $("#divAlert").addClass("alert alert-info alert-dismissible fade show").attr('display', false).slideDown("slow");

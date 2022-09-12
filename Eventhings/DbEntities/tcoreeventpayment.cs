@@ -9,9 +9,9 @@ namespace Eventhings.DbEntities
     [Table("tcoreeventpayment")]
     public partial class tcoreeventpayment
     {
-        [Key]
-        [Column(Order = 0)]
-        public int id { get; set; }
+        //[Key]
+        //[Column(Order = 0)]
+        //public int id { get; set; }
 
         [Key]
         [Column(Order = 1)]
@@ -22,6 +22,9 @@ namespace Eventhings.DbEntities
         [Column(Order = 2)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int event_id { get; set; }
+
+        [StringLength(128)]
+        public string tranx_ref_id { get; set; }
 
         [Key]
         [Column(Order = 3)]

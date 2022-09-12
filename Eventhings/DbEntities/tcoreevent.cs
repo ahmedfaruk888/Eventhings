@@ -33,6 +33,7 @@ namespace Eventhings.DbEntities
         public int? duration { get; set; }
 
         public int host_id { get; set; }
+        public int? is_live { get; set; } = 0;
 
         public int active { get; set; }
 
@@ -47,6 +48,9 @@ namespace Eventhings.DbEntities
         public string updated_by { get; set; }
 
         public DateTime? updated_at { get; set; }
+        public decimal gate_fee { get; set; }
+        [StringLength(256)]
+        public string payment_currency_description { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tcoremappedcode> tcoremappedcodes { get; set; }
