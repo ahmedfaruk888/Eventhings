@@ -68,7 +68,8 @@ namespace Eventhings.Services
                 response.Add(new UserResponse()
                 {
                     Status = 0,
-                    Message = ex.ToString()
+                    Message = ex.ToString(),
+                    exception = ex.ToString()
                 });
             }
 
@@ -124,6 +125,7 @@ namespace Eventhings.Services
             {
                 response.Status = 0;
                 response.Message = ex.ToString();
+                response.exception = ex.ToString();
             }
 
             return response;
@@ -248,7 +250,7 @@ namespace Eventhings.Services
                                 verification_token = Guid.NewGuid().ToString()
                             });
 
-                            _userid = userregister.id;
+                            changes = _context.SaveChanges();
                         }
                         else if (register.direction == 1) //admin
                         {
@@ -278,9 +280,12 @@ namespace Eventhings.Services
                         else
                         {
                             response.Status = 0;
-                            response.Message = "User account can not be created, user direction not present";
+                            response.Message = "User account can not be created, creation direction not present";
                             return response;
                         }
+
+                        var currentUser = _context.tcoreusers.Where(p => p.phone_number == register.phone_number).FirstOrDefault();
+                        _userid = currentUser.id;
 
                         var userInRole = _context.tcoreuserroles
                             .Where(role => role.role_id == _roleid && role.user_id == _userid)
@@ -304,11 +309,6 @@ namespace Eventhings.Services
                         });
 
                         changes = _context.SaveChanges();
-
-                        //Send an email here or send an SMS to the user here
-
-                        //Wallet //Create a wallet for the user
-                        var currentUser = _context.tcoreusers.Where(p => p.phone_number == register.phone_number).FirstOrDefault();
 
                         if (currentUser == null)
                         {
@@ -366,7 +366,7 @@ namespace Eventhings.Services
                                 response.Message = "Account created successfully, a confirmation message has been sent to the email specified";
                             }
 
-                            response.verification_token = Guid.NewGuid().ToString();
+                            //response.verification_token = Guid.NewGuid().ToString();
                         }
                         else
                             response.Status = 0;
@@ -379,6 +379,7 @@ namespace Eventhings.Services
             {
                 response.Status = 0;
                 response.Message = ex.ToString();
+                response.exception = ex.ToString();
                 return response;
             }
 
@@ -542,7 +543,7 @@ namespace Eventhings.Services
                         switch (roleLogin.name.ToLower())
                         {
                             case "vendor":
-                                x.Message = "../clients/auth/vendor-dashboard.aspx";
+                                x.Message = "../auth/vendor-dashboard.aspx";
                                 break;
                             case "administrator":
                                 //x.Message = "../clients/auth/dashboard.aspx";
@@ -567,8 +568,9 @@ namespace Eventhings.Services
             }
             catch(Exception ex)
             {
+                response.exception = ex.ToString();
                 response.Status = 0;
-                //response.Message = ex.Message;
+                response.exception = ex.ToString();
                 response.Message = "Can not establish connection with the database server";
                 //response.Message = ex.ToString();
             }
@@ -655,6 +657,7 @@ namespace Eventhings.Services
             {
                 response.Status = 0;
                 response.Message = "An network error occured";
+                response.exception = ex.ToString();
             }
 
             return response;
@@ -703,6 +706,7 @@ namespace Eventhings.Services
             {
                 response.Status = 0;
                 response.Message = "A server error occured";
+                response.exception = ex.ToString();
             }
 
             return response;

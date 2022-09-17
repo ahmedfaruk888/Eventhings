@@ -57,7 +57,7 @@
 
 
             <!-- header start -->
-            <header class="header js-header">
+            <!--<header class="header js-header">
                 <div class="header__bar js-header-bar">
                     <div class="row justify-between items-center">
                         <div class="col-2">
@@ -78,7 +78,7 @@
                             <div class="mobile__background js-mobile-bg"></div>
 
                             <div class="menu__container" id="menu">
-                               
+
                             </div>
 
                             <div class="mobile__footer js-mobile-footer">
@@ -106,9 +106,9 @@
 
                         <div class="col-auto">
                             <div class="header__right">
-                                <div class="md:d-none">
+                                <div class="md:d-none">-->
                                     <!--<a href="login.html" class="button -sm -outline-light-dark sm:d-none">Join</a>-->
-                                    <a href="login.html" class="button -sm -dark text-white ml-12" onclick="LogOut()">Sign Out</a>
+                                    <!--<a href="login.html" class="button -sm -dark text-white ml-12" onclick="LogOut()">Sign Out</a>
                                 </div>
 
                                 <div class="header__menu justify-center items-center relative d-none md:d-flex">
@@ -125,8 +125,119 @@
                         </div>
                     </div>
                 </div>
-            </header>
+            </header>-->
             <!-- header end -->
+
+            <header class="header js-header">
+                <div class="header__bar js-header-bar">
+                    <div class="row justify-between items-center">
+                        <div class="col-2">
+                            <div class="header__logo">
+                                <a class="base-logo" data-barba="" href="index.html">
+                                    <img class="base-logo-first" src="img/general/logo.svg" alt="logo">
+                                    <img class="base-logo-second" src="img/general/logo-dark.svg" alt="logo">
+                                </a>
+
+                                <a class="menu-logo" data-barba="" href="index.html">
+                                    <img src="img/general/logo-dark.svg" alt="logo">
+                                </a>
+                            </div>
+                        </div>
+
+
+                        <div class="menu js-menu">
+                            <div class="mobile__background js-mobile-bg"></div>
+
+                            <div class="menu__container" id="menux">
+                                <div class="mobile__back js-nav-list-back pointer-events-none">
+                                    <a data-barba href="#">Home</a>
+                                </div>
+
+                                <ul class="nav js-navList">
+
+
+                                    <li class="">
+                                        <a data-barba href="../../clients/new/dashbaord.html">Dashboard</a>
+                                    </li>
+
+                                    <li class="">
+                                        <a data-barba href="../../clients/new/qrcode.html">QR Codes</a>
+                                    </li>
+
+                                    <li class="">
+                                        <a data-barba href="../../../clients/auth/item.aspx">Product</a>
+                                    </li>
+
+                                    <li class="">
+                                        <a data-barba href="../../../clients/auth/account.aspx">Accounts</a>
+                                    </li>
+
+                                    <li class="">
+                                        <a data-barba href="../../../clients/auth/sales.aspx">Sales</a>
+                                    </li>
+
+                                    <li class="">
+                                        <a data-barba href="../../../clients/auth/ewallet.aspx">e-wallet</a>
+                                    </li>
+
+                                    <li class="">
+                                        <a data-barba href="../../../clients/auth/events.aspx">Events</a>
+                                    </li>
+
+                                    <!--<li class="">
+            <a data-barba href="contact-1.html">Settings</a>
+        </li>-->
+                                    <!--<li class="">
+            <a data-barba href="contact-1.html">Contact</a>
+        </li>-->
+                                </ul>
+                            </div>
+
+                            <div class="mobile__footer js-mobile-footer">
+                                <div class="mobile__copyright">
+                                    <p>© Copyright 2021. Sassio</p>
+                                </div>
+
+                                <div class="mobile__socials">
+                                    <a data-barba="" href="#">
+                                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                                    </a>
+                                    <a data-barba="" href="#">
+                                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                                    </a>
+                                    <a data-barba="" href="#">
+                                        <i class="fa fa-instagram" aria-hidden="true"></i>
+                                    </a>
+                                    <a data-barba="" href="#">
+                                        <i class="fa fa-linkedin" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-auto">
+                            <div class="header__right">
+                                <div class="md:d-none">
+                                    <a href="login.html" class="button -sm -outline-light-dark sm:d-none">Join</a>
+                                    <a href="contact-1.html" class="button -sm -dark text-white ml-12">Get the App</a>
+                                </div>
+
+                                <div class="header__menu justify-center items-center relative d-none md:d-flex">
+                                    <button type="button" class="d-flex items-center justify-center js-nav-open">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu text-black size-32 str-width-1"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                                    </button>
+
+                                    <button type="button" class="d-flex items-center justify-center absolute-y-center right-0 pointer-events-none opac-0 js-nav-close">
+                                        Close
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x text-black size-32 str-width-1 ml-4"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
 
 
             <div class="content-wrapper  js-content-wrapper">
@@ -165,19 +276,23 @@
                         <div data-anim="slide-up delay-2" class="row y-gap-48 is-in-view">
 
                             <div class="col-lg-3 col-6">
-                                <div class="numCounter" data-anim="counter" data-counter="773">
-                                    <div class="numCounter__number text-3xl text-dark-1 fw-700 js-counter-num">773</div>
-                                    <h5 class="numCounter__title text-dark text-lg">Vendors</h5>
-                                    <div class="numCounter__line mt-20"></div>
+                                <!--<div class="numCounter" data-anim="counter" data-counter="">-->
+                                <div class="numCounter__number text-3xl text-dark-1 fw-700 js-counter-num">
+                                    <script type="text/javascript">document.write(sessionStorage.getItem('total_vendor'))</script>
                                 </div>
+                                <h5 class="numCounter__title text-dark text-lg">Vendors</h5>
+                                <div class="numCounter__line mt-20"></div>
+                                <!--</div>-->
                             </div>
 
                             <div class="col-lg-3 col-6">
-                                <div class="numCounter" data-anim="counter" data-counter="1254">
-                                    <div class="numCounter__number text-3xl text-dark-1 fw-700 js-counter-num">1254</div>
-                                    <h5 class="numCounter__title text-dark text-lg">Users</h5>
-                                    <div class="numCounter__line mt-20"></div>
+                                <!--<div class="numCounter" data-anim="counter" data-counter="">-->
+                                <div class="numCounter__number text-3xl text-dark-1 fw-700 js-counter-num">
+                                    <script type="text/javascript">document.write(sessionStorage.getItem('total_customer'))</script>
                                 </div>
+                                <h5 class="numCounter__title text-dark text-lg">Customers</h5>
+                                <div class="numCounter__line mt-20"></div>
+                                <!--</div>-->
                             </div>
 
                             <div class="col-lg-3 col-6">
@@ -261,26 +376,26 @@
 
                             <div class="row y-gap-32" id="eventcard"></div>
                             <!--<div id="example" style="height:100px">
-                <table class="table table-striped table-bordered" style="width: 100%; " id="eventTable">
-                    <thead>
-                        <tr>
-                            <th scope="col">
-                                <div class="form-check">-->
+                    <table class="table table-striped table-bordered" style="width: 100%; " id="eventTable">
+                        <thead>
+                            <tr>
+                                <th scope="col">
+                                    <div class="form-check">-->
                             <!--<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" />-->
                             <!--ACTION
-                                </div>
-                            </th>
-                            <th scope="col">ORGANIZER</th>
-                            <th scope="col">DESCRIPTION</th>
-                            <th scope="col">LOCATION</th>
-                            <th scope="col">DURATION</th>
-                            <th scope="col">DATE</th>
-                        </tr>
-                    </thead>
-                    <tbody id="eventTBody">
-                    </tbody>
-                </table>
-                </div>-->
+                                    </div>
+                                </th>
+                                <th scope="col">ORGANIZER</th>
+                                <th scope="col">DESCRIPTION</th>
+                                <th scope="col">LOCATION</th>
+                                <th scope="col">DURATION</th>
+                                <th scope="col">DATE</th>
+                            </tr>
+                        </thead>
+                        <tbody id="eventTBody">
+                        </tbody>
+                    </table>
+                    </div>-->
                             <div class="row justify-center pt-60 sm:pt-40">
                                 <div class="col-auto">
                                     <button class="button -md -bg-title-dark -uppercase text-white" data-loadmore-trigger=".js-loadmore-content">Load More</button>
@@ -292,106 +407,106 @@
 
 
                 <!--<section class="layout-pt-sm layout-pb-sm">
-                    <div data-anim-wrap="" class="container animated">
-                        <div class="row justify-center">
-                            <div class="col text-center">
+            <div data-anim-wrap="" class="container animated">
+                <div class="row justify-center">
+                    <div class="col text-center">
 
-                                <div class="sectionHeading ">
+                        <div class="sectionHeading ">
 
-                                    <div class="sectionHeading__subtitle">
-                                        <span>Upcoming events @ eventiix.com</span>
-                                    </div>
-
-                                    <h4 class="sectionHeading__title">All upcoming events  by date</h4>
-
-                                </div>
-
-                            </div>
-                        </div>
-
-
-                        <div class="sectionSlider overflow-hidden pt-60 js-sectionSlider swiper-container-initialized swiper-container-horizontal swiper-container-autoheight" data-cursor-slider="slider" data-gap="30" data-slider-col="base-4 lg-3 md-2 sm-1" data-pagination="">
-                            <div class="swiper-wrapper" style="height: 402px;">
-
-                                <div class="swiper-slide swiper-slide-visible swiper-slide-active" style="width: 270px; margin-right: 30px;">
-                                    <div data-anim-child="slide-up delay-1" class="is-in-view">
-                                        <div class="ratio ratio-27:33">
-                                            <img class="absolute-full-center object-fit-cover rounded-8" src="img/team/1.jpg" alt="Image">
-                                        </div>
-                                        <div class="mt-20">
-                                            <h4 class="text-xl fw-600">Albert Flores</h4>
-                                            <p class="mt-4">President of Sales</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="swiper-slide swiper-slide-visible swiper-slide-next" style="width: 270px; margin-right: 30px;">
-                                    <div data-anim-child="slide-up delay-2" class="is-in-view">
-                                        <div class="ratio ratio-27:33">
-                                            <img class="absolute-full-center object-fit-cover rounded-8" src="img/team/2.jpg" alt="Image">
-                                        </div>
-                                        <div class="mt-20">
-                                            <h4 class="text-xl fw-600">Jerome Bell</h4>
-                                            <p class="mt-4">Marketing Coordinator</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="swiper-slide swiper-slide-visible" style="width: 270px; margin-right: 30px;">
-                                    <div data-anim-child="slide-up delay-3" class="is-in-view">
-                                        <div class="ratio ratio-27:33">
-                                            <img class="absolute-full-center object-fit-cover rounded-8" src="img/team/3.jpg" alt="Image">
-                                        </div>
-                                        <div class="mt-20">
-                                            <h4 class="text-xl fw-600">Darlene Robertson</h4>
-                                            <p class="mt-4">Dog Trainer</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="swiper-slide swiper-slide-visible" style="width: 270px; margin-right: 30px;">
-                                    <div data-anim-child="slide-up delay-4" class="is-in-view">
-                                        <div class="ratio ratio-27:33">
-                                            <img class="absolute-full-center object-fit-cover rounded-8" src="img/team/4.jpg" alt="Image">
-                                        </div>
-                                        <div class="mt-20">
-                                            <h4 class="text-xl fw-600">Theresa Webb</h4>
-                                            <p class="mt-4">Theresa Webb</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="swiper-slide" style="width: 270px; margin-right: 30px;">
-                                    <div data-anim-child="slide-up delay-5" class="is-in-view">
-                                        <div class="ratio ratio-27:33">
-                                            <img class="absolute-full-center object-fit-cover rounded-8" src="img/team/5.jpg" alt="Image">
-                                        </div>
-                                        <div class="mt-20">
-                                            <h4 class="text-xl fw-600">Albert Flores</h4>
-                                            <p class="mt-4">President of Sales</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="swiper-slide" style="width: 270px; margin-right: 30px;">
-                                    <div data-anim-child="slide-up delay-6" class="is-in-view">
-                                        <div class="ratio ratio-27:33">
-                                            <img class="absolute-full-center object-fit-cover rounded-8" src="img/team/6.jpg" alt="Image">
-                                        </div>
-                                        <div class="mt-20">
-                                            <h4 class="text-xl fw-600">Jerome Bell</h4>
-                                            <p class="mt-4">Marketing Coordinator</p>
-                                        </div>
-                                    </div>
-                                </div>
-
+                            <div class="sectionHeading__subtitle">
+                                <span>Upcoming events @ eventiix.com</span>
                             </div>
 
-                            <div class="pagination -slider mt-60 js-pagination swiper-pagination-clickable swiper-pagination-bullets"><div class="pagination__item is-active" tabindex="0" role="button" aria-label="Go to slide 1"></div><div class="pagination__item" tabindex="0" role="button" aria-label="Go to slide 2"></div><div class="pagination__item" tabindex="0" role="button" aria-label="Go to slide 3"></div></div>
-                            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+                            <h4 class="sectionHeading__title">All upcoming events  by date</h4>
+
                         </div>
+
                     </div>
-                </section>-->
+                </div>
+
+
+                <div class="sectionSlider overflow-hidden pt-60 js-sectionSlider swiper-container-initialized swiper-container-horizontal swiper-container-autoheight" data-cursor-slider="slider" data-gap="30" data-slider-col="base-4 lg-3 md-2 sm-1" data-pagination="">
+                    <div class="swiper-wrapper" style="height: 402px;">
+
+                        <div class="swiper-slide swiper-slide-visible swiper-slide-active" style="width: 270px; margin-right: 30px;">
+                            <div data-anim-child="slide-up delay-1" class="is-in-view">
+                                <div class="ratio ratio-27:33">
+                                    <img class="absolute-full-center object-fit-cover rounded-8" src="img/team/1.jpg" alt="Image">
+                                </div>
+                                <div class="mt-20">
+                                    <h4 class="text-xl fw-600">Albert Flores</h4>
+                                    <p class="mt-4">President of Sales</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide swiper-slide-visible swiper-slide-next" style="width: 270px; margin-right: 30px;">
+                            <div data-anim-child="slide-up delay-2" class="is-in-view">
+                                <div class="ratio ratio-27:33">
+                                    <img class="absolute-full-center object-fit-cover rounded-8" src="img/team/2.jpg" alt="Image">
+                                </div>
+                                <div class="mt-20">
+                                    <h4 class="text-xl fw-600">Jerome Bell</h4>
+                                    <p class="mt-4">Marketing Coordinator</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide swiper-slide-visible" style="width: 270px; margin-right: 30px;">
+                            <div data-anim-child="slide-up delay-3" class="is-in-view">
+                                <div class="ratio ratio-27:33">
+                                    <img class="absolute-full-center object-fit-cover rounded-8" src="img/team/3.jpg" alt="Image">
+                                </div>
+                                <div class="mt-20">
+                                    <h4 class="text-xl fw-600">Darlene Robertson</h4>
+                                    <p class="mt-4">Dog Trainer</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide swiper-slide-visible" style="width: 270px; margin-right: 30px;">
+                            <div data-anim-child="slide-up delay-4" class="is-in-view">
+                                <div class="ratio ratio-27:33">
+                                    <img class="absolute-full-center object-fit-cover rounded-8" src="img/team/4.jpg" alt="Image">
+                                </div>
+                                <div class="mt-20">
+                                    <h4 class="text-xl fw-600">Theresa Webb</h4>
+                                    <p class="mt-4">Theresa Webb</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide" style="width: 270px; margin-right: 30px;">
+                            <div data-anim-child="slide-up delay-5" class="is-in-view">
+                                <div class="ratio ratio-27:33">
+                                    <img class="absolute-full-center object-fit-cover rounded-8" src="img/team/5.jpg" alt="Image">
+                                </div>
+                                <div class="mt-20">
+                                    <h4 class="text-xl fw-600">Albert Flores</h4>
+                                    <p class="mt-4">President of Sales</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide" style="width: 270px; margin-right: 30px;">
+                            <div data-anim-child="slide-up delay-6" class="is-in-view">
+                                <div class="ratio ratio-27:33">
+                                    <img class="absolute-full-center object-fit-cover rounded-8" src="img/team/6.jpg" alt="Image">
+                                </div>
+                                <div class="mt-20">
+                                    <h4 class="text-xl fw-600">Jerome Bell</h4>
+                                    <p class="mt-4">Marketing Coordinator</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="pagination -slider mt-60 js-pagination swiper-pagination-clickable swiper-pagination-bullets"><div class="pagination__item is-active" tabindex="0" role="button" aria-label="Go to slide 1"></div><div class="pagination__item" tabindex="0" role="button" aria-label="Go to slide 2"></div><div class="pagination__item" tabindex="0" role="button" aria-label="Go to slide 3"></div></div>
+                    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+                </div>
+            </div>
+        </section>-->
 
 
                 <footer class="footer -type-3 bg-dark-1" id="footers"> </footer>
@@ -470,6 +585,23 @@
 
                     var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
                     $('tbody tr td').eq(4).text(responseData.Message);
+                }
+            });
+
+            $.ajax({
+                type: "POST",
+                url: "/Services/transaction.asmx/Dashboard",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                cache: false,
+                success: function (response) {
+
+                    var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
+
+                    if (responseData.Status == '1') {
+                        sessionStorage.setItem('total_customer', responseData.total_customer);
+                        sessionStorage.setItem('total_vendor', responseData.total_vendor);
+                    }
                 }
             });
         });

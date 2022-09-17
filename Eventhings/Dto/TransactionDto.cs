@@ -24,4 +24,13 @@ namespace Eventhings.Dto
         public string created_by { get; set; }
         public DateTime? created_at { get; set; }
     }
+
+    public class DashboardDto
+    {
+        public int total_customer { get; set; }
+
+        public int total_vendor { get; set; }
+
+        public int total_paid_absent_customer { get; set; }
+    }
 }

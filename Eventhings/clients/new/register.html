@@ -739,7 +739,7 @@
 
                             console.log(responseData.Status);
                             var status = responseData.Status;
-                            if (status >= '1') {
+                            if (status == '1') {
 
                                 //if the request is successfull
                                 /*payWithPaystack();*/
@@ -748,7 +748,7 @@
 
                                 sessionStorage.setItem('regemail', $('#txtEmail').val());
                                 var referLink = document.createElement("a");
-                                referLink.href = "registration-success.html?verificatioin_token=" + response.Message;
+                                referLink.href = "registration-success.html?verificatioin_token=" + responseData.verification_token;
                                 document.body.appendChild(referLink);
                                 referLink.click();
 

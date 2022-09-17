@@ -10,6 +10,7 @@ namespace Eventhings.Dto
         public int item_id { get; set; }
 
         public int vendor_id { get; set; }
+        public int event_id { get; set; }
 
         //public decimal cost { get; set; }
 

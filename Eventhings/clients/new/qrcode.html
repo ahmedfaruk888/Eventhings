@@ -60,12 +60,12 @@
                     <div class="row justify-between items-center">
                         <div class="col-2">
                             <div class="header__logo">
-                                <a class="base-logo" data-barba href="index.html">
+                                <a class="base-logo" data-barba="" href="index.html">
                                     <img class="base-logo-first" src="img/general/logo.svg" alt="logo">
                                     <img class="base-logo-second" src="img/general/logo-dark.svg" alt="logo">
                                 </a>
 
-                                <a class="menu-logo" data-barba href="index.html">
+                                <a class="menu-logo" data-barba="" href="index.html">
                                     <img src="img/general/logo-dark.svg" alt="logo">
                                 </a>
                             </div>
@@ -75,8 +75,49 @@
                         <div class="menu js-menu">
                             <div class="mobile__background js-mobile-bg"></div>
 
-                            <div class="menu__container" id="menu">
+                            <div class="menu__container" id="menux">
+                                <div class="mobile__back js-nav-list-back pointer-events-none">
+                                    <a data-barba href="#">Home</a>
+                                </div>
 
+                                <ul class="nav js-navList">
+
+
+                                    <li class="">
+                                        <a data-barba href="../../clients/new/dashbaord.html">Dashboard</a>
+                                    </li>
+
+                                    <li class="">
+                                        <a data-barba href="../../clients/new/qrcode.html">QR Codes</a>
+                                    </li>
+
+                                    <li class="">
+                                        <a data-barba href="../../../clients/auth/item.aspx">Product</a>
+                                    </li>
+
+                                    <li class="">
+                                        <a data-barba href="../../../clients/auth/account.aspx">Accounts</a>
+                                    </li>
+
+                                    <li class="">
+                                        <a data-barba href="../../../clients/auth/sales.aspx">Sales</a>
+                                    </li>
+
+                                    <li class="">
+                                        <a data-barba href="../../../clients/auth/ewallet.aspx">e-wallet</a>
+                                    </li>
+
+                                    <li class="">
+                                        <a data-barba href="../../../clients/auth/events.aspx">Events</a>
+                                    </li>
+
+                                    <!--<li class="">
+                            <a data-barba href="contact-1.html">Settings</a>
+                        </li>-->
+                                    <!--<li class="">
+                            <a data-barba href="contact-1.html">Contact</a>
+                        </li>-->
+                                </ul>
                             </div>
 
                             <div class="mobile__footer js-mobile-footer">
@@ -85,16 +126,16 @@
                                 </div>
 
                                 <div class="mobile__socials">
-                                    <a data-barba href="#">
+                                    <a data-barba="" href="#">
                                         <i class="fa fa-facebook" aria-hidden="true"></i>
                                     </a>
-                                    <a data-barba href="#">
+                                    <a data-barba="" href="#">
                                         <i class="fa fa-twitter" aria-hidden="true"></i>
                                     </a>
-                                    <a data-barba href="#">
+                                    <a data-barba="" href="#">
                                         <i class="fa fa-instagram" aria-hidden="true"></i>
                                     </a>
-                                    <a data-barba href="#">
+                                    <a data-barba="" href="#">
                                         <i class="fa fa-linkedin" aria-hidden="true"></i>
                                     </a>
                                 </div>
@@ -105,18 +146,18 @@
                         <div class="col-auto">
                             <div class="header__right">
                                 <div class="md:d-none">
-                                    <!--<a href="login.html" class="button -sm -outline-light-dark sm:d-none">Join</a>-->
-                                    <a href="login.html" class="button -sm -dark text-white ml-12" onclick="LogOut()">Sign Out</a>
+                                    <a href="login.html" class="button -sm -outline-light-dark sm:d-none">Join</a>
+                                    <a href="contact-1.html" class="button -sm -dark text-white ml-12">Get the App</a>
                                 </div>
 
                                 <div class="header__menu justify-center items-center relative d-none md:d-flex">
                                     <button type="button" class="d-flex items-center justify-center js-nav-open">
-                                        <i class="text-black size-32 str-width-1" data-feather="menu"></i>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu text-black size-32 str-width-1"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
                                     </button>
 
                                     <button type="button" class="d-flex items-center justify-center absolute-y-center right-0 pointer-events-none opac-0 js-nav-close">
                                         Close
-                                        <i class="text-black size-32 str-width-1 ml-4" data-feather="x"></i>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x text-black size-32 str-width-1 ml-4"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                                     </button>
                                 </div>
                             </div>
@@ -348,7 +389,7 @@
                                                                     <li>
                                                                         <a class="dropdown-item" id="btnGenerateQrCodeImages" href="#">Generate QR Code Image</a>
                                                                     </li>
-                                                                    <li><a class="dropdown-item" id="btnPrintSection" href="print.aspx">Print</a></li>
+                                                                    <li><a class="dropdown-item" id="btnPrintSection" href="../../clients/auth/print.aspx">Print</a></li>
                                                                     <li><a class="dropdown-item" href="#">Extras</a></li>
                                                                 </ul>
                                                             </div>

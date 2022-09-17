@@ -137,6 +137,7 @@ namespace Eventhings.Services
             {
                 response.Status = 0;
                 response.Message = ex.ToString();
+                response.exception = ex.ToString();
             }
 
             return response;
@@ -176,7 +177,8 @@ namespace Eventhings.Services
                 response.Add(new MappedQrCodeRespose()
                 {
                     Status = 0,
-                    Message = ex.ToString()
+                    Message = ex.ToString(),
+                    exception = ex.ToString()
                 });
             }
 
@@ -202,6 +204,7 @@ namespace Eventhings.Services
             {
                 response.Status = 0;
                 response.Message = ex.ToString();
+                response.exception = ex.ToString();
             }
 
             return response;
@@ -226,6 +229,7 @@ namespace Eventhings.Services
             {
                 response.Status = 0;
                 response.Message = ex.ToString();
+                response.exception = ex.ToString();
             }
 
             return response;
@@ -269,7 +273,8 @@ namespace Eventhings.Services
                 response.Add(new QrCodeRespose()
                 {
                     Status = 0,
-                    Message = ex.ToString()
+                    Message = ex.ToString(),
+                    exception = ex.ToString()
                 });
             }
 
@@ -331,13 +336,15 @@ namespace Eventhings.Services
                 response.Add(new QrCodeRespose()
                 {
                     Status = 0,
-                    Message = ex.ToString()
+                    Message = ex.ToString(),
+                    exception = ex.ToString()
                 });
                 #endif
                 response.Add(new QrCodeRespose()
                 {
                     Status = 0,
-                    Message = "An network error occured"
+                    Message = "An network error occured",
+                    exception = ex.ToString()
                 });
             }
 
@@ -392,7 +399,8 @@ namespace Eventhings.Services
                 response.Add(new QrCodeRespose()
                 {
                     Status = -1,
-                    Message = ex.ToString()
+                    Message = ex.ToString(),
+                    exception = ex.ToString()
                 });
             }
 
@@ -486,6 +494,7 @@ namespace Eventhings.Services
             {
                 response.Status = 0;
                 response.Message = ex.ToString();
+                response.exception = ex.ToString();
             }
 
             return response;
@@ -511,6 +520,7 @@ namespace Eventhings.Services
                         //response.Message = "Customer fullname is required";
                     }
 
+                    fullname = fullname.Trim();
                     var _fname = (fullname.Contains(" ")) ? fullname.Split(' ')[0] : fullname;
                     var _lname = (fullname.Contains(" ")) ? fullname.Split(' ')[1] : fullname;
 
@@ -552,7 +562,8 @@ namespace Eventhings.Services
                 response.Add(new VUserCodeMapped()
                 {
                     Status = 0,
-                    Message = ex.ToString()
+                    Message = ex.ToString(),
+                    exception = ex.ToString()
                 });
             }
 
@@ -689,6 +700,7 @@ namespace Eventhings.Services
             {
                 response.Status = 0;
                 response.Message = ex.ToString();
+                response.exception = ex.ToString();
             }
 
             return response;
@@ -764,7 +776,7 @@ namespace Eventhings.Services
             {
                 response.Status = -1;
                 response.Message = ex.ToString();
-                //response.Message = "An internal exception occured";
+                response.exception = ex.ToString();
             }
 
             return response;

@@ -1889,6 +1889,7 @@
     <Content Include="clients\layouts\service-faq.html" />
     <Content Include="clients\layouts\service.html" />
     <Content Include="clients\forgot-password.html" />
+    <Content Include="clients\login.html" />
     <Content Include="clients\new\aboutus.html" />
     <Content Include="clients\new\blog-list-10.html" />
     <Content Include="clients\new\cdn.jsdelivr.net\npm\atropos%401.0.1\atropos.js" />
@@ -3715,7 +3716,6 @@
     <Content Include="clients\layouts\special-offer.html" />
     <Content Include="clients\layouts\success-stories.html" />
     <Content Include="clients\layouts\team.html" />
-    <Content Include="clients\login.html" />
     <Content Include="clients\privacy-policy.html" />
     <Content Include="clients\register.html" />
     <Content Include="contest.aspx" />
@@ -3882,6 +3882,7 @@
     <Compile Include="DbEntities\tcorewallet.cs" />
     <Compile Include="DbEntities\tmstrcategory.cs" />
     <Compile Include="DbEntities\tmstrtranxchannel.cs" />
+    <Compile Include="DbEntities\vw_customer_credit_balance.cs" />
     <Compile Include="DbEntities\v_events_users_mapped.cs" />
     <Compile Include="Dto\EventPaymentDto.cs" />
     <Compile Include="Dto\eWalletDto.cs" />

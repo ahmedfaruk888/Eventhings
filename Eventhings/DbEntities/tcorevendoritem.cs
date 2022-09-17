@@ -9,7 +9,7 @@ namespace Eventhings.DbEntities
     public partial class tcorevendoritem
     {
         public int id { get; set; }
-
+        public int event_id { get; set; } = 0;
         public int vendor_id { get; set; }
 
         public int item_id { get; set; }

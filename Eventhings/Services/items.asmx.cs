@@ -49,7 +49,8 @@ namespace Eventhings.Services
                 response.Add(new ItemResponse()
                 {
                     Status = 0,
-                    Message = ex.ToString()
+                    Message = ex.ToString(),
+                    exception = ex.ToString()
                 });
             }
 
@@ -85,7 +86,8 @@ namespace Eventhings.Services
                 response.Add(new ItemPointResponse()
                 {
                     Status = 0,
-                    Message = ex.ToString()
+                    Message = ex.ToString(),
+                    exception = ex.ToString()
                 });
             }
 
@@ -121,7 +123,8 @@ namespace Eventhings.Services
                         response.Add(new VendorItemsResponse
                         {
                             Status = 0,
-                            Message = "No item(s) has been mapped to you yet, contact the Organizer"
+                            Message = "No item(s) has been mapped to you yet, contact the Organizer",
+                            exception = ""
                         });
 
                         return response;
@@ -131,23 +134,30 @@ namespace Eventhings.Services
                     foreach(var ids in items)
                     {
                         var itemData = _context.tcoreitems.Where(e => e.active == 1 && e.is_deleted == 0 && e.id == ids)
-                            .Select(data => new VendorItemsResponse 
+                            .Select(x => new VendorItemsResponse 
                             {
-                                id = data.id
-                            }).ToList();
-
-                        foreach(var x in itemData)
-                        {
-                            response.Add(new VendorItemsResponse
-                            {
-                                 active = 1,
-                                  name = x.name,
-                                   id = x.id,
-                                    price = x.price,
-                                    Message = "Success"
-                            });
-                        }
+                                id = x.id,
+                                active = 1,
+                                name = x.name,
+                                price = x.price,
+                                Status = 1,
+                                Message = "Success"
+                            }).FirstOrDefault();
+                        response.Add(itemData);
+                        //foreach(var x in itemData)
+                        //{
+                        //    response.Add(new VendorItemsResponse
+                        //    {
+                        //         active = 1,
+                        //          name = x.name,
+                        //           id = x.id,
+                        //            price = x.price,
+                        //            Status = 1,
+                        //            Message = "Success"
+                        //    });
+                        //}
                     }
+                    return response;
                 }
             }
             catch (Exception ex)
@@ -155,7 +165,8 @@ namespace Eventhings.Services
                 response.Add(new VendorItemsResponse()
                 {
                     Status = 0,
-                    Message = ex.Message
+                    Message = ex.Message,
+                    exception = ex.ToString()
                 });
             }
 
@@ -186,7 +197,8 @@ namespace Eventhings.Services
                 response.Add(new ItemForSalesResponse()
                 {
                     Status = 0,
-                    Message = ex.ToString()
+                    Message = ex.ToString(),
+                    exception = ex.ToString()
                 });
             }
 
@@ -223,6 +235,7 @@ namespace Eventhings.Services
             {
                 response.Status = 0;
                 response.Message = "An network error occured";
+                response.exception = ex.ToString();
             }
 
             return response;

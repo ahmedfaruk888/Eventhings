@@ -21,7 +21,7 @@ namespace Eventhings.Services
     {
 
         [WebMethod]
-        public TransactionResponse  Save(TransactionDto tranxdto)
+        public TransactionResponse Save(TransactionDto tranxdto)
         {
             var response = new TransactionResponse();
 
@@ -95,26 +95,22 @@ namespace Eventhings.Services
             return response;
         }
 
-        //[WebMethod]
-        //public TransactionResponse Save(TransactionDto tranxdto)
-        //{
-        //    var response = new TransactionResponse();
-        //    try
-        //    {
-        //        using(var _context = new EventhingsDbContext())
-        //        {
+        [WebMethod]
+        public DashboardResponse Dashboard()
+        {
+            var response = new DashboardResponse();
+            using (var _context = new EventhingsDbContext())
+            {
+                var queryCust = _context.tcoreuserroles.Where(x => x.role_id == 1).Count();
+                var queryVend = _context.tcoreuserroles.Where(x => x.role_id == 10).Count();
+                var querySales = _context.tcoresales.Count();
+                response.total_customer = queryCust;
+                response.total_vendor = queryVend;
+                response.total_sales = querySales;
+                response.Status = 1;
+            }
 
-
-        //        }
-        //    }
-        //    catch(Exception ex)
-        //    {
-        //        response.Status = 0;
-        //        response.Message = "Internal server error";
-        //    }
-
-        //    return respnse;
-        //}
-
+            return response;
+        }
     }
 }

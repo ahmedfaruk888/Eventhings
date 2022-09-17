@@ -662,6 +662,7 @@ namespace Eventhings.DbContexts
         public virtual DbSet<tcoreeventpayment> tcoreeventpayments { get; set; }
         public virtual DbSet<tcoreverification> tcoreverifications { get; set; }
         public virtual DbSet<v_event_user_mapped> v_event_user_mapped { get; set; }
+        public virtual DbSet<vw_customer_credit_balance> vw_customer_credit_balance { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

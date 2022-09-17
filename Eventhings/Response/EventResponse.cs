@@ -16,6 +16,7 @@ namespace Eventhings.Response
         public DateTime? end_date { get; set; }
         public int? duration { get; set; }
         public int host_id { get; set; }
+        public string host_name { get; set; }
         public int active { get; set; }
         public int deleted { get; set; }
         public int status { get; set; } = 0;

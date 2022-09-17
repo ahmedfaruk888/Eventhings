@@ -43,7 +43,7 @@ namespace Eventhings.Services
                     {
                         vendor_id = mapdto.vendor_id,
                         item_id = mapdto.item_id,
-
+                        event_id = mapdto.event_id,
                         active = mapdto.active,
                         created_by = mapdto.created_by,
                         created_date = DateTime.Now,

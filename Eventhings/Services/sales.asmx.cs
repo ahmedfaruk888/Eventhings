@@ -144,6 +144,18 @@ namespace Eventhings.Services
                     response.Message = "The QR code text is required";
                     return response;
                 } //if qr code text is empty or missing
+                if (string.IsNullOrWhiteSpace(mappeddto.email_address))
+                {
+                    response.Status = 0;
+                    response.Message = "Vendor details can not be found in the request";
+                    return response;
+                }
+                if (string.IsNullOrWhiteSpace(mappeddto.item_id.ToString()))
+                {
+                    response.Status = 0;
+                    response.Message = "Item details can not be found in the request";
+                    return response;
+                }
 
                 using (var _context = new EventhingsDbContext())
                 {
@@ -186,6 +198,7 @@ namespace Eventhings.Services
 
                         //Get product item from vendoritem table by the vendor id
                         var venndoritem = _context.tcorevendoritems.Where(n => n.active == 1 && n.is_deleted == 0 && n.vendor_id == vendor.id).FirstOrDefault();
+                        response.item_id = venndoritem.item_id;
                         if (venndoritem == null)
                         {
                             response.Status = 4; //vendor details can not be retirved
@@ -194,7 +207,7 @@ namespace Eventhings.Services
                         }
 
                         //Get the product details (id and point) by the product id
-                        var product = _context.tcoreitems.Where(n => n.id == venndoritem.item_id && n.active == 1 && n.is_deleted == 0).FirstOrDefault();
+                        var product = _context.tcoreitems.Where(n => n.id == mappeddto.item_id && n.active == 1 && n.is_deleted == 0).FirstOrDefault();
                         var productPoint = product.point.Value;
                         var productPrice = product.price.Value;
                         var productCost = product.cost;
@@ -202,66 +215,88 @@ namespace Eventhings.Services
                         if (product.point == null || product == null || product.price == null)
                         {
                             response.Status = 6; //vendor details can not be retirved
-                            //response.Message = $"Hello {mappeddto.email_address}! your product point has not been defined";
                             response.Message = $"Hello {mappeddto.email_address}! your assigned product point has not been defined... Contact The Organizer";
                             return response;
                         }
 
-                        var userWallet = _context.tcorewallets
-                            .Where(n => n.user_id == mappedCode.user_id.ToString() && n.active == 1 && n.is_deleted == 0).FirstOrDefault();
+                        #region
+                        //var userWallet = _context.tcorewallets
+                        //    .Where(n => n.user_id == mappedCode.user_id.ToString() && n.active == 1 && n.is_deleted == 0).FirstOrDefault();
+                        //if (userWallet == null || userWallet.point < productPoint || userWallet.point <= 0)
+                        //{
+                        //    response.Status = 5;
+                        //    response.Message = "This customer has no enough point left in his/her wallet. Contact The Organizer";
+                        //    return response;
+                        //}
+                        #endregion
 
-                        if (userWallet == null || userWallet.point < productPoint || userWallet.point <= 0)
+                        int _eventId = (venndoritem.event_id == 0) ? -1 : venndoritem.event_id;
+
+                        var userSalesCalc = _context.vw_customer_credit_balance
+                            .Where(n => n.user_id == mappedCode.user_id.ToString() && n.event_id == _eventId).FirstOrDefault();
+
+                        if (userSalesCalc == null || userSalesCalc.total_wallet_point < productPoint)
                         {
-                            response.Status = 5;
-                            response.Message = "This customer has no enough balance left in his/her wallet. Contact The Organizer";
-                            return response;
+                            userSalesCalc = _context.vw_customer_credit_balance
+                            .Where(n => n.user_id == mappedCode.user_id.ToString() && n.event_id == 0).FirstOrDefault();
+
+                            if (userSalesCalc == null || userSalesCalc.total_wallet_point < productPoint)
+                            {
+                                userSalesCalc = _context.vw_customer_credit_balance
+                                .Where(n => n.user_id == mappedCode.user_id.ToString() && n.event_id == 0).FirstOrDefault();
+
+                                response.Status = 5;
+                                response.point = productPoint;
+                                response.Message = "This customer has no enough point left in his/her wallet. Contact The Organizer";
+                                return response;
+                            }
                         }
 
-                        if (userWallet == null || userWallet.current_balance < productPrice || userWallet.current_balance <= 0)
-                        {
-                            response.Status = 5;
-                            response.Message = "This customer has no enough balance left in his/her wallet. Contact The Organizer";
-                            return response;
-                        }
+                        //if (userWallet == null || userWallet.current_balance < productPrice || userWallet.current_balance <= 0)
+                        //{
+                        //    response.Status = 5;
+                        //    response.Message = "This customer has no enough balance left in his/her wallet. Contact The Organizer";
+                        //    return response;
+                        //}
 
-                        var currentPoint = userWallet.point;
-                        var currentBalance = userWallet.current_balance.Value;
-                        var amountPaid = productPrice;
-                        var prevBalance = userWallet.prev_balance.Value;
+                        //var currentPoint = userWallet.point;
+                        //var currentBalance = userWallet.current_balance.Value;
+                        //var amountPaid = productPrice;
+                        //var prevBalance = userWallet.prev_balance.Value;
 
-                        var newPoint = currentPoint - productPoint;
-                        var newCurrBalance = currentBalance - productPrice;
-                        var newPrevBalance = currentBalance;
+                        //var newPoint = currentPoint - productPoint;
+                        //var newCurrBalance = currentBalance - productPrice;
+                        //var newPrevBalance = currentBalance;
 
                         //update the current active wallet entry and set the active value to zero (0)
-                        userWallet.active = 0;
-                        _context.Entry(userWallet).State = System.Data.Entity.EntityState.Modified;
-                        affected = _context.SaveChanges();
+                        //userWallet.active = 0;
+                        //_context.Entry(userWallet).State = System.Data.Entity.EntityState.Modified;
+                        //affected = _context.SaveChanges();
 
                         //save new entry in the wallet
 
-                        response.point = currentPoint;
+                        //response.point = currentPoint;
                         response.price = productPrice;
-                        response.new_point = newPoint;
-                        response.new_balance = newCurrBalance;
-                        response.prev_balance = currentBalance;
+                        //response.new_point = newPoint;
+                        //response.new_balance = newCurrBalance;
+                        //response.prev_balance = currentBalance;
                         response.allowed_payment = 2;
 
-                        _context.tcorewallets.Add(new tcorewallet
-                        {
-                            user_id = mappedCode.user_id.ToString(),
-                            point = newPoint,
-                            payment_channel = "e-wallet payment (Point)",
-                            prev_balance = newPrevBalance,
-                            amount_paid = amountPaid,
-                            current_balance = newCurrBalance,
-                            active = 1,
-                            is_deleted = 0,
-                            created_by = mappeddto.email_address,
-                            created_at = DateTime.Now
-                        });
+                        //_context.tcorewallets.Add(new tcorewallet
+                        //{
+                        //    user_id = mappedCode.user_id.ToString(),
+                        //    point = newPoint,
+                        //    payment_channel = "e-wallet payment (Point)",
+                        //    prev_balance = newPrevBalance,
+                        //    amount_paid = amountPaid,
+                        //    current_balance = newCurrBalance,
+                        //    active = 1,
+                        //    is_deleted = 0,
+                        //    created_by = mappeddto.email_address,
+                        //    created_at = DateTime.Now
+                        //});
 
-                        affected = _context.SaveChanges();
+                        //affected = _context.SaveChanges();
 
                         //save new entry in the sales
                         _context.tcoresales.Add(new tcoresale
@@ -271,6 +306,7 @@ namespace Eventhings.Services
                             user_id = mappedCode.user_id,
                             vendor_id = vendor.id,
                             quantity = 1,
+                            item_id = mappeddto.item_id,
                             price = product.price.Value,
                             point = productPoint,
                             active = 1,
@@ -294,7 +330,7 @@ namespace Eventhings.Services
             {
                 response.Status = -1;
                 response.Message = "Internal error occured";
-                //response.Message = ex.ToString();
+                response.exception = ex.ToString();
             }
 
             return response;

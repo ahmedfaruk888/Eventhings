@@ -9,6 +9,7 @@ namespace Eventhings.Response
     {
         public int id { get; set; }
         public int vendor_id { get; set; }
+        public int item_id { get; set; }
         public int user_id { get; set; }
         public int event_id { get; set; }
         public int allowed_payment { get; set; }

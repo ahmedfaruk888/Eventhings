@@ -12,5 +12,10 @@ namespace Eventhings
         protected void Application_Start(object sender, EventArgs e)
         {
         }
+
+        protected void application_error(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

@@ -13,7 +13,7 @@
         if (user == null) {
             //alert(user.role_name);
             var currentPathName = window.location.href;
-            window.location.replace("../login.html?redirect=" + currentPathName);
+            window.location.replace("../new/login.html?redirectxxxxx=" + currentPathName);
         }
 
         var codeText = new URLSearchParams(window.location.search).get('code');
@@ -35,7 +35,7 @@
         if (roleName === 'customer') {
 
             /*window.location.replace("../clients/auth/vendor-sales.aspx?code=" + codeText);*/
-            window.location.replace("../auth/vendor-sales.aspx?code=" + codeText);
+            window.location.replace("../new/customer-dashbaord.html");
         }
     </script>
 </asp:Content>
@@ -464,6 +464,7 @@
                 data: JSON.stringify({ "fullname": fullname }),
                 success: function (response) {
                     var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
+
                     var status = responseData[0].Status;
                     //console.log(status + "status");
                     //if (responseData.length < 1) {

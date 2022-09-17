@@ -175,7 +175,7 @@
                         </p>
 
                         <div class="row">
-                            <div class="form-group col-md-8">
+                            <div class="form-group col-md-4">
                                 <label for="cmbMapItem">Product Item<sup>*</sup></label>
                                 <select required="required" class="form-select form-select-lg" id="cmbMapItem" name="cmbMapItem">
                                 </select>
@@ -184,6 +184,12 @@
                             <div class="form-group col-md-4">
                                 <label for="cmbMapItem">Vendor<sup>*</sup></label>
                                 <select required="required" class="form-select form-select-lg" id="cmbVendor" name="cmbMapItem">
+                                </select>
+                            </div>
+
+                             <div class="form-group col-md-4">
+                                <label for="cmbEventName">Event Name<sup>*</sup></label>
+                                <select required="required" class="form-select form-select-lg" id="cmbEventName" name="cmbEventName">
                                 </select>
                             </div>
 
@@ -373,8 +379,10 @@
                                             <td>${row.id}</td> 
                                             <td>${row.name}</td> 
                                             <td>${row.description}</td>
-                                            <td>${row.cost}</td><td>${row.price}</td><td>${row.category}</td>
-                                            <td>${(row.active == '1') ? 'Active' : 'In-active'}</td>
+                                            <td>${row.category}</td>
+                                            <td>${row.cost}</td>
+                                            <td>${row.price}</td>
+                                            <td>${row.quantity}</td>
                                             <td>${(row.created_at != undefined) ? $.formattedDate(row.created_at) : " - "}</td >
                                         </tr>`;
 
@@ -401,6 +409,36 @@
 
         }
 
+        function GetEvents() {
+
+            $.ajax({
+                type: "POST",
+                url: "/Services/events.asmx/GetAll",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                cache: false,
+                success: function (response) {
+
+                    var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
+
+                    $('#cmbEventName').empty();
+                    $('#cmbEventName').append($("<option></option>").val('0').html('-- Choose a vendor --'));
+                    $.each(responseData, function (i, data) {
+                        $('#cmbEventName').append($("<option></option>").val(data.id).html(data.name));
+
+                    });
+                    //$('#roleTable').DataTable();
+
+                },
+                beforeSend: function () {
+                    $('#cmbEventName').append($("<option>Loading events..</option>"));
+                },
+                error: function (data) {
+                    $("#lblErrorText").html("Error occured while submiting form");
+                }
+            });
+        }
+
         $(document).ready(function () {
 
             $('label sup').css('color', 'red');
@@ -409,6 +447,7 @@
             GetItems();
             GetVendors();
             GetProducts();
+            GetEvents();
 
             //Save new role information
             $("#btnSaveCategory").on('click', function (e) {
@@ -613,6 +652,7 @@
                             $("#lblErrorText").html(responseData.Message);
 
                             document.getElementById('frmItem').reset();
+                            GetProducts();
 
                         }
                         else if (status == '0') {
@@ -638,6 +678,7 @@
 
                 var itemid = $("#cmbMapItem option:selected").val();
                 var vendorid = $("#cmbVendor option:selected").val();
+                var eventid = $("#cmbEventName option:selected").val();
 
                 if (itemid == '' || itemid.length < 1) {
                     $("#lblErrorText").html("Product name is required"); return;
@@ -645,12 +686,15 @@
                 if (vendorid == '' || vendorid.length < 1) {
                     $("#lblErrorText").html("Vendor name is required"); return;
                 }
+                if (eventid == '' || vendorid.length < 1) {
+                    $("#lblErrorText").html("Event name is required"); return;
+                }
 
                 var mapdto = {
 
                     item_id: itemid,
                     vendor_id: vendorid,
-
+                    event_id: eventid,
                     created_by: sessionStorage.getItem('email'),
                     active: ($('#chkEnableMap').prop('checked') == true) ? 1 : 0
                 };

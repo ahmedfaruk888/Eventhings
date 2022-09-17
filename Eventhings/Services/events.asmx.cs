@@ -22,6 +22,75 @@ namespace Eventhings.Services
     public class events : System.Web.Services.WebService
     {
         [WebMethod]
+        public List<EventResponse> GetAll()
+        {
+            var response = new List<EventResponse>();
+
+            try
+            {
+                using (var _context = new EventhingsDbContext())
+                {
+                    var query = _context.tcoreevents
+                        .Join(_context.tcorehosts,
+                        n => n.host_id,
+                        h => h.id,
+                        (n, h) => new EventResponse()
+                        {
+                            id = n.id,
+                            name = n.name,
+                            description = n.description,
+                            location = n.location,
+                            active = n.active,
+                            deleted = n.deleted,
+                            Status = 1,
+                            duration = n.duration,
+                            start_date = n.start_date,
+                            host_id = h.id,
+                            host_name = h.full_name,
+                            end_date = n.end_date,
+                            created_at = n.created_at,
+                            created_by = n.created_by,
+                            gate_fee = n.gate_fee
+                        })
+                        .Where(e => e.deleted == 0).ToList();
+                        //.Select(n => new EventResponse()
+                        //{
+                        //    id = n.id,
+                        //    name = n.name,
+                        //    description = n.description,
+                        //    location = n.location,
+                        //    active = n.active,
+                        //    deleted = n.deleted,
+                        //    Status = 1,
+                        //    duration = n.duration,
+                        //    start_date = n.start_date,
+                        //    host_id = n.host_id,
+                        //    end_date = n.end_date,
+                        //    created_at = n.created_at,
+                        //    created_by = n.created_by,
+                        //    gate_fee = n.gate_fee
+                        //}).ToList();
+
+                    foreach (var ss in query)
+                    {
+                        response.Add(ss);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Add(new EventResponse()
+                {
+                    Status = 0,
+                    Message = ex.ToString(),
+                    exception = ex.ToString()
+                });
+            }
+
+            return response;
+        }
+
+        [WebMethod]
         public List<EventResponse> Get()
         {
             var response = new List<EventResponse>();
@@ -31,7 +100,7 @@ namespace Eventhings.Services
                 using (var _context = new EventhingsDbContext())
                 {
                     var query = _context.tcoreevents
-                        .Where(e => e.active == 1 && e.deleted == 0 && e.start_date >= DateTime.Now && e.is_live == 1)
+                        .Where(e => e.active == 1 && e.deleted == 0 && e.is_live == 1)
                         .Select(n => new EventResponse() 
                         {
                             id = n.id,
@@ -210,7 +279,7 @@ namespace Eventhings.Services
             {
                 response.Status = 0;
                 response.Message = "An internal server error occured";
-                //response.Message = ex.ToString();
+                response.exception = ex.ToString();
             }
 
             return response;
@@ -252,7 +321,7 @@ namespace Eventhings.Services
             {
                 response.Status = 0;
                 response.Message = "An internal server error occured";
-                //response.Message = ex.ToString();
+                response.exception = ex.ToString();
             }
 
             return response;

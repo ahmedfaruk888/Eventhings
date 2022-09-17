@@ -6,7 +6,7 @@
         if (user.role_name !== 'vendor') {
 
             var currentPathName = window.location.href;
-            window.location.replace("../login.html?redirect=" + currentPathName);
+            window.location.replace("../new/login.html?redirect=" + currentPathName);
         }
     </script>
 </asp:Content>
@@ -33,7 +33,7 @@
                     <ul class="navbar-nav mt-2 mt-lg-0">
                         <li class="nav-item">
                             <%--<a class="btn btn-light" href="../login.html">Logout</a>--%>
-                            <a class="btn btn-light" id="btnLogout" onclick="LogOut()" href="../login.html">Logout</a>
+                            <a class="btn btn-light" id="btnLogout" onclick="LogOut()" href="../new/login.html">Logout</a>
                         </li>
                     </ul>
                 </div>
@@ -65,7 +65,7 @@
         </div>
 
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <button type="button" id="btnShowModal" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="visibility: hidden">
             Launch static backdrop modal
         </button>
 
@@ -79,27 +79,27 @@
                     </div>
                     <div class="modal-body">
                         <p>
-                            I will not close if you click outside me. Don't even try to press escape key.
+                            Choose a product item from below and checkout.
                         </p>
                         <div class="form-group col-md-12">
-                            <label for="cmbCategoryParent">Choose a product</label>
+                            <label for="cmbVendorItems">Choose a product</label>
                             <select required="required" class="form-control form-select multiple" id="cmbVendorItems" name="cmbVendorItems">
-                                <option>--choose one--</option>
+                               <%-- <option>--choose one--</option>
                                 <option>--choose two--</option>
-                                <option>--choose three--</option>
+                                <option>--choose three--</option>--%>
                             </select>
                         </div>
-                        <div class="form-group col-md-12">
+                       <%-- <div class="form-group col-md-12">
                             <input type="number" class="form-control form-control-lg" name="txtQuantity" id="txtQuantity" min="1" max="100" value="1" />
-                        </div>
-                        <div class="form-group col-md-12 align-content-md-end">
+                        </div>--%>
+                      <%--  <div class="form-group col-md-12 align-content-md-end">
                             <input type="button" name="btnAdd" id="btnAdd" value="Add" class="btn btn-primary" />
-                        </div>
+                        </div>--%>
                         <hr />
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Make Sales &amp; Checkout</button>
+                        <button type="button" id="btnMakeSales" class="btn btn-primary">Make Sales &amp; Checkout</button>
                     </div>
                 </div>
             </div>
@@ -114,12 +114,17 @@
 <asp:Content ID="scriptContent" ContentPlaceHolderID="scriptContentPlaceHolder" runat="server">
     <script type="text/javascript">
 
-        function MakeSales(code, email) {
+        function MakeSales(code, email, item_id) {
 
             var mappeddto = {
                 code: code,
-                email_address: email
+                email_address: email,
+                item_id: item_id
             }
+
+            //if (item_id == '' || item_id.length < 1) {
+            //    $("#lblErrorText").html("Item name is required"); return;
+            //}
 
             var data = {
                 mappeddto: mappeddto
@@ -185,7 +190,7 @@
                     else {
 
                         Swal.fire(
-                            'Warning!',
+                            'Caution!',
                             responseData.Message,
                             'error'
                         )
@@ -285,7 +290,7 @@
             });
         }
 
-        function GetMappedItemByVendor() {
+        function GetMappedItemsByVendor() {
 
             var vendorId = JSON.parse(sessionStorage.getItem('user'));
 
@@ -301,40 +306,41 @@
                 data: JSON.stringify(data),
                 cache: false,
                 success: function (response) {
-
+                    //console.log(response);
                     // must be an array of data
                     var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
 
-                    //console.log(responseData);
+                    //console.log(responseData.length);
                     if (responseData.length > 0) {
 
-                        $("#lblErrorText").html(responseData.Message);
+                        //$("#lblErrorText").html(responseData.Message);
 
-                        console.log(responseData.event_name);
+                        console.log(responseData.name);
 
                         //if code is valid and mapped
-                        if (responseData.Status == '1') {
+                        if (responseData[0].Status == '1') {
 
                             $('#cmbVendorItems').empty();
                             $('#cmbVendorItems').append($("<option></option>").val(0).html("-- Please choose a mapped item --"));
                             $.each(responseData, function (i, data) {
 
-                                $('#cmbVendorItems').append($("<option></option>").val(data.id).html(data.item_name));
+                                $('#cmbVendorItems').append($("<option></option>").val(data.id).html(data.name));
 
                             });
 
-                            $('#staticBackdrop').show();
+                            $('#btnShowModal').click();
 
                             return;
 
                         }
                         else {
 
-                            Swal.fire(
-                                'Warning!',
-                                responseData.Message,
-                                'error'
-                            )
+                            alert(responseData[0].Status);
+                            //Swal.fire(
+                            //    'Warning!',
+                            //    responseData.Message,
+                            //    'error'
+                            //)
 
                         }
 
@@ -342,11 +348,11 @@
                 },
                 beforeSend: function () {
 
-                    Swal.fire(
-                        'Please wait',
-                        'Retrieving mapped product items..',
-                        'info'
-                    )
+                    //Swal.fire(
+                    //    'Please wait',
+                    //    'Retrieving mapped product items..',
+                    //    'info'
+                    //)
 
                 },
                 error: function (data) {
@@ -357,9 +363,8 @@
         }
 
         $(document).ready(function () {
-
             //isRequestAuthenticated();
-
+            
             $('#divAlert').hide();
 
             var qrCodeText = new URLSearchParams(window.location.search).get('code');
@@ -370,29 +375,23 @@
                     'The customer code is not valid or can not be found, rescan again !!!',
                     'error'
                 )
-
+                return;
             }
-            else if (qrCodeText != null || qrCodeText != undefined) {
+            
+            GetMappedItemsByVendor();
 
-                var email = sessionStorage.getItem('email');
+            $('#btnMakeSales').click(function (e) {
 
-                //make an ajax call to get all product items mapped to the logged-in
-                //vendor.
-                GetMappedItemByVendor();
+                var itemId = $("#cmbVendorItems option:selected").val();
 
+                if (itemId == '' || itemId < 1) {
+                    alert("Product name is required"); return;
+                }
 
-                //Call this method whe user clicks the make sales and checkout button
-                //within the model box
-                //MakeSales(qrCodeText, sessionStorage.getItem('email'));
-            }
-            else {
+                MakeSales(qrCodeText, sessionStorage.getItem('email'), itemId);
 
-                Swal.fire({
-                    title: 'Undefined QR Code!',
-                    text: 'Can not find a valid QR code in the request',
-                    icon: 'error'
-                })
-            }
+                e.preventDefault();
+            })
         });
     </script>
 </asp:Content>

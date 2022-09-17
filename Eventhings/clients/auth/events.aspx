@@ -135,19 +135,19 @@
                                 <input type="date" class="form-control" id="txtEventStartDate" name="txtEventStartDate" placeholder="Start date">
                             </div>
 
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-8">
                                 <label for="txtEventEndtDate">End Date </label>
                                 <input type="date" class="form-control" id="txtEventEndtDate" name="txtEventEndtDate" placeholder="End date">
                             </div>
 
-                            <div class="form-group col-md-4">
+                            <%--<div class="form-group col-md-4">
                                 <label for="txtEventDuration">Duration </label>
-                                <input type="tel" class="form-control" min="1" id="txtEventDuration" name="txtEventDuration" placeholder="Duration (in days)">
-                            </div>
+                                <input type="tel" readonly="readonly" class="form-control" min="1" id="txtEventDuration" name="txtEventDuration" placeholder="Duration (in days)">
+                            </div>--%>
 
                             <div class="form-group col-md-3">
-                                <input id="chkEnableEvent" checked="checked" name="chkEnableEvent" type="checkbox" value="" />
-                                <label for="chkEnableEvent">&nbsp; Enable this event by default</label>
+                                <input id="chkIsLive" checked="checked" name="chkIsLive" type="checkbox" value="" />
+                                <label for="chkIsLive">&nbsp; This event is live</label>
                             </div>
 
                             <div class="form-group col-md-3">
@@ -193,14 +193,14 @@
                                             </div>
                                         </th>
                                         <th scope="col">S/N</th>
-                                        <th scope="col">Host</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Description</th>
+                                        <th scope="col">Host Name</th>
+                                        <th scope="col">Event Name</th>
+                                        <%--<th scope="col">Description</th>--%>
                                         <th scope="col">Location</th>
                                         <th scope="col">Duration</th>
                                         <th scope="col">Date</th>
-                                        <th scope="col">Active</th>
-                                        <th scope="col">Created Date</th>
+                                        <%--<th scope="col">Active</th>--%>
+                                        <%--<th scope="col">Created Date</th>--%>
                                     </tr>
                                 </thead>
                                 <tbody id="eventTBody">
@@ -227,12 +227,12 @@
                                         </th>
                                         <th scope="col">S/N</th>
                                         <th scope="col">Full Name</th>
-                                        <th scope="col">Description</th>
+                                        <%--<th scope="col">Description</th>--%>
                                         <th scope="col">Phone</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Address</th>
-                                        <th scope="col">Active</th>
-                                        <th scope="col">Created Date</th>
+                                        <%--<th scope="col">Active</th>--%>
+                                        <th scope="col">Date Joined</th>
                                     </tr>
                                 </thead>
                                 <tbody id="hostTBody">
@@ -255,7 +255,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "/Services/events.asmx/Get",
+                url: "/Services/events.asmx/GetAll",
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 cache: false,
@@ -271,14 +271,11 @@
                                                 </div>
                                             </td>
                                             <td>${row.id}</td> 
-                                            <td>${row.host_id}</td>
+                                            <td>${row.host_name}</td>
                                             <td>${row.name}</td>
-                                            <td>${row.description}</td>
                                             <td>${row.location}</td>
                                             <td>${row.duration}</td>
-                                            <td>${(row.start_date != undefined) ? "FROM - " + $.formattedDate(row.start_date) + " TO " + $.formattedDate(row.end_date) : " - "}</td >
-                                            <td>${row.active}</td>                                           
-                                            <td>${(row.created_at != undefined) ? $.formattedDate(row.created_at) : " - "}</td>
+                                            <td>${(row.start_date != undefined) ? $.formattedDate(row.start_date) + " To " + $.formattedDate(row.end_date) : " - "}</td >
                                         </tr>`;
 
                         $('#eventTBody').append(rows);
@@ -318,16 +315,12 @@
                     $.each(responseData, function (i, row) {
                         let rows = `<tr>
                                             <td>
-                                                <div class="form-check">
-                                                    <a href="#"><span class="fa fa-edit"> </span></a>
-                                                </div>
+                                                
                                             </td>
                                             <td>${row.id}</td> 
                                             <td>${row.full_name}</td>
-                                            <td>${row.description}</td>
                                             <td>${row.phone}</td>
                                             <td>${row.email}</td>
-                                            <td>${row.address}</td>
                                             <td>${(row.active == 1) ? "Active Host" : "In-active Host"}</td>
                                             <td>${(row.created_at != undefined) ? $.formattedDate(row.created_at) : " - "}</td>
                                         </tr>`;
@@ -370,7 +363,7 @@
                 var location = $("#txtEventLocation").val();
                 var start_date = $("#txtEventStartDate").val();
                 var end_date = $("#txtEventEndtDate").val();
-                var duration = $("#txtEventDuration").val();
+                var duration = (new Date($("#txtEventEndtDate").val()).getTime() - new Date($("#txtEventStartDate").val()).getTime()) / (1000 * 3600 * 24);
                 var host = $("#cmbHost option:selected").val();
                 var gate_fee = $("#txtEventGateFee").val();
 
@@ -391,8 +384,10 @@
                     start_date: start_date,
                     end_date: end_date,
                     duration: duration,
-                    active: ($('#chkEnableEvent').prop('checked') == true) ? 1 : 0,
-                    gate_fee: gate_fee
+                    is_live: ($('#chkIsLive').prop('checked') == true) ? 1 : 0,
+                    active: 1,
+                    gate_fee: gate_fee,
+                    host_id: $('#cmbHost option:selected').val()
                 };
 
                 var data = {
@@ -417,6 +412,7 @@
                             document.getElementById('frmEvent').reset();
 
                             GetHosts();
+                            GetEvents();
 
                         }
                         else if (status == '0') {

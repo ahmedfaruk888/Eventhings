@@ -12,6 +12,7 @@ namespace Eventhings.Dto
         public string email_address { get; set; }
         public int vendor_id { get; set; }
         public int user_id { get; set; }
+        public int item_id { get; set; }
         public int event_id { get; set; }
         public int quantity { get; set; }
         public decimal price { get; set; }

@@ -11,7 +11,7 @@ namespace Eventhings.DbEntities
         public int id { get; set; }
 
         public int itempoint_id { get; set; }
-
+        public int item_id { get; set; }
         public int user_id { get; set; }
         public int vendor_id { get; set; }
 
