@@ -309,13 +309,13 @@
                     if (responseData.current_balance == null || responseData.current_balance == undefined || responseData.current_balance == '0') {
                         $('#txtCurrentBalance').val(0 + " Naira");
                     } else {
-                        $('#txtCurrentBalance').val(responseData.current_balance + " Naira");
+                        $('#txtCurrentBalance').val(responseData.current_balance);
                     }
 
                     if (responseData.current_balance == null || responseData.current_balance == undefined || responseData.current_balance == '0') {
                         $('#txtCurrentPoint').val(0 + " Point");
                     } else {
-                        $('#txtCurrentPoint').val(responseData.point + " Point");
+                        $('#txtCurrentPoint').val(responseData.point);
                     }
                 },
                 error: function (data) {
@@ -375,7 +375,7 @@
             $('#topUpDiv button').not('#btnSaveTopUp').attr('disabled', true);
 
             $('#btnSterling').on('click', function () {
-                payment_channel = "Bank Payment (POS or Bank Transfer)";
+                payment_channel = "Bank Payment (POS or Bank Transfer)  Top-Up";
                 $('#amountDiv').toggle();
             });
             $('#btnPayStack').on('click', function () {

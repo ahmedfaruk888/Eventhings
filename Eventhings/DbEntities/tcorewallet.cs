@@ -13,6 +13,7 @@ namespace Eventhings.DbEntities
         [Required]
         [StringLength(256)]
         public string user_id { get; set; }
+        public int cr_type { get; set; } = 1; //either 1 or 2 (1 == initial code link & 2 = top-up)
 
         public decimal point { get; set; }
 

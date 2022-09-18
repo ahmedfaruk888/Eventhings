@@ -525,7 +525,7 @@ namespace Eventhings.Services
                     var _lname = (fullname.Contains(" ")) ? fullname.Split(' ')[1] : fullname;
 
                     var query = _context.v_event_user_mapped
-                        .Where(e => (e.first_name == _fname || e.last_name == _lname) && e.code == null)
+                        .Where(e => e.first_name == _fname || e.last_name == _lname)
                         .Select(n => new VUserCodeMapped()
                         {
                             id = n.id,
@@ -632,7 +632,7 @@ namespace Eventhings.Services
                         qr.date_used = DateTime.Now;
                         _context.Entry(qr).State = System.Data.Entity.EntityState.Modified;
 
-                        //insert a new entry into the mapped code table
+                        //insert a new entry into the mapped code table to show  date the code was mapped
                         _context.tcoremappedcodes.Add(new tcoremappedcode
                         {
                             user_id = map.user_id,
@@ -644,22 +644,22 @@ namespace Eventhings.Services
                         });
 
                         //check if the user has an entry in the wallet table before
-                        var wallet = _context.tcorewallets.Where(identity => identity.user_id == map.user_id.ToString() && identity.active == 1).FirstOrDefault();
+                        //var wallet = _context.tcorewallets.Where(identity => identity.user_id == map.user_id.ToString() && identity.active == 1).FirstOrDefault();
                         
-                        if(wallet != null) //update the entry
-                        {
-                            //if the user currently have an active e-wallet
-                            //var newPrevBal = wallet.current_balance;
+                        //if(wallet != null) //update the entry
+                        //{
+                        //    //if the user currently have an active e-wallet
+                        //    //var newPrevBal = wallet.current_balance;
 
-                            wallet.point = (wallet.point + map.base_point.Value);
-                            wallet.prev_balance = wallet.current_balance;
-                            wallet.amount_paid = (wallet.amount_paid + map.base_amount.Value);
-                            wallet.current_balance = (wallet.current_balance + map.base_amount.Value);
+                        //    wallet.point = (wallet.point + map.base_point.Value);
+                        //    wallet.prev_balance = wallet.current_balance;
+                        //    wallet.amount_paid = (wallet.amount_paid + map.base_amount.Value);
+                        //    wallet.current_balance = (wallet.current_balance + map.base_amount.Value);
 
-                            _context.Entry(wallet).State = System.Data.Entity.EntityState.Modified;
-                        }
-                        else //insert a new entry
-                        {
+                        //    _context.Entry(wallet).State = System.Data.Entity.EntityState.Modified;
+                        //}
+                        //else //insert a new entry
+                        //{
                             //Insert a new default record for the user in the wallet table
                             _context.tcorewallets.Add(new tcorewallet
                             {
@@ -670,11 +670,12 @@ namespace Eventhings.Services
                                 amount_paid = map.base_amount.Value,
                                 current_balance = map.base_amount.Value,
                                 active = 1,
+                                cr_type = 1,
                                 is_deleted = 0,
                                 created_by = map.email_address,
                                 created_at = DateTime.Now
                             });
-                        }
+                        //}
 
 
                         //_context.tcorewallets.Add(new tcorewallet
@@ -753,11 +754,15 @@ namespace Eventhings.Services
                             response.date_mapped = mappedCode.date_mapped;
 
                             //Wallet details retrived
-                            var wallet = _context.tcorewallets.Where(id => id.user_id == user.id.ToString() && id.active == 1 && id.is_deleted == 0).FirstOrDefault();
-                            if(wallet != null)
+                            //var wallet = _context.tcorewallets.Where(id => id.user_id == user.id.ToString() && id.active == 1 && id.is_deleted == 0).FirstOrDefault();
+                            
+                            var userSalesCalc = _context.vw_customer_credit_balance
+                            .Where(n => n.user_id == mappedCode.user_id.ToString()).FirstOrDefault();
+
+                            if (userSalesCalc != null)
                             {
-                                response.point = wallet.point;
-                                response.current_balance = wallet.current_balance.Value;
+                                response.point = userSalesCalc.total_wallet_point;
+                                response.current_balance = userSalesCalc.customer_total_balance;
                             }
 
                             var events = _context.tcoreevents.Where(id => id.id == mappedCode.event_id && id.active == 1).FirstOrDefault();

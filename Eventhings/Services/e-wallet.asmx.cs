@@ -54,10 +54,10 @@ namespace Eventhings.Services
                     else
                     {
                         equery.active = 0;
-                        var point = equery.point;
-                        var prePrevvBal = equery.prev_balance;
-                        var prevCurrBal = equery.current_balance;
-                        var amountPaid = equery.amount_paid;
+                        //var point = equery.point;
+                        //var prePrevvBal = equery.prev_balance;
+                        //var prevCurrBal = equery.current_balance;
+                        //var amountPaid = equery.amount_paid;
 
                         //validation
                         #region
@@ -77,28 +77,44 @@ namespace Eventhings.Services
                         #endregion
 
                         _context.Entry(equery).State = System.Data.Entity.EntityState.Modified;
-                        //_context.SaveChanges();
-
                         _context.tcorewallets.Add(new tcorewallet
                         {
                             user_id = wallet.user_id,
-                            point = (point + wallet.point),
+                            point = wallet.point,
                             payment_channel = wallet.payment_channel,
-                            prev_balance = prevCurrBal,
+                            prev_balance = 0,
                             amount_paid = wallet.amount_paid,
-                            current_balance = prevCurrBal + wallet.amount_paid,
+                            current_balance = 0,
                             active = 1,
+                            cr_type = 2,
                             is_deleted = 0,
                             created_by = wallet.created_by,
                             created_at = DateTime.Now
                         });
+                        #region
+                        //_context.SaveChanges();
+
+                        //_context.tcorewallets.Add(new tcorewallet
+                        //{
+                        //    user_id = wallet.user_id,
+                        //    point = (point + wallet.point),
+                        //    payment_channel = wallet.payment_channel,
+                        //    prev_balance = prevCurrBal,
+                        //    amount_paid = wallet.amount_paid,
+                        //    current_balance = prevCurrBal + wallet.amount_paid,
+                        //    active = 1,
+                        //    is_deleted = 0,
+                        //    created_by = wallet.created_by,
+                        //    created_at = DateTime.Now
+                        //});
+                        #endregion
                     }
 
                     var affected = _context.SaveChanges();
                     if (affected > 0)
                     {
                         response.Status = 1;
-                        response.Message = $"Customer wallet has been toped-up with '{wallet.amount_paid}' naira & '{wallet.point}' points sucessfuly";
+                        response.Message = $"Customer wallet has been toped-up with '{wallet.point}' points sucessfuly";
                         return response;
                     }
                 }
@@ -218,22 +234,41 @@ namespace Eventhings.Services
                     var user = _context.tcoreusers.Where(p => p.phone_number == wallet.phone_number).FirstOrDefault();
                     if(user != null)
                     {
-                        var query = _context.tcorewallets.Where(e => e.user_id == user.id.ToString() && e.is_deleted == 0 && e.active == 1)
+                        //int _eventId = (venndoritem.event_id == 0) ? -1 : venndoritem.event_id;
+
+                        var query = _context.vw_customer_credit_balance.Where(e => e.user_id == user.id.ToString())
                         .Select(n => new eWalletResponse()
                         {
                             user_id = n.user_id,
-                            prev_balance = n.prev_balance,
-                            amount_paid = n.amount_paid,
-                            point = n.point,
-                            current_balance = n.current_balance,
-                            active = n.active,
-                            created_at = n.created_at,
-                            created_by = n.created_by,
-                            updated_at = n.updated_at,
-                            updated_by = n.updated_by,
+                            prev_balance = 0,
+                            amount_paid = 0,
+                            point = n.total_wallet_point,
+                            current_balance = n.customer_total_balance,
+                            active = 1,
+                            //created_at = n.created_at,
+                            //created_by = n.created_by,
+                            //updated_at = n.updated_at,
+                            //updated_by = n.updated_by,
                             Status = 1,
                             Message = "Success"
                         }).FirstOrDefault();
+
+                        //var query = _context.tcorewallets.Where(e => e.user_id == user.id.ToString() && e.is_deleted == 0 && e.active == 1)
+                        //.Select(n => new eWalletResponse()
+                        //{
+                        //    user_id = n.user_id,
+                        //    prev_balance = n.prev_balance,
+                        //    amount_paid = n.amount_paid,
+                        //    point = n.point,
+                        //    current_balance = n.current_balance,
+                        //    active = n.active,
+                        //    created_at = n.created_at,
+                        //    created_by = n.created_by,
+                        //    updated_at = n.updated_at,
+                        //    updated_by = n.updated_by,
+                        //    Status = 1,
+                        //    Message = "Success"
+                        //}).FirstOrDefault();
 
                         response = query;
                     }

@@ -16,7 +16,7 @@
 
                 alert('Your account type can not be determined, contact administrator');
 
-                window.location.replace("../login.html");
+                //window.location.replace("../login.html");
                 return;
             } else {
 

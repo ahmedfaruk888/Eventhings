@@ -1889,11 +1889,8 @@
     <Content Include="clients\layouts\service-faq.html" />
     <Content Include="clients\layouts\service.html" />
     <Content Include="clients\forgot-password.html" />
-    <Content Include="clients\login.html" />
     <Content Include="clients\new\aboutus.html" />
-    <Content Include="clients\new\blog-list-10.html" />
     <Content Include="clients\new\cdn.jsdelivr.net\npm\atropos%401.0.1\atropos.js" />
-    <Content Include="clients\new\codelink.htm" />
     <Content Include="clients\new\contact.html" />
     <Content Include="clients\new\css\main.css" />
     <Content Include="clients\new\css\vendors.css" />
@@ -1911,7 +1908,6 @@
     <Content Include="clients\new\registration-success.html" />
     <Content Include="clients\new\qrcode.html" />
     <Content Include="clients\new\dashbaord.html" />
-    <Content Include="clients\new\faq.html" />
     <Content Include="clients\new\fonts\fontawesome-webfont3e6e.svg" />
     <Content Include="clients\new\fonts\icomoonb847.svg" />
     <Content Include="clients\new\home-9.html" />
@@ -2008,8 +2004,6 @@
     <Content Include="clients\new\js\sessioin.min.js" />
     <Content Include="clients\new\js\vendors.js" />
     <Content Include="clients\new\login.html" />
-    <Content Include="clients\new\portfolio-hover-effects.html" />
-    <Content Include="clients\new\pricing.html" />
     <Content Include="clients\new\register.html" />
     <Content Include="clients\new\services.html" />
     <Content Include="clients\new\template\signupconfirm.html" />
@@ -2019,7 +2013,6 @@
     <Content Include="clients\new\template\LeaveRequest.html" />
     <Content Include="clients\new\template\ResetPassword.html" />
     <Content Include="clients\new\terms.html" />
-    <Content Include="clients\new\ui-elements.html" />
     <Content Include="clients\new\unpkg.com\leaflet%401.7.1\dist\images\layers-2x.png" />
     <Content Include="clients\new\unpkg.com\leaflet%401.7.1\dist\images\layers.png" />
     <Content Include="clients\new\unpkg.com\leaflet%401.7.1\dist\images\marker-icon.png" />

@@ -13,7 +13,7 @@
         if (user == null) {
             //alert(user.role_name);
             var currentPathName = window.location.href;
-            window.location.replace("../new/login.html?redirectxxxxx=" + currentPathName);
+            window.location.replace("../new/login.html?redirect=" + currentPathName);
         }
 
         var codeText = new URLSearchParams(window.location.search).get('code');
@@ -35,7 +35,7 @@
         if (roleName === 'customer') {
 
             /*window.location.replace("../clients/auth/vendor-sales.aspx?code=" + codeText);*/
-            window.location.replace("../new/customer-dashbaord.html");
+            window.location.replace("../auth/vendor-sales.aspx?code=" + codeText);
         }
     </script>
 </asp:Content>
@@ -147,13 +147,13 @@
 
                             
                             <div class="form-group col-md-3">
-                                <label for="txtCodeCount">Point <sup>*</sup></label>
+                                <label for="txtCodeCount">Point<sup>*</sup></label>
                                 <a href="#" class="edit-point"><span class="fa fa-edit"></span></a>
                                 <input type="number" min="1" max="50" class="form-control" id="txtTopUpAmount" value="0.00" name="txtTopUpAmount" placeholder="Base Point">
                             </div>
 
                              <div class="form-group col-md-8">
-                                <label for="txtTopUpMoney">Current Balance <sup>*</sup></label>
+                                <label for="txtTopUpMoney">Balance <sup>*</sup></label>
                                 <a href="#" class="edit-point disabled"><span class="fa fa-edit"></span></a>
                                 <input type="number" min="1" max="50" class="form-control" id="txtTopUpMoney" value="0.00" name="txtTopUpMoney">
                             </div>
@@ -195,6 +195,11 @@
                                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
                                         </div>
                                     </th>
+                                    <%--<th scope="col">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultx" />
+                                        </div>
+                                    </th>--%>
                                     <th scope="col">S/N</th>
                                     <th scope="col">Fullname</th>
                                     <th scope="col">Phone Number</th>
@@ -273,6 +278,39 @@
                 </div>
             </div>
             <asp:HiddenField runat="server" ID="hndPhone" />
+             <!-- Button trigger modal -->
+        <button type="button" id="btnShowModal" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="visibility: hidden">
+            Launch static backdrop modal
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Customer Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            User Details.
+                        </p>
+                         <div class="text-center">
+                                <canvas id="customerQR"></canvas>
+                            </div>
+                        <%--<div class="form-group col-md-12">
+                            <label for="cmbVendorItems">Choose a product</label>
+                            
+                        </div>--%>
+                        <hr />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <%--<button type="button" id="btnMakeSales" class="btn btn-primary">Make Sales &amp; Checkout</button>--%>
+                    </div>
+                </div>
+            </div>
+        </div>
         </form>
     </section>
 </asp:Content>
@@ -479,11 +517,14 @@
 
                         $.each(responseData, function (i, row) {
                             console.log(row.phone_number + "----search");
-                            
 
+                            if (row.qr_code_text) {
+                                localStorage.setItem('u_details', JSON.stringify(row));
+                            }
+                            // onclick="CodeLink(${"'" + row.qr_code_text+"'"})
                             let rows = `<tr>
                                             <td>
-                                                <a href="#" onclick="CodeLink(${"'"+row.phone_number+"'"})">Use</a>
+                                                <a href="${ window.location.origin + window.location.pathname + "?code=" + row.qr_code_text  }">Use</a>
                                             </td>
                                             <td>${row.id}</td>
                                             <td>${row.full_name}</td>
@@ -549,6 +590,7 @@
 
             //Hide the sales button
             $('#btnSales').hide();
+            /*$('#btnShowModal').click()*/;
 
             //toggle point edit onlick
             $('.edit-point').on('click', function (e) {

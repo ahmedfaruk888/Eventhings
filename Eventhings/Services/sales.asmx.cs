@@ -230,27 +230,81 @@ namespace Eventhings.Services
                         //}
                         #endregion
 
-                        int _eventId = (venndoritem.event_id == 0) ? -1 : venndoritem.event_id;
+                        //int _eventId = (venndoritem.event_id == 0) ? -1 : venndoritem.event_id;
+                        int _eventId = (mappedCode.event_id == 0) ? -1 : mappedCode.event_id;
+
+                        int[] _eventIds = new int[] { 0, -1, mappedCode.event_id };
+                        //&& _eventIds.Contains(n.event_id)
+                        //var userSalesCalc = _context.vw_customer_credit_balance
+                        //    .Where(n => n.user_id == mappedCode.user_id.ToString() && (n.event_id == -1 || n.event_id == mappedCode.event_id)).FirstOrDefault();
 
                         var userSalesCalc = _context.vw_customer_credit_balance
-                            .Where(n => n.user_id == mappedCode.user_id.ToString() && n.event_id == _eventId).FirstOrDefault();
+                            .Where(n => n.user_id == mappedCode.user_id.ToString()).FirstOrDefault();
+                        //bool avail = false;
+                        //if (userSalesCalc == null)
+                        //{
+                        //    avail = false;
+                        //}
+                        //else { avail = true; }
 
-                        if (userSalesCalc == null || userSalesCalc.total_wallet_point < productPoint)
+                        //var userSalesCalc2 = _context.vw_customer_credit_balance
+                        //    .Where(n => n.user_id == mappedCode.user_id.ToString() && n.event_id == -1).FirstOrDefault();
+                        //if (userSalesCalc2 == null && avail != true)
+                        //{
+                        //    avail = false;
+                        //}
+                        //else { avail = true; }
+
+                        ////|| userSalesCalc.customer_total_balance < productPoint
+                        //if (avail == false)
+                        //{
+                        //    //userSalesCalc = _context.vw_customer_credit_balance
+                        //    //.Where(n => n.user_id == mappedCode.user_id.ToString() && n.event_id == -1).FirstOrDefault();
+
+                        //    //if(userSalesCalc == null || userSalesCalc.customer_total_balance < productPoint)
+                        //    //{
+                        //        response.Status = 5;
+                        //        response.point = productPoint;
+                        //        response.Message = "User with event coud not be found";
+                        //        return response;
+                        //    //}
+                        //}
+
+                        if (userSalesCalc.customer_total_balance < productPoint)
                         {
-                            userSalesCalc = _context.vw_customer_credit_balance
-                            .Where(n => n.user_id == mappedCode.user_id.ToString() && n.event_id == 0).FirstOrDefault();
-
-                            if (userSalesCalc == null || userSalesCalc.total_wallet_point < productPoint)
-                            {
-                                userSalesCalc = _context.vw_customer_credit_balance
-                                .Where(n => n.user_id == mappedCode.user_id.ToString() && n.event_id == 0).FirstOrDefault();
-
-                                response.Status = 5;
-                                response.point = productPoint;
-                                response.Message = "This customer has no enough point left in his/her wallet. Contact The Organizer";
-                                return response;
-                            }
+                            response.Status = 5;
+                            response.point = productPoint;
+                            response.Message = "This customer has no enough point left in his/her wallet. Contact The Organizer";
+                            return response;
                         }
+
+                        #region
+                        //if (true)
+                        //{
+                        //    if (userSalesCalc.customer_total_balance < productPoint)
+                        //    {
+                        //        response.Status = 5;
+                        //        response.point = productPoint;
+                        //        response.Message = "This customer has no enough point left in his/her wallet. Contact The Organizer";
+                        //        return response;
+                        //    }
+                        //}
+
+
+                        //if (userSalesCalc == null || userSalesCalc.customer_total_balance < productPoint)
+                        //{
+                        //    userSalesCalc = _context.vw_customer_credit_balance
+                        //    .Where(n => n.user_id == mappedCode.user_id.ToString() && n.event_id == 0).FirstOrDefault();
+
+                        //    response.Status = 5;
+                        //    response.point = productPoint;
+                        //    response.Message = "This customer has no enough point left in his/her wallet. Contact The Organizer";
+                        //    return response;
+                        //}
+                        //response.Status = 5;
+                        //response.point = productPoint;
+                        //response.Message = "This customer has no enough point left in his/her wallet. Contact The Organizerxxxxxxxxxxxxxx";
+                        //return response;
 
                         //if (userWallet == null || userWallet.current_balance < productPrice || userWallet.current_balance <= 0)
                         //{
@@ -276,12 +330,14 @@ namespace Eventhings.Services
                         //save new entry in the wallet
 
                         //response.point = currentPoint;
+                        #endregion
+
                         response.price = productPrice;
                         //response.new_point = newPoint;
                         //response.new_balance = newCurrBalance;
                         //response.prev_balance = currentBalance;
                         response.allowed_payment = 2;
-
+                        #region
                         //_context.tcorewallets.Add(new tcorewallet
                         //{
                         //    user_id = mappedCode.user_id.ToString(),
@@ -299,6 +355,7 @@ namespace Eventhings.Services
                         //affected = _context.SaveChanges();
 
                         //save new entry in the sales
+                        #endregion
                         _context.tcoresales.Add(new tcoresale
                         {
                             itempoint_id = venndoritem.item_id,
