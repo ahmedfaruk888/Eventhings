@@ -77,7 +77,7 @@ function GetEvents() {
 
     $.ajax({
         type: "POST",
-        url: "/Services/events.asmx/Get",
+        url: "/Services/events.asmx/GetFurtureEents",
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         cache: false,
@@ -145,6 +145,7 @@ function LogOut() {
 
     sessionStorage.clear();
     localStorage.clear();
+    deleteCookie('user');
 }
 
 function parse_query_string(query) {
@@ -351,4 +352,33 @@ function deleteCookie(name) {
     setCookie(name, "", {
         'max-age': -1
     })
+}
+
+function GetEventsList(cmbName) {
+
+    $.ajax({
+        type: "POST",
+        url: "/Services/events.asmx/GetAll",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        cache: false,
+        success: function (response) {
+
+            var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
+
+            $('#' + cmbName).empty();
+            $('#' + cmbName).append($("<option></option>").val('0').html('-- Choose a vendor --'));
+            $.each(responseData, function (i, data) {
+                $('#' + cmbName).append($("<option></option>").val(data.id).html(data.name));
+            });
+            //$('#roleTable').DataTable();
+
+        },
+        beforeSend: function () {
+            $('#' + cmbName).append($("<option>Loading events..</option>"));
+        },
+        error: function (data) {
+            $("#lblErrorText").html("Error occured while submiting form");
+        }
+    });
 }

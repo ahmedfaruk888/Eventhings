@@ -42,6 +42,7 @@ namespace Eventhings.Services
                             user_id = wallet.user_id,
                             point = wallet.point,
                             payment_channel = wallet.payment_channel,
+                            cr_type = 2,
                             prev_balance = 0,
                             amount_paid = wallet.amount_paid,
                             current_balance = 0 + wallet.amount_paid.Value,

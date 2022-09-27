@@ -325,6 +325,7 @@
                 type: "POST",
                 url: "/Services/events.asmx/Get",
                 dataType: "json",
+                data: JSON.stringify({ is_live: 1}),
                 contentType: "application/json; charset=utf-8",
                 /*data: JSON.stringify(data),*/
                 cache: false,

@@ -72,6 +72,7 @@ namespace Eventhings.Services
                                             code = ss.Value,
                                             active = qrcode.active,
                                             is_deleted = 0,
+                                            event_id = qrcode.event_id,
                                             created_by = qrcode.created_by,
                                             created_at = DateTime.Now
                                         }
@@ -114,6 +115,7 @@ namespace Eventhings.Services
                                             batch_number = qrcode.batch_number,
                                             batch_name = qrcode.batch_name,
                                             code = ss.Value,
+                                            event_id = qrcode.event_id,
                                             active = qrcode.active,
                                             is_deleted = 0,
                                             created_by = "Admin",

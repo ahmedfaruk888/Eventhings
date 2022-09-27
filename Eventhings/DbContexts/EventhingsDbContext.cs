@@ -649,6 +649,7 @@ namespace Eventhings.DbContexts
         public virtual DbSet<tcoreitem> tcoreitems { get; set; }
         public virtual DbSet<tcorejob> tcorejobs { get; set; }
         public virtual DbSet<tcoremappedcode> tcoremappedcodes { get; set; }
+        public virtual DbSet<tcoreeventbatch> tcoreventbatchs { get; set; }
         public virtual DbSet<tcorerole> tcoreroles { get; set; }
         public virtual DbSet<tcoresale> tcoresales { get; set; }
         public virtual DbSet<tcoretransaction> tcoretransactions { get; set; }

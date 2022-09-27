@@ -748,10 +748,9 @@
 
                                 var rd = window.location.search;
                                 var redirect = new URLSearchParams(rd);
+                                
                                 if (redirect.has('redirect')) {
-
                                     window.location.replace(redirect.get('redirect'));
-
                                 } else {
                                     window.location.replace(responseData.Message);
                                 }

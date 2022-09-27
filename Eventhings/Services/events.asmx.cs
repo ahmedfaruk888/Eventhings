@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Transactions;
 using System.Web;
 using System.Web.Script.Services;
 using System.Web.Services;
@@ -91,7 +92,7 @@ namespace Eventhings.Services
         }
 
         [WebMethod]
-        public List<EventResponse> Get()
+        public List<EventResponse> Get(int is_live = 1)
         {
             var response = new List<EventResponse>();
 
@@ -100,7 +101,7 @@ namespace Eventhings.Services
                 using (var _context = new EventhingsDbContext())
                 {
                     var query = _context.tcoreevents
-                        .Where(e => e.active == 1 && e.deleted == 0 && e.is_live == 1)
+                        .Where(e => e.active == 1 && e.deleted == 0 && e.is_live == is_live)
                         .Select(n => new EventResponse() 
                         {
                             id = n.id,
@@ -120,6 +121,53 @@ namespace Eventhings.Services
                         }).ToList();
 
                     foreach(var ss in query)
+                    {
+                        response.Add(ss);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Add(new EventResponse()
+                {
+                    Status = 0,
+                    Message = ex.ToString()
+                });
+            }
+
+            return response;
+        }
+
+        [WebMethod]
+        public List<EventResponse> GetFurtureEents()
+        {
+            var response = new List<EventResponse>();
+
+            try
+            {
+                using (var _context = new EventhingsDbContext())
+                {
+                    var query = _context.tcoreevents
+                        .Where(e => e.active == 1 && e.deleted == 0 && e.start_date >= DateTime.Now)
+                        .Select(n => new EventResponse()
+                        {
+                            id = n.id,
+                            name = n.name,
+                            description = n.description,
+                            location = n.location,
+                            active = n.active,
+                            deleted = n.deleted,
+                            Status = 1,
+                            duration = n.duration,
+                            start_date = n.start_date,
+                            host_id = n.host_id,
+                            end_date = n.end_date,
+                            created_at = n.created_at,
+                            created_by = n.created_by,
+                            gate_fee = n.gate_fee
+                        }).ToList();
+
+                    foreach (var ss in query)
                     {
                         response.Add(ss);
                     }
@@ -294,26 +342,69 @@ namespace Eventhings.Services
             {
                 using (var _context = new EventhingsDbContext())
                 {
-
-                    //var query = _context.tcoreeventpayments.Where(tranx => tranx.tranx_ref_id == eventdto.name).FirstOrDefault();
-                    _context.tcoreeventpayments.Add(new tcoreeventpayment
+                    using(var tranx = _context.Database.BeginTransaction())
                     {
-                        user_id = eventpaymentdto.user_id,
-                        event_id = eventpaymentdto.event_id,
-                        tranx_ref_id = eventpaymentdto.tranx_ref_id,
-                        active = 1,
-                        is_deleted = 0,
-                        created_by = eventpaymentdto.created_by,
-                        created_at = DateTime.Now,
-                    });
+                        //var query = _context.tcoreeventpayments.Where(tranx => tranx.tranx_ref_id == eventdto.name).FirstOrDefault();
+                        _context.tcoreeventpayments.Add(new tcoreeventpayment
+                        {
+                            user_id = eventpaymentdto.user_id,
+                            event_id = eventpaymentdto.event_id,
+                            tranx_ref_id = eventpaymentdto.tranx_ref_id,
+                            active = 1,
+                            is_deleted = 0,
+                            created_by = eventpaymentdto.created_by,
+                            created_at = DateTime.Now,
+                        });
 
-                    var affected = _context.SaveChanges();
+                        //var currentWallet = _context.tcorewallets.Where(p => p.user_id == currentUser.id.ToString()).FirstOrDefault();
+                        //if (currentWallet == null)
+                        //{
+                        //}
 
-                    if (affected > 0)
-                    {
-                        SendPaymentReceipt(eventpaymentdto.amount, eventpaymentdto.event_id, eventpaymentdto.created_by);
-                        response.Status = affected;
-                        response.Message = $"{affected} Event created successfuly, switch to 'Manage Event' tab to view it";
+                        //asign a 3 point value to the customer
+                        var wallet = _context.tcorewallets.Add(new tcorewallet
+                        {
+                            user_id = eventpaymentdto.user_id.ToString(),
+                            prev_balance = 0,
+                            amount_paid = 3,
+                            current_balance = 3,
+                            point = 3,
+                            cr_type = 1,
+                            active = 1,
+                            is_deleted = 0,
+                            payment_channel = "-",
+                            created_by = eventpaymentdto.created_by,
+                            created_at = DateTime.Now
+                        });
+
+                        //map a code to the customer
+                        var queryEvent = _context.tcoreevents.Where(c => c.id == eventpaymentdto.event_id).FirstOrDefault();
+
+                        //get a free code for the user
+                        var codeQuery = _context.tcorecodestores.Where(x => x.event_id == eventpaymentdto.event_id && x.date_used == null).FirstOrDefault();
+
+                        //asign the code to the user
+                        _context.tcoremappedcodes.Add(new tcoremappedcode()
+                        {
+                            user_id = eventpaymentdto.user_id,
+                            code_id = codeQuery.id,
+                            date_mapped = DateTime.Now,
+                            event_id = eventpaymentdto.event_id
+                        });
+
+                        codeQuery.date_used = DateTime.Now;
+                        _context.Entry(codeQuery).State = System.Data.Entity.EntityState.Modified;
+
+                        var affected = _context.SaveChanges();
+
+                        if (affected > 0)
+                        {
+                            SendPaymentReceipt(eventpaymentdto.amount, eventpaymentdto.event_id, eventpaymentdto.created_by);
+                            response.Status = affected;
+                            response.Message = $"{affected} Event created successfuly, switch to 'Manage Event' tab to view it";
+                        }
+
+                        tranx.Commit();
                     }
                 }
             }

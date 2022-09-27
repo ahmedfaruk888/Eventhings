@@ -112,5 +112,96 @@ namespace Eventhings.Services
 
             return response;
         }
+
+        [WebMethod]
+        public List<EventPaymentResponse> GetEventPayments(int user_id)
+        {
+            var response = new List<EventPaymentResponse>();
+
+            try
+            {
+                using (var _context = new EventhingsDbContext())
+                {
+                    if (string.IsNullOrWhiteSpace(user_id.ToString()))
+                    {
+                        response.Add(new EventPaymentResponse()
+                        {
+                            Status = 0,
+                            Message = "User ID is required"
+                        });
+                        return response;
+                    }
+
+                    var queryPayment = _context.tcoreeventpayments.Where(x => x.user_id == user_id).ToList();
+                    if(queryPayment == null || queryPayment.Count < 1)
+                    {
+                        response.Add(new EventPaymentResponse()
+                        {
+                            Status = 0,
+                            Message = "Your payment details can not be found, please pay for an event"
+                        });
+                        return response;
+                    }
+
+                    var queryUser = _context.tcoreusers.Where(x => x.id == user_id).FirstOrDefault();
+                    if (queryUser == null)
+                    {
+                        response.Add(new EventPaymentResponse()
+                        {
+                            Status = 0,
+                            Message = "Your user ID can not be found"
+                        });
+                        return response;
+                    }
+
+                    var queryPoint = _context.vw_customer_credit_balance.Where(x => x.user_id == queryUser.id.ToString()).FirstOrDefault();
+                    decimal point_bal = 0;
+                    if(queryPoint != null)
+                    {
+                        point_bal = queryPoint.total_wallet_point;
+                    }
+                    foreach(var payment in queryPayment)
+                    {
+                        var queryEvent = _context.tcoreevents.Where(x => x.id == payment.event_id).FirstOrDefault();
+                        if (queryEvent == null)
+                        {
+                            response.Add(new EventPaymentResponse()
+                            {
+                                Status = 0,
+                                Message = "Your event can not be found"
+                            });
+                            return response;
+                        }
+
+                        response.Add(new EventPaymentResponse()
+                        {
+                            amount_payed = queryEvent.gate_fee,
+                            event_name = queryEvent.name,
+                            payment_date = payment.created_at.Value,
+                            full_name = queryUser.first_name + " " + queryUser.last_name,
+                            event_date = queryEvent.start_date.Value,
+                            user_id = queryUser.id.ToString(),
+                            venue = queryEvent.location,
+                            point_balance = point_bal,
+
+                            Status = 1,
+                            Message = "Success"
+                        });
+                    }
+
+                    return response;
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Add(new EventPaymentResponse() { 
+                    Status = 0, 
+                    Message = "Internal server error", 
+                    exception = ex.ToString() 
+                });
+            }
+
+            return response;
+        }
     }
 }

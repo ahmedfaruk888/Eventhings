@@ -146,8 +146,8 @@
                         <div class="col-auto">
                             <div class="header__right">
                                 <div class="md:d-none">
-                                    <a href="login.html" class="button -sm -outline-light-dark sm:d-none">Join</a>
-                                    <a href="contact-1.html" class="button -sm -dark text-white ml-12">Get the App</a>
+                                    <a href="login.html" onclick="LogOut()" class="button -sm -outline-light-dark sm:d-none">Logout</a>
+                                    <!--<a href="contact-1.html" class="button -sm -dark text-white ml-12">Get the App</a>-->
                                 </div>
 
                                 <div class="header__menu justify-center items-center relative d-none md:d-flex">
@@ -255,6 +255,7 @@
                                                                         </div>
                                                                     </div>
 
+
                                                                     <div class="col-lg-6" id="insert-batch-name">
                                                                         <div class="form-group">
                                                                             <input type="text" class="form-control" id="txtBatchName" name="txtBatchName" placeholder="Evening batch">
@@ -267,10 +268,20 @@
                                                                                 <input type="text" min="1" max="50" id="txtCodeCount" name="txtCodeCount" placeholder="Between 1-50">
                                                                             </div>
                                                                         </div>
+
+                                                                        <div class="col-lg-6" id="insert-batch-number">
+                                                                            <div class="form-group">
+                                                                                <select class="form-select form-select-lg" id="cmbEventName" name="cmbEventName"> </select>
+                                                                            </div>
+                                                                        </div>
                                                                         <!--<div class="text-center">
-                                    <p class="form-footer-text">Switch to the active QR Code tab to view active QR codes.</p>
-                                </div>-->
+        <p class="form-footer-text">Switch to the active QR Code tab to view active QR codes.</p>
+    </div>-->
                                                                     </div>
+
+                                                                    <!--<div class="row mt-16">-->
+                                                                        
+                                                                    <!--</div>-->
 
                                                                     <div class="row mt-16">
                                                                         <div class="col-sm-6">
@@ -590,6 +601,7 @@
             getUnMappedQRCodeText();
             getMappedQRCodeText();
             getBatchName();
+            GetEventsList("cmbEventName");
 
             codeText = window.location.search.split('=')[1];
             if (codeText) {
@@ -669,12 +681,18 @@
                     return;
                 }
 
+                if ($("#cmbEventName option:selected").val() == "0") {
+                    $("#lblErrorText").html("Select a valid event name");
+                    return;
+                }
+
                 var qrcode = {
                     batch_number: ($("#cmbBatchNumber").css('display') == 'none') ? $("#txtBatchNumber").val() : $("#cmbBatchNumber option:selected").text().split('|')[0].trim(),
                     batch_name: $("#txtBatchName").val(),
                     code_count: $("#txtCodeCount").val(),
                     active: ($("#chkActive").prop('checked')) ? 1 : 0,
-                    created_by: sessionStorage.getItem('email')
+                    created_by: sessionStorage.getItem('email'),
+                    event_id: $("#cmbEventName option:selected").val()
                 };
 
                 var data = {

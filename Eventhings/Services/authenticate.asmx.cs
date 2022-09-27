@@ -313,14 +313,16 @@ namespace Eventhings.Services
                         if (currentUser == null)
                         {
                             var currentWallet = _context.tcorewallets.Where(p => p.user_id == currentUser.id.ToString()).FirstOrDefault();
-                            if(currentWallet != null)
+                            if(currentWallet == null)
                             {
                                 var wallet = _context.tcorewallets.Add(new tcorewallet
                                 {
                                     user_id = currentUser.id.ToString(),
                                     prev_balance = 0,
-                                    amount_paid = (register.topup_amount.HasValue) ? register.topup_amount : 0,
-                                    current_balance = (0 + register.topup_amount),
+                                    //amount_paid = (register.topup_amount.HasValue) ? register.topup_amount : 0,
+                                    amount_paid = 3,
+                                    current_balance = 3,
+                                    cr_type = 1,
                                     active  = 1,
                                     is_deleted = 0,
                                     created_by = register.created_by,
@@ -359,11 +361,10 @@ namespace Eventhings.Services
                                 //xx.to_display_name = register.first_name + " " + register.last_name;
                                 //xx.from_display_name = "Eventiix Managent";
 
-                                //new mail().SendEmail(register.email, "Email Registration Success", mailText);
-                                new mail().SendEmail("ahmedfaruk888@gmail.com", "Account Creation Success", mailText, register.email);
-                                //new mail().SendEmailWithGmail("payment.eventiix@gmail.com", "ahmedfaruk888@gmail.com", "Account Creation Success", mailText);
+                                //new mail().Send(mail.EmailBodyType.IsHtmlBody, "eventiix@sandbox7e6417dfd50646bca69acf4e2ad9b361.mailgun.org", register.email, "Account Registration Success", mailText, "smtp.mailgun.org", false, "cf62f7bd1dba133df908423c09c22ea8-78651cec-d1ffa8b4", 587);
+                                //response.Message = "Account created successfully, a confirmation message has been sent to the email specified";
 
-                                response.Message = "Account created successfully, a confirmation message has been sent to the email specified";
+                                new mail().SendSES(register.email, "Account Creation Success", mailText);
                             }
 
                             //response.verification_token = Guid.NewGuid().ToString();

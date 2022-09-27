@@ -19,4 +19,9 @@ namespace Eventhings.Response
 
         public int total_paid_absent_customer { get; set; }
     }
+
+    //public class EventPaymentResponse : BaseResponse
+    //{
+        
+    //}
 }

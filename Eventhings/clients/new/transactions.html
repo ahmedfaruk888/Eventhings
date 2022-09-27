@@ -142,7 +142,7 @@
                             <div class="col-lg-9 col-md-10">
                                 <div data-anim="slide-up delay-1">
 
-                                    <h1 class="page-header__title lh-14">Dashbaord</h1>
+                                    <h1 class="page-header__title lh-14">Transactions</h1>
                                     <h5 class="auth-section-title welcome-text">Welcome</h5>
                                 </div>
                             </div>
@@ -150,7 +150,7 @@
                             <div class="col-xl-4 col-lg-9 col-md-10">
                                 <div data-anim="slide-up delay-2" class="px-20">
 
-                                    <p class="page-header__text">Peform administrative task, generate QR code, register an event, vendor and new customers at your fingertips.</p>
+                                    <p class="page-header__text">View all past transactions, generate receipt and invoice.</p>
 
                                 </div>
                             </div>
@@ -160,7 +160,7 @@
 
                 <section class="layout-pt-sm layout-pb-lg" style="padding-bottom: 0rem">
                     <div class="container">
-                        <div data-anim="slide-up delay-2" class="row y-gap-48 is-in-view">
+                        <!--<div data-anim="slide-up delay-2" class="row y-gap-48 is-in-view">
 
                             <div class="col-lg-3 col-6">
                                 <div class="numCounter" data-anim="counter" data-counter="773">
@@ -194,64 +194,59 @@
                                 </div>
                             </div>
 
-                        </div>
-                    </div>
-                </section>
+                        </div>-->
 
-                <div id="eventlist">
-                    <section class="layout-pt-lg layout-pb-lg">
-                        <div class="container">
-
-                            <section class="layout-pt-sm layout-pb-sm">
-                                <div data-anim-wrap="" class="container animated">
-                                    <div class="row justify-center">
-                                        <div class="col text-center">
-
-                                            <div class="sectionHeading ">
-
-                                                <div class="sectionHeading__subtitle">
-                                                    <span>Upcoming events @ eventiix.com</span>
+                        <div class="pt-0">
+                            <div class="shopCart-footer px-16 mt-30 pb-12">
+                                <div class="row justify-between y-gap-32">
+                                    <div class="col-xl-5">
+                                        <div class="">
+                                            <form class="" action="post">
+                                                <div class="d-flex justify-between pr-24 rounded-200 border-dark">
+                                                    <input class="rounded-200 px-24 py-12" type="text" placeholder="Search">
+                                                    <button class="text-black fw-600" type="submit">Filter Transaction</button>
                                                 </div>
-
-                                                <h4 class="sectionHeading__title">All upcoming events  by date</h4>
-
-                                            </div>
-
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
-                            </section>
-
-                            <div class="row y-gap-32" id="eventcard"></div>
-                            <!--<div id="example" style="height:100px">
-                            <table class="table table-striped table-bordered" style="width: 100%; " id="eventTable">
+                            </div>  
+                            <table class="table table-striped table-bordered" style="width: 100%;" id="eventTable">
                                 <thead>
                                     <tr>
                                         <th scope="col">
-                                            <div class="form-check">-->
-                                            <!--<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" />-->
-                                            <!--ACTION
+                                            <div class="form-check text-16 fw-600 text-accent">
+                                                <!--<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" />-->
+                                                SN
                                             </div>
                                         </th>
-                                        <th scope="col">ORGANIZER</th>
-                                        <th scope="col">DESCRIPTION</th>
-                                        <th scope="col">LOCATION</th>
-                                        <th scope="col">DURATION</th>
-                                        <th scope="col">DATE</th>
+                                        <th scope="col" class="text-16 fw-600 text-accent">Event Name</th>
+                                        <th scope="col" class="text-16 fw-600 text-accent">Amount Paid</th>
+                                        <th scope="col" class="text-16 fw-600 text-accent">Date Paid</th>
+                                        <th scope="col" class="text-16 fw-600 text-accent">Location</th>
+                                        <th scope="col" class="text-16 fw-600 text-accent">Receipt</th>
                                     </tr>
                                 </thead>
                                 <tbody id="eventTBody">
                                 </tbody>
                             </table>
-                            </div>-->
-                            <div class="row justify-center pt-60 sm:pt-40">
-                                <div class="col-auto">
-                                    <button class="button -md -bg-title-dark -uppercase text-white" data-loadmore-trigger=".js-loadmore-content">Load More</button>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="layout-pt-lg layout-pb-lg">
+                    <div class="container">
+                        <div class="row justify-end">
+                            <div class="col-12">
+                                <div id="example" style="height:100px" class="pt-100">
+                                    
+
+                                    
                                 </div>
                             </div>
                         </div>
-                    </section>
-                </div>
+                    </div>
+                </section>
 
 
                 <footer class="footer -type-3 bg-dark-1" id="footers"> </footer>
@@ -283,6 +278,7 @@
 
         $(document).ready(function () {
 
+            GetEvents();
             console.log('Jquery is ready to shoot');
 
             $("#menu").load("layouts/customermenu.html");
@@ -300,7 +296,55 @@
 
             $('.welcome-text').html('Welcome ' + user.full_name);
 
-            GetEvents();
+            //var wallet = {
+            //    user_id: user_id
+            //}
+            var data = {
+                user_id: user.user_id
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/Services/transaction.asmx/GetEventPayments",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(data),
+                cache: false,
+                success: function (response) {
+
+                    var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
+
+                    $('#eventTBody').empty();
+                    if (responseData.user_id == null || responseData.user_id == undefined) {
+                        $('#eventTBody').append("<td colspan='4'>You have not paid for any event yet</td>");
+                        return;
+                    }
+
+                    $.each(responseData, function (i, row) {
+
+                        //// convert MVC datetime (e.g. "\/Date(628318530718)\/") into JavaScript Date
+                        //var value = new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10));
+                        let rows = `<tr>
+                                            <td>${i + 1}</td>
+                                            <td>${row.event_name}</td>
+                                            <td>${row.amount_payed}</td>
+                                            <td>${$.formattedDate(row.payment_date)}</td>
+                                            <td>${row.venue}</td>
+                                            <td> <a href="receipt.html?e_name=${row.event_name}&address=${row.venue}&edate=${row.event_date}&pday=${row.payment_date}&amount=${row.amount_payed}&point=${row.point_balance}"> receipt </a> </td>
+                                        </tr>`;
+
+                        $('#eventTBody').append(rows);
+                    });
+                    //$('#roleTable').DataTable();
+
+                },
+                beforeSend: function () {
+                    $('#cmbUserType').append($("<option>Loading roles..</option>"));
+                },
+                error: function (data) {
+                    $("#lblErrorText").html("Error occured while submiting form");
+                }
+            });
         });
 
     </script>

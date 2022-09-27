@@ -4,7 +4,6 @@
     <script type="text/javascript">
         var user = JSON.parse(sessionStorage.getItem('user'));
         if (user.role_name !== 'vendor') {
-
             var currentPathName = window.location.href;
             window.location.replace("../new/login.html?redirect=" + currentPathName);
         }

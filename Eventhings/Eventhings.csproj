@@ -1894,6 +1894,8 @@
     <Content Include="clients\new\contact.html" />
     <Content Include="clients\new\css\main.css" />
     <Content Include="clients\new\css\vendors.css" />
+    <Content Include="clients\new\receipt.html" />
+    <Content Include="clients\new\transactions.html" />
     <Content Include="clients\new\customer-dashbaord.html" />
     <Content Include="clients\new\js\freeze-table.js" />
     <Content Include="clients\new\js\freeze-table.min.js" />
@@ -3857,6 +3859,7 @@
     <Compile Include="DbEntities\tcoreapplication.cs" />
     <Compile Include="DbEntities\tcorecodestore.cs" />
     <Compile Include="DbEntities\tcoreevent.cs" />
+    <Compile Include="DbEntities\tcoreeventbatch.cs" />
     <Compile Include="DbEntities\tcoreeventpayment.cs" />
     <Compile Include="DbEntities\tcorehost.cs" />
     <Compile Include="DbEntities\tcoresale.cs" />

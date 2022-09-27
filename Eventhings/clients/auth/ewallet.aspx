@@ -452,7 +452,8 @@
                     point: $("#txtTopPoint").val(),
                     payment_channel: payment_channel,
                     amount_paid: $("#txtTopUpAmount").val(),
-                    created_by: sessionStorage.getItem('email')
+                    created_by: sessionStorage.getItem('email'),
+                    cr_type: 2
                 };
 
                 var data = {
