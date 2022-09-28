@@ -123,7 +123,8 @@ namespace Eventhings.Services
             catch (Exception ex)
             {
                 response.Status = 0;
-                response.Message = ex.ToString();
+                response.Message = "Internal server error occured";
+                response.exception = ex.ToString();
             }
 
             return response;

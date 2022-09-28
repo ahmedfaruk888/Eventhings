@@ -240,7 +240,7 @@ namespace Eventhings.Services
                                 require_password_change = 0,
                                 two_factor_enabled = 0,
                                 phone_number_confirmed = DateTime.Now,
-                                //email_confirmed = DateTime.Now,
+                                email_confirmed = DateTime.Now,
 
 
                                 created_at = DateTime.Now,
@@ -364,7 +364,7 @@ namespace Eventhings.Services
                                 //new mail().Send(mail.EmailBodyType.IsHtmlBody, "eventiix@sandbox7e6417dfd50646bca69acf4e2ad9b361.mailgun.org", register.email, "Account Registration Success", mailText, "smtp.mailgun.org", false, "cf62f7bd1dba133df908423c09c22ea8-78651cec-d1ffa8b4", 587);
                                 //response.Message = "Account created successfully, a confirmation message has been sent to the email specified";
 
-                                new mail().SendSES(register.email, "Account Creation Success", mailText);
+                                //new mail().SendSES(register.email, "Account Creation Success", mailText);
                             }
 
                             //response.verification_token = Guid.NewGuid().ToString();
@@ -379,7 +379,7 @@ namespace Eventhings.Services
             catch(Exception ex)
             {
                 response.Status = 0;
-                response.Message = ex.ToString();
+                response.Message = "Internal server error occured";
                 response.exception = ex.ToString();
                 return response;
             }

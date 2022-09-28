@@ -61,12 +61,12 @@
                         <div class="col-2">
                             <div class="header__logo">
                                 <a class="base-logo" data-barba href="index.html">
-                                    <img class="base-logo-first" src="img/general/logo.svg" alt="logo">
-                                    <img class="base-logo-second" src="img/general/logo-dark.svg" alt="logo">
+                                    <img class="base-logo-first" src="https://eventiix.com/clients/assets/images/logo.png" alt="logo">
+                                    <img class="base-logo-second" src="https://eventiix.com/clients/assets/images/logo.png" alt="logo">
                                 </a>
 
                                 <a class="menu-logo" data-barba href="index.html">
-                                    <img src="img/general/logo-dark.svg" alt="logo">
+                                    <img src="https://eventiix.com/clients/assets/images/logo.png" alt="logo">
                                 </a>
                             </div>
                         </div>
@@ -201,7 +201,7 @@
                                 <div class="row justify-between y-gap-32">
                                     <div class="col-xl-5">
                                         <div class="">
-                                            <form class="" action="post">
+                                            <form class="">
                                                 <div class="d-flex justify-between pr-24 rounded-200 border-dark">
                                                     <input class="rounded-200 px-24 py-12" type="text" placeholder="Search">
                                                     <button class="text-black fw-600" type="submit">Filter Transaction</button>
@@ -278,7 +278,7 @@
 
         $(document).ready(function () {
 
-            GetEvents();
+            //GetEvents();
             console.log('Jquery is ready to shoot');
 
             $("#menu").load("layouts/customermenu.html");
@@ -315,22 +315,25 @@
                     var responseData = (response.d !== null || response.d !== undefined) ? response.d : response;
 
                     $('#eventTBody').empty();
-                    if (responseData.user_id == null || responseData.user_id == undefined) {
+                    if (responseData.length < 1) {
                         $('#eventTBody').append("<td colspan='4'>You have not paid for any event yet</td>");
                         return;
                     }
 
                     $.each(responseData, function (i, row) {
 
-                        //// convert MVC datetime (e.g. "\/Date(628318530718)\/") into JavaScript Date
-                        //var value = new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10));
+                        if (row.user_id == null || row.user_id == undefined) {
+                            $('#eventTBody').append("<td colspan='4'>You have not paid for any event yet</td>");
+                            return;
+                        }
+
                         let rows = `<tr>
                                             <td>${i + 1}</td>
                                             <td>${row.event_name}</td>
                                             <td>${row.amount_payed}</td>
                                             <td>${$.formattedDate(row.payment_date)}</td>
                                             <td>${row.venue}</td>
-                                            <td> <a href="receipt.html?e_name=${row.event_name}&address=${row.venue}&edate=${row.event_date}&pday=${row.payment_date}&amount=${row.amount_payed}&point=${row.point_balance}"> receipt </a> </td>
+                                            <td> <a href="receipt.html?e_name=${row.event_name}&address=${row.venue}&edate=${row.event_date}&pday=${row.payment_date}&amount=${row.amount_payed}&point=${row.point_balance}&code=${row.code_text}"> receipt </a> </td>
                                         </tr>`;
 
                         $('#eventTBody').append(rows);
@@ -339,7 +342,7 @@
 
                 },
                 beforeSend: function () {
-                    $('#cmbUserType').append($("<option>Loading roles..</option>"));
+                    $('#eventTBody').append("<td colspan='4'>Loading transactions history...</td>");
                 },
                 error: function (data) {
                     $("#lblErrorText").html("Error occured while submiting form");

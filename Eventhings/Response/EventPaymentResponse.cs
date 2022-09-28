@@ -15,6 +15,7 @@ namespace Eventhings.Response
         public DateTime event_date { get; set; }
 
         public string venue { get; set; }
+        public string code_text { get; set; }
 
         public DateTime payment_date { get; set; }
         public decimal amount_payed { get; set; }

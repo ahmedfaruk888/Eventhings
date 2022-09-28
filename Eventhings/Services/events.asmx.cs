@@ -148,8 +148,10 @@ namespace Eventhings.Services
                 using (var _context = new EventhingsDbContext())
                 {
                     var query = _context.tcoreevents
-                        .Where(e => e.active == 1 && e.deleted == 0 && e.start_date >= DateTime.Now)
-                        .Select(n => new EventResponse()
+                        .Join(_context.tcorecodestores, 
+                        n => n.id,
+                        s => s.event_id,
+                        (n, s) => new EventResponse
                         {
                             id = n.id,
                             name = n.name,
@@ -165,7 +167,7 @@ namespace Eventhings.Services
                             created_at = n.created_at,
                             created_by = n.created_by,
                             gate_fee = n.gate_fee
-                        }).ToList();
+                        }).Where(e => e.active == 1 && e.deleted == 0 && e.start_date >= DateTime.Now).Distinct().ToList();
 
                     foreach (var ss in query)
                     {
@@ -378,11 +380,16 @@ namespace Eventhings.Services
                         });
 
                         //map a code to the customer
-                        var queryEvent = _context.tcoreevents.Where(c => c.id == eventpaymentdto.event_id).FirstOrDefault();
+                        //var queryEvent = _context.tcoreevents.Where(c => c.id == eventpaymentdto.event_id).FirstOrDefault();
 
                         //get a free code for the user
                         var codeQuery = _context.tcorecodestores.Where(x => x.event_id == eventpaymentdto.event_id && x.date_used == null).FirstOrDefault();
-
+                        if(codeQuery == null)
+                        {
+                            response.Status = 0;
+                            response.Message = "The event you selected has no qr code batch mapped to it yet or does not have a free code to assign";
+                            return response;
+                        }
                         //asign the code to the user
                         _context.tcoremappedcodes.Add(new tcoremappedcode()
                         {
@@ -399,9 +406,9 @@ namespace Eventhings.Services
 
                         if (affected > 0)
                         {
-                            SendPaymentReceipt(eventpaymentdto.amount, eventpaymentdto.event_id, eventpaymentdto.created_by);
+                            //SendPaymentReceipt(eventpaymentdto.amount, eventpaymentdto.event_id, eventpaymentdto.created_by);
                             response.Status = affected;
-                            response.Message = $"{affected} Event created successfuly, switch to 'Manage Event' tab to view it";
+                            response.Message = "Event payment created successfuly";
                         }
 
                         tranx.Commit();
@@ -411,7 +418,7 @@ namespace Eventhings.Services
             catch (Exception ex)
             {
                 response.Status = 0;
-                response.Message = "An internal server error occured";
+                response.Message = "An internal server error occured, please contact admin for your payment reversal";
                 response.exception = ex.ToString();
             }
 

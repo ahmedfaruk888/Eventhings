@@ -155,6 +155,7 @@ namespace Eventhings.Services
                     }
 
                     var queryPoint = _context.vw_customer_credit_balance.Where(x => x.user_id == queryUser.id.ToString()).FirstOrDefault();
+
                     decimal point_bal = 0;
                     if(queryPoint != null)
                     {
@@ -170,8 +171,22 @@ namespace Eventhings.Services
                                 Status = 0,
                                 Message = "Your event can not be found"
                             });
-                            return response;
+                            continue;
+                            //return response;
                         }
+
+                        var queryCodeMap = _context.tcoremappedcodes.Where(x => x.user_id == queryUser.id && x.event_id == payment.event_id).FirstOrDefault();
+                        if (queryCodeMap == null)
+                        {
+                            response.Add(new EventPaymentResponse()
+                            {
+                                Status = 0,
+                                Message = "Your code can not be found"
+                            });
+                            return response; ;
+                        }
+
+                        var queryCodeStore = _context.tcorecodestores.Where(x => x.id == queryCodeMap.code_id && x.event_id == payment.event_id).FirstOrDefault();
 
                         response.Add(new EventPaymentResponse()
                         {
@@ -183,6 +198,7 @@ namespace Eventhings.Services
                             user_id = queryUser.id.ToString(),
                             venue = queryEvent.location,
                             point_balance = point_bal,
+                            code_text = queryCodeStore.code,
 
                             Status = 1,
                             Message = "Success"
