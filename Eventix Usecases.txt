@@ -1,0 +1,46 @@
+MOcho Client ARea
+ifanah2004@gmail.com
+Iayguguru*1
+
+https://clientarea.mochahost.com/clientarea.php?action=services
+
+Setups
+======
+1. Setup Event Host
+2. Setup Event and Map to Host
+3. Setup Product  Caregory
+4. Setup Product 
+5. Setup Vendor Users
+6. Setup Vendor Users and Product
+7. Generate new Bacth of QR Codes
+
+Use Case 1: Online Registration
+=================================
+1. Online User Registration (Customers)
+2. Online Event Selection  and Payment (QR Code automatically mapped)
+
+Use case 2: Onsite Registration
+=================================
+1. Admin Create the Customers
+2. Admin Assigns Event and QR Code to Customers
+
+Use case 3: Customer Admisison to the Event
+=============================================
+1. Callup Customer using QRCode, Phone number, Email address and Customer names
+2. Adding of Credit to customers
+
+Use case 4: Comsuption of the Credit at the Vendor Point
+=========================================================
+1. Customer meeting the Vendor by presenting the QR Code Band
+2. Vendor scans the customer QR Code ( Customer will be served if there are enoguh creidts or Point else Customer should refill the points at the stand)
+
+Use case 5: refilling Customer points
+=======================================
+1. Customer to the admin
+2. Admin will scan the QRCode and Refill the Credit
+
+Use Case 6: Admin reports
+1. Total Customers
+2. Total Vendors products / sales
+3. Total customer credits and purchases etc
+4. Customers that paid but didn’t attend event
